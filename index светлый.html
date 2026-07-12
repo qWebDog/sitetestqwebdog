@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Dublin - Мобильный ирландский паб</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --burgundy: #1E1112;
+            --burgundy-dark: #150d01;
+            --emerald: #1E5945;
+            --emerald-light: #256b54;
+            --gold: #D4AF37;
+            --gold-light: #F4D03F;
+            --ivory: #FFFFF0;
+            --wood: #8B6F4E;
+            --wood-dark: #5C4A3A;
+            --text-light: #F5F1E8;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--emerald);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* ============================================
+           GREEN TEXTURE - STATIC LIGHT ONLY
+           ============================================ */
+        .green-texture {
+            background-color: var(--emerald);
+            background-image: url('image/green-texture.png');
+            background-size: cover;
+            background-repeat: repeat;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* ============================================
+           HERO TEXTURE - PNG BACKGROUND
+           ============================================ */
+        .hero-texture {
+            background-color: var(--burgundy);
+            background-image: url('image/hero-texture.png');
+            background-size: cover;
+            background-repeat: repeat;
+            background-position: center;
+        }
+
+        /* ============================================
+           NAVIGATION TEXTURE - PNG BACKGROUND
+           ============================================ */
+        .nav-texture {
+            background-color: var(--burgundy);
+            background-image: url('image/nav-texture.png');
+            background-size: cover;
+            background-repeat: repeat;
+            background-position: center;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 15px;
+            display: block;
+            padding: 8px 0;
+        }
+
+        .nav-menu a:hover {
+            color: var(--gold);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            cursor: pointer;
+        }
+
+        .dropdown-toggle::after {
+            content: ' ▼';
+            font-size: 10px;
+            margin-left: 5px;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--burgundy-dark);
+            min-width: 220px;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            list-style: none;
+        }
+
+        .dropdown-menu a {
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--burgundy);
+            color: var(--gold);
+        }
+
+        .dropdown-menu li:last-child a {
+            border-bottom: none;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* ============================================
+           HERO SECTION - PHOTO WITH FRAME + BUTTONS
+           ============================================ */
+        .hero {
+            margin-top: 60px;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            position: relative;
+            overflow: hidden;
+            padding: 60px 20px;
+        }
+
+        /* Переход от тёмных краёв к светлому центру */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                ellipse at center,
+                transparent 0%,
+                transparent 30%,
+                rgba(0, 0, 0, 0.25) 60%,
+                rgba(0, 0, 0, 0.6) 100%
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        /* Photo wrapper with frame overlay */
+        .hero-photo-wrapper {
+            position: relative;
+            display: inline-block;
+            max-width: 411px;
+            width: 100%;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-photo {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            display: block;
+        }
+
+        /* PNG frame overlaid on top of photo */
+        .hero-photo-frame {
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            right: -30px;
+            bottom: -30px;
+            background-image: url('image/hero-frame.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        /* ============================================
+           MODERN COMPACT BUTTONS
+           ============================================ */
+        .btn {
+            padding: 14px 32px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-align: center;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background-color: var(--gold);
+            color: var(--burgundy);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background-color: var(--gold-light);
+            box-shadow: 
+                0 8px 24px rgba(212,175,55,0.4),
+                0 0 0 4px rgba(212,175,55,0.1);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--ivory);
+            border: 1.5px solid rgba(245, 241, 232, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(245, 241, 232, 0.1);
+            border-color: var(--ivory);
+            color: var(--ivory);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary:active {
+            transform: translateY(0);
+        }
+
+        /* Marquee Section */
+        .marquee-section {
+            padding: 1.1rem 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-track {
+            display: inline-flex;
+            animation: marquee 40s linear infinite;
+            will-change: transform;
+        }
+
+        .marquee-content {
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .marquee-item {
+            display: inline-flex;
+            align-items: center;
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 1.1rem;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .marquee-divider {
+            display: inline-block;
+            margin: 0 2.5rem;
+            color: var(--ivory);
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--gold);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--gold);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: var(--ivory);
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 17px;
+            line-height: 1.9;
+            color: var(--ivory);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        .about-text strong {
+            color: var(--gold);
+        }
+
+        .about-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .about-image-placeholder {
+            background-color: var(--burgundy);
+            height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+            color: var(--gold);
+        }
+
+        .features-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            font-size: 17px;
+            color: var(--ivory);
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--burgundy);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+        }
+
+        .service-card.animate {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .service-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            font-size: 16px;
+            color: var(--ivory);
+            line-height: 1.7;
+        }
+
+        /* Additional Services */
+        .services-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .service-item {
+            background-color: var(--burgundy);
+            padding: 30px;
+            border-radius: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .service-item.animate {
+            opacity: 1;
+            transform: translateX(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .service-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        }
+
+        .service-item-icon {
+            font-size: 40px;
+            flex-shrink: 0;
+        }
+
+        .service-item-content h4 {
+            color: var(--gold);
+            margin-bottom: 8px;
+            font-size: 20px;
+        }
+
+        .service-item-content p {
+            font-size: 15px;
+            color: var(--ivory);
+        }
+
+        /* Staff Section */
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .staff-card {
+            background-color: var(--burgundy);
+            border-radius: 15px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: scale(0.8) rotateY(90deg);
+        }
+
+        .staff-card.animate {
+            opacity: 1;
+            transform: scale(1) rotateY(0deg);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .staff-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .staff-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--gold);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+
+        .staff-card h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--gold);
+        }
+
+        .staff-position {
+            color: var(--ivory);
+            font-weight: 500;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .staff-card p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--ivory);
+        }
+
+        /* Beer & Drinks */
+        .beer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .beer-category {
+            background-color: var(--burgundy);
+            border-radius: 15px;
+            padding: 35px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: translateY(80px);
+        }
+
+        .beer-category.animate {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .beer-category h3 {
+            font-size: 28px;
+            color: var(--gold);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .beer-list {
+            list-style: none;
+        }
+
+        .beer-list li {
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(212,175,55,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            color: var(--ivory);
+        }
+
+        .beer-list li:last-child {
+            border-bottom: none;
+        }
+
+        .beer-name {
+            font-weight: 500;
+        }
+
+        .beer-price {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: scale(0.5) rotate(10deg);
+        }
+
+        .gallery-item.animate {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0,0,0,0.4);
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: var(--gold);
+            background-color: var(--burgundy);
+        }
+
+        /* Video Section */
+        .video-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .video-item {
+            background-color: var(--burgundy);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateZ(-100px);
+        }
+
+        .video-item.animate {
+            opacity: 1;
+            transform: translateZ(0);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .video-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .video-placeholder {
+            aspect-ratio: 16/9;
+            background-color: var(--burgundy-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: var(--gold);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .video-placeholder:hover {
+            background-color: var(--wood);
+        }
+
+        .video-info {
+            padding: 20px;
+            background-color: var(--burgundy);
+        }
+
+        .video-info h4 {
+            color: var(--gold);
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .video-info p {
+            font-size: 15px;
+            color: var(--ivory);
+        }
+
+        /* Calendar */
+        .calendar-info {
+            background-color: var(--burgundy);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(100px) scale(0.9);
+        }
+
+        .calendar-info.animate {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .calendar-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .calendar-info h3 {
+            font-size: 28px;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .calendar-info p {
+            font-size: 17px;
+            margin-bottom: 30px;
+            color: var(--ivory);
+        }
+
+        .calendar-note {
+            background-color: var(--emerald-light);
+            color: var(--ivory);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+
+        /* Contact Form Section */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-info {
+            opacity: 0;
+            transform: translateX(-80px);
+        }
+
+        .contact-info.animate {
+            opacity: 1;
+            transform: translateX(0);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .contact-form {
+            background-color: var(--burgundy);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: translateX(80px);
+        }
+
+        .contact-form.animate {
+            opacity: 1;
+            transform: translateX(0);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .contact-info h3 {
+            font-size: 32px;
+            color: var(--gold);
+            margin-bottom: 25px;
+        }
+
+        .contact-details {
+            margin-bottom: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: var(--ivory);
+        }
+
+        .contact-item-icon {
+            font-size: 30px;
+            width: 50px;
+            text-align: center;
+        }
+
+        .contact-item a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: var(--ivory);
+        }
+
+        .contact-item > div > div:first-child {
+            color: var(--ivory);
+            font-size: 14px;
+            margin-bottom: 3px;
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--burgundy);
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--gold);
+            font-size: 15px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid rgba(212,175,55,0.3);
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+            transition: border-color 0.3s;
+            background-color: var(--burgundy-dark);
+            color: var(--ivory);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(245,241,232,0.5);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--ivory);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--gold);
+            cursor: pointer;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 14px 32px;
+            font-size: 14px;
+            font-weight: 500;
+            background-color: var(--gold);
+            color: var(--burgundy);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            background-color: var(--gold-light);
+            box-shadow: 
+                0 8px 24px rgba(212,175,55,0.4),
+                0 0 0 4px rgba(212,175,55,0.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--burgundy);
+            color: var(--text-light);
+            padding: 40px 20px 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: var(--ivory);
+        }
+
+        .footer-bottom {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(212,175,55,0.3);
+            font-size: 14px;
+            color: var(--ivory);
+            opacity: 0.7;
+        }
+
+        /* Floating Contact Buttons */
+        .floating-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 999;
+        }
+
+        .float-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+            animation: pulse 2s infinite;
+        }
+
+        .float-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .float-btn.whatsapp {
+            background-color: #25D366;
+            color: white;
+        }
+
+        .float-btn.telegram {
+            background-color: #0088cc;
+            color: white;
+        }
+
+        .float-btn.phone {
+            background-color: var(--gold);
+            color: var(--burgundy);
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-photo-wrapper {
+                max-width: 332px;
+            }
+
+            .hero-photo-frame {
+                top: -20px;
+                left: -20px;
+                right: -20px;
+                bottom: -20px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .about-content,
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .marquee-item {
+                font-size: 0.95rem;
+            }
+
+            .marquee-divider {
+                margin: 0 1.5rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                padding: 0 20px;
+            }
+
+            .hero-photo-wrapper {
+                max-width: 237px;
+            }
+
+            .hero-photo-frame {
+                top: -15px;
+                left: -15px;
+                right: -15px;
+                bottom: -15px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .services-grid,
+            .beer-grid,
+            .video-container {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-buttons {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .float-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+
+            .marquee-item {
+                font-size: 0.85rem;
+            }
+
+            .marquee-divider {
+                margin: 0 1rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav-texture">
+        <div class="nav-container">
+            <a href="#" class="logo">☘ To Dublin</a>
+            <ul class="nav-menu">
+                <li><a href="#about">О проекте</a></li>
+                <li class="dropdown">
+                    <a href="#services" class="dropdown-toggle">Услуги</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#services">Основные услуги</a></li>
+                        <li><a href="#additional">Дополнительные услуги</a></li>
+                        <li><a href="#additional">Аренда оборудования</a></li>
+                        <li><a href="#staff">Персонал</a></li>
+                        <li><a href="#beer">Пиво и напитки</a></li>
+                    </ul>
+                </li>
+                <li><a href="#gallery">Галерея</a></li>
+                <li><a href="#video">Видео</a></li>
+                <li><a href="#calendar">Календарь</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section - Photo with Frame + Buttons + Texture -->
+    <section class="hero hero-texture">
+        <div class="hero-content">
+            <div class="hero-photo-wrapper">
+                <img src="image/hero-photo.jpg" alt="To Dublin - Ирландский паб" class="hero-photo">
+                <div class="hero-photo-frame"></div>
+            </div>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">Заказать паб</a>
+                <a href="tel:+79999999999" class="btn btn-secondary">Позвонить</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee Section -->
+    <div class="marquee-section green-texture">
+        <div class="marquee-track">
+            <div class="marquee-content">
+                <span class="marquee-item">Свадьбы и юбилеи</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Крафтовое пиво</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Корпоративы</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Гриль-станция</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Фестивали и частные вечеринки</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Профессиональные бармены</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Столы-бочки в аренду</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Гирлянды и освещение</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Фотозоны с ирландской тематикой</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Генераторы 7-8 кВт</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Ирландский виски</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Выезд в любую локацию</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Свадьбы и юбилеи</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Крафтовое пиво</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Корпоративы</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Гриль-станция</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Фестивали и частные вечеринки</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Профессиональные бармены</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Столы-бочки в аренду</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Гирлянды и освещение</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Фотозоны с ирландской тематикой</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Генераторы 7-8 кВт</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Ирландский виски</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Выезд в любую локацию</span><span class="marquee-divider">•</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">О проекте</h2>
+            <p class="section-subtitle">Атмосфера настоящего ирландского паба в любой точке города</p>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        <strong>To Dublin</strong> — это мобильный ирландский паб, который привезёт атмосферу 
+                        настоящего дублинского бара прямо на ваше мероприятие. Мы создаём уникальную 
+                        атмосферу уюта, тепла и ирландского гостеприимства.
+                    </p>
+                    <p>
+                        Наш паб — это не просто бар на выезде. Это полноценное пространство с аутентичным 
+                        дизайном, профессиональным персоналом, крафтовым пивом и традиционными ирландскими 
+                        закусками.
+                    </p>
+                    <ul class="features-list">
+                        <li>Полностью мобильная конструкция — работаем в любой локации</li>
+                        <li>Аутентичный ирландский дизайн с деревянными элементами</li>
+                        <li>Профессиональные бармены и повара</li>
+                        <li>Широкий выбор крафтового пива и напитков</li>
+                        <li>Всё необходимое оборудование включено</li>
+                        <li>Работаем с частными клиентами, компаниями и event-агентствами</li>
+                    </ul>
+                </div>
+                <div class="about-image">
+                    <div class="about-image-placeholder">🍺</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">Наши услуги</h2>
+            <p class="section-subtitle">Организуем бар любой сложности под ваше мероприятие</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"></div>
+                    <h3>Свадьбы</h3>
+                    <p>Создадим незабываемую атмосферу на вашем свадебном торжестве. Ирландские традиции, крафтовое пиво и праздничное настроение гарантированы.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🏢</div>
+                    <h3>Корпоративы</h3>
+                    <p>Организуем выездной бар для вашей компании. От небольших офисных вечеринок до крупных корпоративных фестивалей.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🎪</div>
+                    <h3>Фестивали</h3>
+                    <p>Работаем на городских и частных фестивалях. Быстрое развёртывание, высокая производительность, безупречный сервис.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🎂</div>
+                    <h3>Частные вечеринки</h3>
+                    <p>День рождения, юбилей, новоселье — привезём паб к вам домой или на выбранную локацию.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🎊</div>
+                    <h3>Event-агентствам</h3>
+                    <p>Предлагаем выгодные условия сотрудничества для организаторов мероприятий. Гибкая система скидок.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🌳</div>
+                    <h3>Открытые площадки</h3>
+                    <p>Работаем на открытых пространствах: парки, пляжи, загородные клубы, частные территории.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Services -->
+    <section id="additional" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">Дополнительные услуги и аренда</h2>
+            <p class="section-subtitle">Всё необходимое для идеального мероприятия</p>
+            
+            <div class="services-list">
+                <div class="service-item">
+                    <div class="service-item-icon">🔥</div>
+                    <div class="service-item-content">
+                        <h4>Гриль-станция</h4>
+                        <p>Профессиональный гриль с поваром. Стейки, бургеры, колбаски и другие деликатесы.</p>
+                    </div>
+                </div>
+                
+                <div class="service-item">
+                    <div class="service-item-icon"></div>
+                    <div class="service-item-content">
+                        <h4>Генератор 7-8 кВт</h4>
+                        <p>Мощный генератор для работы оборудования на площадках без электричества.</p>
+                    </div>
+                </div>
+                
+                <div class="service-item">
+                    <div class="service-item-icon">💡</div>
+                    <div class="service-item-content">
+                        <h4>Гирлянды и освещение</h4>
+                        <p>Праздничное оформление гирляндами, создание уютной вечерней атмосферы.</p>
+                    </div>
+                </div>
+                
+                <div class="service-item">
+                    <div class="service-item-icon">🛢️</div>
+                    <div class="service-item-content">
+                        <h4>Столы-бочки</h4>
+                        <p>Аутентичные столы из дубовых бочек в ирландском стиле. Высокие и низкие варианты.</p>
+                    </div>
+                </div>
+                
+                <div class="service-item">
+                    <div class="service-item-icon"></div>
+                    <div class="service-item-content">
+                        <h4>Фотозона</h4>
+                        <p>Стильная фотостенд с ирландской тематикой. Реквизит для фотографий.</p>
+                    </div>
+                </div>
+                
+                <div class="service-item">
+                    <div class="service-item-icon">🍻</div>
+                    <div class="service-item-content">
+                        <h4>Закупка пива</h4>
+                        <p>Поможем подобрать и закупить идеальное пиво под ваше мероприятие.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Staff Section -->
+    <section id="staff" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">Персонал и сервис</h2>
+            <p class="section-subtitle">Профессионалы своего дела с многолетним опытом</p>
+            
+            <div class="staff-grid">
+                <div class="staff-card">
+                    <div class="staff-avatar">🍻</div>
+                    <h3>Бармены</h3>
+                    <div class="staff-position">Профессионалы высокого класса</div>
+                    <p>Опытные бармены со знанием классических и авторских коктейлей. Быстрое и качественное обслуживание, дружелюбное общение.</p>
+                </div>
+                
+                <div class="staff-card">
+                    <div class="staff-avatar">👨‍🍳</div>
+                    <h3>Повара на гриле</h3>
+                    <div class="staff-position">Мастера мясных деликатесов</div>
+                    <p>Профессиональные повара с опытом работы на гриле. Приготовят стейки, бургеры и другие блюда на вашем мероприятии.</p>
+                </div>
+                
+                <div class="staff-card">
+                    <div class="staff-avatar">👤</div>
+                    <h3>Координатор</h3>
+                    <div class="staff-position">Ваш персональный менеджер</div>
+                    <p>Сопровождает мероприятие от начала до конца. Решает все организационные вопросы, контролирует качество сервиса.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beer & Drinks -->
+    <section id="beer" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">Пиво и напитки</h2>
+            <p class="section-subtitle">Широкий выбор крафтового пива и традиционных напитков</p>
+            
+            <div class="beer-grid">
+                <div class="beer-category">
+                    <h3>🍺 Ирландское пиво</h3>
+                    <ul class="beer-list">
+                        <li><span class="beer-name">Guinness Draught</span><span class="beer-price">от 350 ₽</span></li>
+                        <li><span class="beer-name">Murphy's Irish Stout</span><span class="beer-price">от 320 ₽</span></li>
+                        <li><span class="beer-name">Smithwick's Red Ale</span><span class="beer-price">от 330 ₽</span></li>
+                        <li><span class="beer-name">Kilkenny Cream Ale</span><span class="beer-price">от 340 ₽</span></li>
+                    </ul>
+                </div>
+                
+                <div class="beer-category">
+                    <h3>🍻 Крафтовое пиво</h3>
+                    <ul class="beer-list">
+                        <li><span class="beer-name">IPA (India Pale Ale)</span><span class="beer-price">от 380 ₽</span></li>
+                        <li><span class="beer-name">Stout / Porter</span><span class="beer-price">от 360 ₽</span></li>
+                        <li><span class="beer-name">Wheat Beer</span><span class="beer-price">от 340 ₽</span></li>
+                        <li><span class="beer-name">Lager / Pilsner</span><span class="beer-price">от 300 ₽</span></li>
+                    </ul>
+                </div>
+                
+                <div class="beer-category">
+                    <h3>🥃 Напитки</h3>
+                    <ul class="beer-list">
+                        <li><span class="beer-name">Irish Whiskey</span><span class="beer-price">от 450 ₽</span></li>
+                        <li><span class="beer-name">Irish Coffee</span><span class="beer-price">350 ₽</span></li>
+                        <li><span class="beer-name">Cider</span><span class="beer-price">от 320 ₽</span></li>
+                        <li><span class="beer-name">Безалкогольные</span><span class="beer-price">от 150 ₽</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">Галерея</h2>
+            <p class="section-subtitle">Фотографии с наших мероприятий</p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item"><div class="gallery-placeholder">📷</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">📷</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">📷</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">📷</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">📷</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">📷</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video -->
+    <section id="video" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">Видео</h2>
+            <p class="section-subtitle">Посмотрите, как проходят наши мероприятия</p>
+            
+            <div class="video-container">
+                <div class="video-item">
+                    <div class="video-placeholder">▶️</div>
+                    <div class="video-info">
+                        <h4>Свадебное торжество</h4>
+                        <p>Атмосфера ирландского паба на свадьбе</p>
+                    </div>
+                </div>
+                
+                <div class="video-item">
+                    <div class="video-placeholder">▶️</div>
+                    <div class="video-info">
+                        <h4>Корпоративный фестиваль</h4>
+                        <p>Выездной бар для крупной компании</p>
+                    </div>
+                </div>
+                
+                <div class="video-item">
+                    <div class="video-placeholder">▶️</div>
+                    <div class="video-info">
+                        <h4>Городской фестиваль</h4>
+                        <p>Работа на открытом пространстве</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendar -->
+    <section id="calendar" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">Календарь занятости</h2>
+            <p class="section-subtitle">Проверьте доступность дат для бронирования</p>
+            
+            <div class="calendar-info">
+                <div class="calendar-icon">📅</div>
+                <h3>Узнайте свободные даты</h3>
+                <p>
+                    Для получения актуальной информации о доступных датах свяжитесь с нами 
+                    удобным для вас способом. Мы быстро ответим и поможем подобрать оптимальное время.
+                </p>
+                <a href="#contact" class="btn btn-primary">Запросить даты</a>
+                
+                <div class="calendar-note">
+                    💡 <strong>Совет:</strong> Бронируйте дату заранее, особенно на летний сезон и праздничные дни!
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">Контакты</h2>
+            <p class="section-subtitle">Свяжитесь с нами любым удобным способом</p>
+            
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3>Давайте обсудим ваше мероприятие!</h3>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="contact-item-icon"></span>
+                            <div>
+                                <div>Телефон:</div>
+                                <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <span class="contact-item-icon">✉️</span>
+                            <div>
+                                <div>Email:</div>
+                                <a href="mailto:info@todublin.ru">info@todublin.ru</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <span class="contact-item-icon">💬</span>
+                            <div>
+                                <div>Мессенджеры:</div>
+                                <a href="https://wa.me/79999999999" target="_blank">WhatsApp</a> / 
+                                <a href="https://t.me/todublin" target="_blank">Telegram</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <span class="contact-item-icon">🕐</span>
+                            <div>
+                                <div>Режим работы:</div>
+                                <span>Ежедневно с 9:00 до 21:00</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="#" title="WhatsApp">📱</a>
+                        <a href="#" title="Telegram">✈️</a>
+                        <a href="#" title="Instagram">📷</a>
+                        <a href="#" title="VK">🌐</a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="orderForm">
+                        <div class="form-group">
+                            <label for="name">Ваше имя *</label>
+                            <input type="text" id="name" name="name" required placeholder="Иван Иванов">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Телефон *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="+7 (999) 999-99-99">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventDate">Дата мероприятия *</label>
+                            <input type="date" id="eventDate" name="eventDate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventType">Тип мероприятия *</label>
+                            <select id="eventType" name="eventType" required>
+                                <option value="">Выберите тип</option>
+                                <option value="wedding">Свадьба</option>
+                                <option value="corporate">Корпоратив</option>
+                                <option value="birthday">День рождения</option>
+                                <option value="festival">Фестиваль</option>
+                                <option value="private">Частная вечеринка</option>
+                                <option value="other">Другое</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="guests">Количество гостей *</label>
+                            <input type="number" id="guests" name="guests" required placeholder="Пример: 50" min="1">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="location">Место проведения *</label>
+                            <input type="text" id="location" name="location" required placeholder="Адрес или локация">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Дополнительные услуги:</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item"><input type="checkbox" id="bartender" name="extras" value="bartender"><label for="bartender">Нужен бармен</label></div>
+                                <div class="checkbox-item"><input type="checkbox" id="chef" name="extras" value="chef"><label for="chef">Нужен повар на гриле</label></div>
+                                <div class="checkbox-item"><input type="checkbox" id="grill" name="extras" value="grill"><label for="grill">Нужен гриль</label></div>
+                                <div class="checkbox-item"><input type="checkbox" id="generator" name="extras" value="generator"><label for="generator">Генератор 7-8 кВт</label></div>
+                                <div class="checkbox-item"><input type="checkbox" id="garlands" name="extras" value="garlands"><label for="garlands">Гирлянды</label></div>
+                                <div class="checkbox-item"><input type="checkbox" id="barrels" name="extras" value="barrels"><label for="barrels">Столы-бочки</label></div>
+                                <div class="checkbox-item"><input type="checkbox" id="beer" name="extras" value="beer"><label for="beer">Закупить пиво через нас</label></div>
+                                <div class="checkbox-item"><input type="checkbox" id="photostand" name="extras" value="photostand"><label for="photostand">Фотостенд / фотозона</label></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="comment">Комментарий / пожелания</label>
+                            <textarea id="comment" name="comment" placeholder="Расскажите подробнее о вашем мероприятии..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="form-submit">Отправить заявку</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">☘ To Dublin</div>
+            <p class="footer-text">
+                Мобильный ирландский паб<br>
+                Создаём атмосферу настоящего Дублина на ваших мероприятиях
+            </p>
+            <div class="footer-bottom">
+                <p>&copy; 2026 To Dublin. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Contact Buttons -->
+    <div class="floating-buttons">
+        <a href="https://wa.me/79999999999" class="float-btn whatsapp" target="_blank" title="WhatsApp"></a>
+        <a href="https://t.me/todublin" class="float-btn telegram" target="_blank" title="Telegram">✈️</a>
+        <a href="tel:+79999999999" class="float-btn phone" title="Позвонить">📱</a>
+    </div>
+
+    <script>
+        // Плавный скролл к блоку
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
+            this.reset();
+        });
+
+        // Phone mask
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                if (value[0] === '7' || value[0] === '8') {
+                    value = value.substring(1);
+                }
+                let formattedValue = '+7';
+                if (value.length > 0) formattedValue += ' (' + value.substring(0, 3);
+                if (value.length >= 3) formattedValue += ') ' + value.substring(3, 6);
+                if (value.length >= 6) formattedValue += '-' + value.substring(6, 8);
+                if (value.length >= 8) formattedValue += '-' + value.substring(8, 10);
+                e.target.value = formattedValue;
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+            navMenu.style.position = 'absolute';
+            navMenu.style.top = '100%';
+            navMenu.style.left = '0';
+            navMenu.style.right = '0';
+            navMenu.style.flexDirection = 'column';
+            navMenu.style.backgroundColor = 'var(--burgundy-dark)';
+            navMenu.style.padding = '20px';
+            navMenu.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
+        });
+
+        // Set minimum date to today
+        const dateInput = document.getElementById('eventDate');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+
+        // Scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.dataset.delay || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('animate');
+                    }, delay);
+                }
+            });
+        }, observerOptions);
+
+        const animatedElements = document.querySelectorAll('.service-card, .service-item, .staff-card, .beer-category, .gallery-item, .video-item, .calendar-info, .contact-info, .contact-form');
+        
+        animatedElements.forEach((el) => {
+            const parent = el.parentElement;
+            const siblings = Array.from(parent.children).filter(child => 
+                child.classList.contains(el.classList[0])
+            );
+            const siblingIndex = siblings.indexOf(el);
+            el.dataset.delay = siblingIndex * 100;
+            
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
