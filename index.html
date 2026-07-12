@@ -1,88 +1,507 @@
-// Плавный скролл к блоку
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Dublin - Мобильный ирландский паб</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-// Form submission
-document.getElementById('orderForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
-    this.reset();
-});
+    <!-- Navigation -->
+    <nav class="nav-texture">
+        <div class="nav-container">
+            <a href="#" class="logo">☘ To Dublin</a>
+            <ul class="nav-menu">
+                <li><a href="#about">О проекте</a></li>
+                <li class="dropdown">
+                    <a href="#services" class="dropdown-toggle">Услуги</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#services">Основные услуги</a></li>
+                        <li><a href="#additional">Дополнительные услуги</a></li>
+                        <li><a href="#additional">Аренда оборудования</a></li>
+                        <li><a href="#staff">Персонал</a></li>
+                        <li><a href="#beer">Пиво и напитки</a></li>
+                    </ul>
+                </li>
+                <li><a href="#gallery">Галерея</a></li>
+                <li><a href="#video">Видео</a></li>
+                <li><a href="#calendar">Календарь</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
 
-// Phone mask
-const phoneInput = document.getElementById('phone');
-phoneInput.addEventListener('input', function(e) {
-    let value = e.target.value.replace(/\D/g, '');
-    if (value.length > 0) {
-        if (value[0] === '7' || value[0] === '8') {
-            value = value.substring(1);
-        }
-        let formattedValue = '+7';
-        if (value.length > 0) formattedValue += ' (' + value.substring(0, 3);
-        if (value.length >= 3) formattedValue += ') ' + value.substring(3, 6);
-        if (value.length >= 6) formattedValue += '-' + value.substring(6, 8);
-        if (value.length >= 8) formattedValue += '-' + value.substring(8, 10);
-        e.target.value = formattedValue;
-    }
-});
+    <!-- Hero Section -->
+    <section class="hero hero-texture">
+        <div class="hero-content">
+            <div class="hero-photo-wrapper">
+                <img src="image/hero-photo.jpg" alt="To Dublin - Ирландский паб" class="hero-photo">
+                <div class="hero-photo-frame"></div>
+            </div>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">Заказать паб</a>
+                <a href="tel:+79999999999" class="btn btn-secondary">Позвонить</a>
+            </div>
+        </div>
+    </section>
 
-// Mobile menu toggle
-const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-const navMenu = document.querySelector('.nav-menu');
+    <!-- Marquee Section -->
+    <div class="marquee-section hero-texture">
+        <div class="marquee-track">
+            <div class="marquee-content">
+                <span class="marquee-item">Свадьбы и юбилеи</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Крафтовое пиво</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Корпоративы</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Гриль-станция</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Фестивали и частные вечеринки</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Профессиональные бармены</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Столы-бочки в аренду</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Гирлянды и освещение</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Фотозоны с ирландской тематикой</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Генераторы 7-8 кВт</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Ирландский виски</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Выезд в любую локацию</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Свадьбы и юбилеи</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Крафтовое пиво</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Корпоративы</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Гриль-станция</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Фестивали и частные вечеринки</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Профессиональные бармены</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Столы-бочки в аренду</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Гирлянды и освещение</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Фотозоны с ирландской тематикой</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Генераторы 7-8 кВт</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Ирландский виски</span><span class="marquee-divider">•</span>
+                <span class="marquee-item">Выезд в любую локацию</span><span class="marquee-divider">•</span>
+            </div>
+        </div>
+    </div>
 
-mobileMenuBtn.addEventListener('click', function() {
-    navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
-    navMenu.style.position = 'absolute';
-    navMenu.style.top = '100%';
-    navMenu.style.left = '0';
-    navMenu.style.right = '0';
-    navMenu.style.flexDirection = 'column';
-    navMenu.style.backgroundColor = 'var(--burgundy-dark)';
-    navMenu.style.padding = '20px';
-    navMenu.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
-});
+    <!-- About Section -->
+    <section id="about" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">О проекте</h2>
+            <p class="section-subtitle">Атмосфера настоящего ирландского паба в любой точке города</p>
 
-// Set minimum date to today
-const dateInput = document.getElementById('eventDate');
-const today = new Date().toISOString().split('T')[0];
-dateInput.setAttribute('min', today);
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        <strong>To Dublin</strong> — это мобильный ирландский паб, который привезёт атмосферу
+                        настоящего дублинского бара прямо на ваше мероприятие. Мы создаём уникальную
+                        атмосферу уюта, тепла и ирландского гостеприимства.
+                    </p>
+                    <p>
+                        Наш паб — это не просто бар на выезде. Это полноценное пространство с аутентичным
+                        дизайном, профессиональным персоналом, крафтовым пивом и традиционными ирландскими
+                        закусками.
+                    </p>
+                    <ul class="features-list">
+                        <li>Полностью мобильная конструкция — работаем в любой локации</li>
+                        <li>Аутентичный ирландский дизайн с деревянными элементами</li>
+                        <li>Профессиональные бармены и повара</li>
+                        <li>Широкий выбор крафтового пива и напитков</li>
+                        <li>Всё необходимое оборудование включено</li>
+                        <li>Работаем с частными клиентами, компаниями и event-агентствами</li>
+                    </ul>
+                </div>
+                <div class="about-image">
+                    <div class="about-image-placeholder">🍺</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-// Scroll animation
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
+    <!-- Services Section -->
+    <section id="services" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">Наши услуги</h2>
+            <p class="section-subtitle">Организуем бар любой сложности под ваше мероприятие</p>
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            const delay = entry.target.dataset.delay || 0;
-            setTimeout(() => {
-                entry.target.classList.add('animate');
-            }, delay);
-        }
-    });
-}, observerOptions);
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎉</div>
+                    <h3>Свадьбы</h3>
+                    <p>Создадим незабываемую атмосферу на вашем свадебном торжестве. Ирландские традиции, крафтовое пиво и праздничное настроение гарантированы.</p>
+                </div>
 
-const animatedElements = document.querySelectorAll('.service-card, .service-item, .staff-card, .beer-category, .gallery-item, .video-item, .calendar-info, .contact-info, .contact-form');
+                <div class="service-card">
+                    <div class="service-icon">🏢</div>
+                    <h3>Корпоративы</h3>
+                    <p>Организуем выездной бар для вашей компании. От небольших офисных вечеринок до крупных корпоративных фестивалей.</p>
+                </div>
 
-animatedElements.forEach((el) => {
-    const parent = el.parentElement;
-    const siblings = Array.from(parent.children).filter(child => 
-        child.classList.contains(el.classList[0])
-    );
-    const siblingIndex = siblings.indexOf(el);
-    el.dataset.delay = siblingIndex * 100;
-    
-    observer.observe(el);
-});
+                <div class="service-card">
+                    <div class="service-icon">🎪</div>
+                    <h3>Фестивали</h3>
+                    <p>Работаем на городских и частных фестивалях. Быстрое развёртывание, высокая производительность, безупречный сервис.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🎂</div>
+                    <h3>Частные вечеринки</h3>
+                    <p>День рождения, юбилей, новоселье — привезём паб к вам домой или на выбранную локацию.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🎊</div>
+                    <h3>Event-агентствам</h3>
+                    <p>Предлагаем выгодные условия сотрудничества для организаторов мероприятий. Гибкая система скидок.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🌳</div>
+                    <h3>Открытые площадки</h3>
+                    <p>Работаем на открытых пространствах: парки, пляжи, загородные клубы, частные территории.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Services -->
+    <section id="additional" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">Дополнительные услуги и аренда</h2>
+            <p class="section-subtitle">Всё необходимое для идеального мероприятия</p>
+
+            <div class="services-list">
+                <div class="service-item">
+                    <div class="service-item-icon">🔥</div>
+                    <div class="service-item-content">
+                        <h4>Гриль-станция</h4>
+                        <p>Профессиональный гриль с поваром. Стейки, бургеры, колбаски и другие деликатесы.</p>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-item-icon">⚡</div>
+                    <div class="service-item-content">
+                        <h4>Генератор 7-8 кВт</h4>
+                        <p>Мощный генератор для работы оборудования на площадках без электричества.</p>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-item-icon">💡</div>
+                    <div class="service-item-content">
+                        <h4>Гирлянды и освещение</h4>
+                        <p>Праздничное оформление гирляндами, создание уютной вечерней атмосферы.</p>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-item-icon">🛢️</div>
+                    <div class="service-item-content">
+                        <h4>Столы-бочки</h4>
+                        <p>Аутентичные столы из дубовых бочек в ирландском стиле. Высокие и низкие варианты.</p>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-item-icon">📸</div>
+                    <div class="service-item-content">
+                        <h4>Фотозона</h4>
+                        <p>Стильная фотостенд с ирландской тематикой. Реквизит для фотографий.</p>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-item-icon">🍻</div>
+                    <div class="service-item-content">
+                        <h4>Закупка пива</h4>
+                        <p>Поможем подобрать и закупить идеальное пиво под ваше мероприятие.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Staff Section -->
+    <section id="staff" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">Персонал и сервис</h2>
+            <p class="section-subtitle">Профессионалы своего дела с многолетним опытом</p>
+
+            <div class="staff-grid">
+                <div class="staff-card">
+                    <div class="staff-avatar">🍻</div>
+                    <h3>Бармены</h3>
+                    <div class="staff-position">Профессионалы высокого класса</div>
+                    <p>Опытные бармены со знанием классических и авторских коктейлей. Быстрое и качественное обслуживание, дружелюбное общение.</p>
+                </div>
+
+                <div class="staff-card">
+                    <div class="staff-avatar">👨🍳</div>
+                    <h3>Повара на гриле</h3>
+                    <div class="staff-position">Мастера мясных деликатесов</div>
+                    <p>Профессиональные повара с опытом работы на гриле. Приготовят стейки, бургеры и другие блюда на вашем мероприятии.</p>
+                </div>
+
+                <div class="staff-card">
+                    <div class="staff-avatar"></div>
+                    <h3>Координатор</h3>
+                    <div class="staff-position">Ваш персональный менеджер</div>
+                    <p>Сопровождает мероприятие от начала до конца. Решает все организационные вопросы, контролирует качество сервиса.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beer & Drinks -->
+    <section id="beer" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">Пиво и напитки</h2>
+            <p class="section-subtitle">Широкий выбор крафтового пива и традиционных напитков</p>
+
+            <div class="beer-grid">
+                <div class="beer-category">
+                    <h3>🍺 Ирландское пиво</h3>
+                    <ul class="beer-list">
+                        <li><span class="beer-name">Guinness Draught</span><span class="beer-price">от 350 ₽</span></li>
+                        <li><span class="beer-name">Murphy's Irish Stout</span><span class="beer-price">от 320 ₽</span></li>
+                        <li><span class="beer-name">Smithwick's Red Ale</span><span class="beer-price">от 330 ₽</span></li>
+                        <li><span class="beer-name">Kilkenny Cream Ale</span><span class="beer-price">от 340 ₽</span></li>
+                    </ul>
+                </div>
+
+                <div class="beer-category">
+                    <h3>🍻 Крафтовое пиво</h3>
+                    <ul class="beer-list">
+                        <li><span class="beer-name">IPA (India Pale Ale)</span><span class="beer-price">от 380 ₽</span></li>
+                        <li><span class="beer-name">Stout / Porter</span><span class="beer-price">от 360 ₽</span></li>
+                        <li><span class="beer-name">Wheat Beer</span><span class="beer-price">от 340 ₽</span></li>
+                        <li><span class="beer-name">Lager / Pilsner</span><span class="beer-price">от 300 ₽</span></li>
+                    </ul>
+                </div>
+
+                <div class="beer-category">
+                    <h3>🥃 Напитки</h3>
+                    <ul class="beer-list">
+                        <li><span class="beer-name">Irish Whiskey</span><span class="beer-price">от 450 ₽</span></li>
+                        <li><span class="beer-name">Irish Coffee</span><span class="beer-price">350 ₽</span></li>
+                        <li><span class="beer-name">Cider</span><span class="beer-price">от 320 ₽</span></li>
+                        <li><span class="beer-name">Безалкогольные</span><span class="beer-price">от 150 ₽</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">Галерея</h2>
+            <p class="section-subtitle">Фотографии с наших мероприятий</p>
+
+            <div class="gallery-grid">
+                <div class="gallery-item"><div class="gallery-placeholder">📷</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">📷</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">📷</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">📷</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">📷</div></div>
+                <div class="gallery-item"><div class="gallery-placeholder">📷</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video -->
+    <section id="video" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">Видео</h2>
+            <p class="section-subtitle">Посмотрите, как проходят наши мероприятия</p>
+
+            <div class="video-container">
+                <div class="video-item">
+                    <div class="video-placeholder">▶️</div>
+                    <div class="video-info">
+                        <h4>Свадебное торжество</h4>
+                        <p>Атмосфера ирландского паба на свадьбе</p>
+                    </div>
+                </div>
+
+                <div class="video-item">
+                    <div class="video-placeholder">▶️</div>
+                    <div class="video-info">
+                        <h4>Корпоративный фестиваль</h4>
+                        <p>Выездной бар для крупной компании</p>
+                    </div>
+                </div>
+
+                <div class="video-item">
+                    <div class="video-placeholder">▶️</div>
+                    <div class="video-info">
+                        <h4>Городской фестиваль</h4>
+                        <p>Работа на открытом пространстве</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendar -->
+    <section id="calendar" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">Календарь занятости</h2>
+            <p class="section-subtitle">Проверьте доступность дат для бронирования</p>
+
+            <div class="calendar-info">
+                <div class="calendar-icon">📅</div>
+                <h3>Узнайте свободные даты</h3>
+                <p>
+                    Для получения актуальной информации о доступных датах свяжитесь с нами
+                    удобным для вас способом. Мы быстро ответим и поможем подобрать оптимальное время.
+                </p>
+                <a href="#contact" class="btn btn-primary">Запросить даты</a>
+
+                <div class="calendar-note">
+                    💡 <strong>Совет:</strong> Бронируйте дату заранее, особенно на летний сезон и праздничные дни!
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="green-texture">
+        <div class="container">
+            <h2 class="section-title">Контакты</h2>
+            <p class="section-subtitle">Свяжитесь с нами любым удобным способом</p>
+
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3>Давайте обсудим ваше мероприятие!</h3>
+
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="contact-item-icon">📱</span>
+                            <div>
+                                <div>Телефон:</div>
+                                <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <span class="contact-item-icon">✉️</span>
+                            <div>
+                                <div>Email:</div>
+                                <a href="mailto:info@todublin.ru">info@todublin.ru</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <span class="contact-item-icon">💬</span>
+                            <div>
+                                <div>Мессенджеры:</div>
+                                <a href="https://wa.me/79999999999" target="_blank">WhatsApp</a> /
+                                <a href="https://t.me/todublin" target="_blank">Telegram</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <span class="contact-item-icon">🕐</span>
+                            <div>
+                                <div>Режим работы:</div>
+                                <span>Ежедневно с 9:00 до 21:00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" title="WhatsApp">📱</a>
+                        <a href="#" title="Telegram">✈️</a>
+                        <a href="#" title="Instagram">📷</a>
+                        <a href="#" title="VK">🌐</a>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form id="orderForm">
+                        <div class="form-group">
+                            <label for="name">Ваше имя *</label>
+                            <input type="text" id="name" name="name" required placeholder="Иван Иванов">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Телефон *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="+7 (999) 999-99-99">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventDate">Дата мероприятия *</label>
+                            <input type="date" id="eventDate" name="eventDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventType">Тип мероприятия *</label>
+                            <select id="eventType" name="eventType" required>
+                                <option value="">Выберите тип</option>
+                                <option value="wedding">Свадьба</option>
+                                <option value="corporate">Корпоратив</option>
+                                <option value="birthday">День рождения</option>
+                                <option value="festival">Фестиваль</option>
+                                <option value="private">Частная вечеринка</option>
+                                <option value="other">Другое</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="guests">Количество гостей *</label>
+                            <input type="number" id="guests" name="guests" required placeholder="Пример: 50" min="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">Место проведения *</label>
+                            <input type="text" id="location" name="location" required placeholder="Адрес или локация">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Дополнительные услуги:</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item"><input type="checkbox" id="bartender" name="extras" value="bartender"><label for="bartender">Нужен бармен</label></div>
+                                <div class="checkbox-item"><input type="checkbox" id="chef" name="extras" value="chef"><label for="chef">Нужен повар на гриле</label></div>
+                                <div class="checkbox-item"><input type="checkbox" id="grill" name="extras" value="grill"><label for="grill">Нужен гриль</label></div>
+                                <div class="checkbox-item"><input type="checkbox" id="generator" name="extras" value="generator"><label for="generator">Генератор 7-8 кВт</label></div>
+                                <div class="checkbox-item"><input type="checkbox" id="garlands" name="extras" value="garlands"><label for="garlands">Гирлянды</label></div>
+                                <div class="checkbox-item"><input type="checkbox" id="barrels" name="extras" value="barrels"><label for="barrels">Столы-бочки</label></div>
+                                <div class="checkbox-item"><input type="checkbox" id="beer" name="extras" value="beer"><label for="beer">Закупить пиво через нас</label></div>
+                                <div class="checkbox-item"><input type="checkbox" id="photostand" name="extras" value="photostand"><label for="photostand">Фотостенд / фотозона</label></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comment">Комментарий / пожелания</label>
+                            <textarea id="comment" name="comment" placeholder="Расскажите подробнее о вашем мероприятии..."></textarea>
+                        </div>
+
+                        <button type="submit" class="form-submit">Отправить заявку</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">☘ To Dublin</div>
+            <p class="footer-text">
+                Мобильный ирландский паб<br>
+                Создаём атмосферу настоящего Дублина на ваших мероприятиях
+            </p>
+            <div class="footer-bottom">
+                <p>&copy; 2026 To Dublin. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Contact Buttons -->
+    <div class="floating-buttons">
+        <a href="https://wa.me/79999999999" class="float-btn whatsapp" target="_blank" title="WhatsApp">💬</a>
+        <a href="https://t.me/todublin" class="float-btn telegram" target="_blank" title="Telegram">✈️</a>
+        <a href="tel:+79999999999" class="float-btn phone" title="Позвонить"></a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
