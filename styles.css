@@ -618,14 +618,13 @@ section {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 50px 0;
 }
 
 .about-image-wrapper {
     position: relative;
-    display: inline-block;
     width: 100%;
     max-width: 518px;
+    padding: 15%;
 }
 
 .about-image-placeholder {
@@ -648,7 +647,6 @@ section {
     background-position: center;
     z-index: 2;
     pointer-events: none;
-    margin: -50px;
 }
 
 .about-features {
@@ -704,10 +702,6 @@ section {
     .about-image-wrapper {
         max-width: 419px;
     }
-
-    .about-hero-frame {
-        margin: -40px;
-    }
 }
 
 @media (max-width: 600px) {
@@ -726,14 +720,6 @@ section {
 
     .about-image-wrapper {
         max-width: 298px;
-    }
-
-    .about-image {
-        padding: 35px 0;
-    }
-
-    .about-hero-frame {
-        margin: -35px;
     }
 
     .features-list-vertical li {
@@ -762,14 +748,6 @@ section {
 
     .about-image-wrapper {
         max-width: 253px;
-    }
-
-    .about-image {
-        padding: 30px 0;
-    }
-
-    .about-hero-frame {
-        margin: -30px;
     }
 
     .features-list-vertical li {
