@@ -618,13 +618,14 @@ section {
     width: 100%;
     display: flex;
     justify-content: center;
+    overflow: visible;
 }
 
 .about-image-wrapper {
     position: relative;
+    display: inline-block;
     width: 100%;
     max-width: 518px;
-    padding: 15%;
 }
 
 .about-image-placeholder {
@@ -637,10 +638,10 @@ section {
 
 .about-hero-frame {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: -42px;
+    left: -42px;
+    right: -42px;
+    bottom: -42px;
     background-image: url('image/hero-frame.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -702,6 +703,13 @@ section {
     .about-image-wrapper {
         max-width: 419px;
     }
+
+    .about-hero-frame {
+        top: -28px;
+        left: -28px;
+        right: -28px;
+        bottom: -28px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -720,6 +728,18 @@ section {
 
     .about-image-wrapper {
         max-width: 298px;
+    }
+
+    .about-image-placeholder {
+        aspect-ratio: unset;
+        height: 140px;
+    }
+
+    .about-hero-frame {
+        top: -21px;
+        left: -21px;
+        right: -21px;
+        bottom: -21px;
     }
 
     .features-list-vertical li {
@@ -748,6 +768,18 @@ section {
 
     .about-image-wrapper {
         max-width: 253px;
+    }
+
+    .about-image-placeholder {
+        aspect-ratio: unset;
+        height: 118px;
+    }
+
+    .about-hero-frame {
+        top: -14px;
+        left: -14px;
+        right: -14px;
+        bottom: -14px;
     }
 
     .features-list-vertical li {
