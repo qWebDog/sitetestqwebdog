@@ -732,7 +732,7 @@ section {
 
     .about-image-placeholder {
         aspect-ratio: unset;
-        height: 140px;
+        height: 84px;
     }
 
     .about-hero-frame {
@@ -772,7 +772,7 @@ section {
 
     .about-image-placeholder {
         aspect-ratio: unset;
-        height: 118px;
+        height: 71px;
     }
 
     .about-hero-frame {
@@ -788,6 +788,7 @@ section {
         padding-left: 32px;
     }
 }
+
 /* Services Section */
 .services-grid {
     display: grid;
