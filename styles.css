@@ -40,9 +40,6 @@ h1, h2, h3, h4 {
     font-weight: 700;
 }
 
-/* ============================================
-   GREEN TEXTURE - STATIC LIGHT ONLY
-   ============================================ */
 .green-texture {
     background-color: var(--emerald);
     background-image: url('image/green-texture.png');
@@ -52,9 +49,6 @@ h1, h2, h3, h4 {
     background-attachment: fixed;
 }
 
-/* ============================================
-   HERO TEXTURE - PNG BACKGROUND
-   ============================================ */
 .hero-texture {
     background-color: var(--burgundy);
     background-image: url('image/hero-texture.png');
@@ -63,9 +57,6 @@ h1, h2, h3, h4 {
     background-position: center;
 }
 
-/* ============================================
-   NAVIGATION TEXTURE - PNG BACKGROUND
-   ============================================ */
 .nav-texture {
     background-color: var(--burgundy);
     background-image: url('image/nav-texture.png');
@@ -74,7 +65,6 @@ h1, h2, h3, h4 {
     background-position: center;
 }
 
-/* Navigation */
 nav {
     position: fixed;
     top: 0;
@@ -195,9 +185,6 @@ nav {
     cursor: pointer;
 }
 
-/* ============================================
-   HERO SECTION - PHOTO WITH FRAME + BUTTONS
-   ============================================ */
 .hero {
     margin-top: 60px;
     min-height: 90vh;
@@ -286,150 +273,6 @@ nav {
     animation: fadeInUp 1s ease 0.3s both;
 }
 
-/* ============================================
-   ABOUT SECTION - IMAGE WITH HERO FRAME
-   ============================================ */
-.about-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-}
-
-.about-text {
-    font-size: 17px;
-    line-height: 1.9;
-    color: var(--ivory);
-}
-
-.about-text p {
-    margin-bottom: 20px;
-}
-
-.about-text strong {
-    color: var(--gold);
-}
-
-.features-list {
-    list-style: none;
-    margin-top: 30px;
-}
-
-.features-list li {
-    padding: 12px 0;
-    padding-left: 35px;
-    position: relative;
-    font-size: 17px;
-    color: var(--ivory);
-}
-
-.features-list li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--gold);
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.about-image {
-    position: relative;
-}
-
-.about-image-wrapper {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    max-width: 420px;
-    margin: 0 auto;
-}
-
-.about-image-placeholder {
-    background-color: var(--burgundy);
-    width: 100%;
-    height: 380px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 100px;
-    color: var(--gold);
-    border-radius: 8px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-}
-
-/* Hero frame вокруг блока "О проекте" */
-.about-hero-frame {
-    position: absolute;
-    top: -35px;
-    left: -35px;
-    right: -35px;
-    bottom: -35px;
-    background-image: url('image/hero-frame.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 2;
-    pointer-events: none;
-}
-
-/* Responsive */
-@media (max-width: 968px) {
-    .about-image-wrapper {
-        max-width: 360px;
-    }
-
-    .about-image-placeholder {
-        height: 320px;
-        font-size: 80px;
-    }
-
-    .about-hero-frame {
-        top: -25px;
-        left: -25px;
-        right: -25px;
-        bottom: -25px;
-    }
-}
-
-@media (max-width: 600px) {
-    .about-image-wrapper {
-        max-width: 300px;
-    }
-
-    .about-image-placeholder {
-        height: 270px;
-        font-size: 70px;
-    }
-
-    .about-hero-frame {
-        top: -20px;
-        left: -20px;
-        right: -20px;
-        bottom: -20px;
-    }
-}
-
-@media (max-width: 375px) {
-    .about-image-wrapper {
-        max-width: 260px;
-    }
-
-    .about-image-placeholder {
-        height: 230px;
-        font-size: 60px;
-    }
-
-    .about-hero-frame {
-        top: -15px;
-        left: -15px;
-        right: -15px;
-        bottom: -15px;
-    }
-}
-
-/* ============================================
-   MODERN COMPACT BUTTONS
-   ============================================ */
 .btn {
     padding: 14px 32px;
     font-size: 14px;
@@ -486,7 +329,6 @@ nav {
     transform: translateY(0);
 }
 
-/* Marquee Section */
 .marquee-section {
     padding: 1.1rem 0;
     overflow: hidden;
@@ -532,7 +374,6 @@ nav {
     100% { transform: translateX(-50%); }
 }
 
-/* Section Styles */
 section {
     padding: 80px 20px;
     width: 100%;
@@ -580,9 +421,7 @@ section {
     margin-right: auto;
 }
 
-/* ============================================
-   ABOUT SECTION - VERTICAL LAYOUT
-   ============================================ */
+/* About Section - Desktop */
 .about-content {
     display: flex;
     flex-direction: column;
@@ -625,23 +464,23 @@ section {
     position: relative;
     display: inline-block;
     width: 100%;
-    max-width: 370px;
+    max-width: 518px;
 }
 
 .about-image-placeholder {
     background-color: var(--burgundy);
     width: 100%;
-    aspect-ratio: 370 / 330;
+    aspect-ratio: 518 / 347;
     border-radius: 8px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.3);
 }
 
 .about-hero-frame {
     position: absolute;
-    top: -30px;
-    left: -30px;
-    right: -30px;
-    bottom: -30px;
+    top: -42px;
+    left: -42px;
+    right: -42px;
+    bottom: -42px;
     background-image: url('image/hero-frame.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -686,100 +525,6 @@ section {
     transform: translateY(-50%);
 }
 
-/* Responsive */
-@media (max-width: 968px) {
-    .about-content {
-        gap: 35px;
-    }
-
-    .about-description {
-        font-size: 17px;
-    }
-
-    .about-description strong {
-        font-size: 19px;
-    }
-
-    .about-image-wrapper {
-        max-width: 254px;
-    }
-
-    .about-hero-frame {
-        top: -20px;
-        left: -20px;
-        right: -20px;
-        bottom: -20px;
-    }
-}
-
-@media (max-width: 600px) {
-    .about-content {
-        gap: 28px;
-    }
-
-    .about-description {
-        font-size: 16px;
-        line-height: 1.8;
-    }
-
-    .about-description strong {
-        font-size: 18px;
-    }
-
-    .about-image-wrapper {
-        max-width: 181px;
-    }
-
-    .about-hero-frame {
-        top: -15px;
-        left: -15px;
-        right: -15px;
-        bottom: -15px;
-    }
-
-    .features-list-vertical li {
-        font-size: 16px;
-        padding: 12px 0;
-        padding-left: 35px;
-    }
-
-    .features-list-vertical li::before {
-        font-size: 20px;
-    }
-}
-
-@media (max-width: 375px) {
-    .about-content {
-        gap: 24px;
-    }
-
-    .about-description {
-        font-size: 15px;
-    }
-
-    .about-description strong {
-        font-size: 17px;
-    }
-
-    .about-image-wrapper {
-        max-width: 153px;
-    }
-
-    .about-hero-frame {
-        top: -10px;
-        left: -10px;
-        right: -10px;
-        bottom: -10px;
-    }
-
-    .features-list-vertical li {
-        font-size: 15px;
-        padding: 10px 0;
-        padding-left: 32px;
-    }
-}
-
-/* Services Section */
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -825,7 +570,6 @@ section {
     line-height: 1.7;
 }
 
-/* Additional Services */
 .services-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -872,7 +616,6 @@ section {
     color: var(--ivory);
 }
 
-/* Staff Section */
 .staff-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -932,7 +675,6 @@ section {
     color: var(--ivory);
 }
 
-/* Beer & Drinks */
 .beer-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -991,7 +733,6 @@ section {
     font-size: 18px;
 }
 
-/* Gallery */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1031,7 +772,6 @@ section {
     background-color: var(--burgundy);
 }
 
-/* Video Section */
 .video-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -1091,7 +831,6 @@ section {
     color: var(--ivory);
 }
 
-/* Calendar */
 .calendar-info {
     background-color: var(--burgundy);
     border-radius: 15px;
@@ -1134,7 +873,6 @@ section {
     font-weight: 500;
 }
 
-/* Contact Form Section */
 .contact-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1235,7 +973,6 @@ section {
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-/* Form Styles */
 .form-group {
     margin-bottom: 25px;
 }
@@ -1325,7 +1062,6 @@ section {
         0 0 0 4px rgba(212,175,55,0.1);
 }
 
-/* Footer */
 footer {
     background-color: var(--burgundy);
     color: var(--text-light);
@@ -1363,7 +1099,6 @@ footer {
     opacity: 0.7;
 }
 
-/* Floating Contact Buttons */
 .floating-buttons {
     position: fixed;
     bottom: 30px;
@@ -1413,7 +1148,6 @@ footer {
     50% { transform: scale(1.05); }
 }
 
-/* Animations */
 @keyframes fadeInDown {
     from {
         opacity: 0;
@@ -1433,273 +1167,5 @@ footer {
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-/* Responsive */
-@media (max-width: 968px) {
-    .nav-menu {
-        display: none;
-    }
-
-    .mobile-menu-btn {
-        display: block;
-    }
-
-    .hero-photo-wrapper {
-        max-width: 254px;
-    }
-
-    .hero-photo-frame {
-        top: -20px;
-        left: -20px;
-        right: -20px;
-        bottom: -20px;
-    }
-
-    .about-image-wrapper {
-        max-width: 380px;
-    }
-
-    .about-image-frame {
-        top: -20px;
-        left: -20px;
-        right: -20px;
-        bottom: -20px;
-    }
-
-    .section-title {
-        font-size: 32px;
-    }
-
-    .about-content,
-    .contact-wrapper {
-        grid-template-columns: 1fr;
-    }
-
-    .checkbox-group {
-        grid-template-columns: 1fr;
-    }
-
-    section {
-        padding: 60px 20px;
-    }
-
-    .marquee-item {
-        font-size: 0.95rem;
-    }
-
-    .marquee-divider {
-        margin: 0 1.5rem;
-    }
-}
-
-@media (max-width: 600px) {
-    /* Убираем текстуры на мобильных */
-    .green-texture,
-    .hero-texture,
-    .nav-texture {
-        background-image: none !important;
-    }
-
-    /* Предотвращаем горизонтальный скролл */
-    html, body {
-        overflow-x: hidden;
-        width: 100%;
-        max-width: 100vw;
-    }
-
-    /* Фиксируем навигацию */
-    nav {
-        left: 0;
-        right: 0;
-        width: 100%;
-        max-width: 100vw;
-    }
-
-    /* Hero section */
-    .hero {
-        padding: 40px 15px;
-        width: 100%;
-        max-width: 100vw;
-    }
-
-    .hero-content {
-        padding: 0 10px;
-        width: 100%;
-    }
-
-    /* Уменьшаем рамку на мобильных */
-    .hero-photo-wrapper {
-        max-width: 181px;
-        width: 100%;
-    }
-
-    .hero-photo-frame {
-        top: -15px;
-        left: -15px;
-        right: -15px;
-        bottom: -15px;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-        width: 100%;
-        padding: 0 10px;
-        align-items: center;
-    }
-
-    .btn {
-        width: 100%;
-        max-width: 300px;
-    }
-
-    /* About section */
-    .about-image-wrapper {
-        max-width: 320px;
-    }
-
-    .about-image-frame {
-        top: -15px;
-        left: -15px;
-        right: -15px;
-        bottom: -15px;
-    }
-
-    .about-image-placeholder {
-        height: 350px;
-    }
-
-    /* Sections */
-    section {
-        padding: 40px 15px;
-        width: 100%;
-        max-width: 100vw;
-    }
-
-    .container {
-        width: 100%;
-        padding: 0 5px;
-    }
-
-    /* Grids */
-    .services-grid,
-    .beer-grid,
-    .video-container,
-    .gallery-grid,
-    .staff-grid,
-    .services-list {
-        grid-template-columns: 1fr;
-        width: 100%;
-    }
-
-    /* Contact wrapper */
-    .contact-wrapper {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    /* Floating buttons */
-    .floating-buttons {
-        bottom: 20px;
-        right: 20px;
-    }
-
-    .float-btn {
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-    }
-
-    .marquee-item {
-        font-size: 0.85rem;
-    }
-
-    .marquee-divider {
-        margin: 0 1rem;
-        font-size: 1rem;
-    }
-
-    /* Section titles */
-    .section-title {
-        font-size: 28px;
-    }
-
-    /* About content */
-    .about-content {
-        gap: 30px;
-    }
-
-    /* Form elements - предотвращает зум на iOS */
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-        font-size: 16px;
-    }
-
-    /* Footer */
-    footer {
-        padding: 30px 15px 15px;
-    }
-}
-
-/* Дополнительно для очень маленьких экранов */
-@media (max-width: 375px) {
-    .hero-photo-wrapper {
-        max-width: 153px;
-    }
-
-    .hero-photo-frame {
-        top: -10px;
-        left: -10px;
-        right: -10px;
-        bottom: -10px;
-    }
-
-    .about-image-wrapper {
-        max-width: 270px;
-    }
-
-    .about-image-frame {
-        top: -10px;
-        left: -10px;
-        right: -10px;
-        bottom: -10px;
-    }
-
-    .about-image-placeholder {
-        height: 280px;
-        font-size: 80px;
-    }
-
-    .section-title {
-        font-size: 24px;
-    }
-
-    .hero h1 {
-        font-size: 28px;
-    }
-
-    .hero {
-        padding: 30px 10px;
-    }
-
-    section {
-        padding: 30px 10px;
-    }
-
-    .container {
-        padding: 0;
-    }
-
-    .floating-buttons {
-        bottom: 15px;
-        right: 15px;
-    }
-
-    .float-btn {
-        width: 45px;
-        height: 45px;
-        font-size: 20px;
     }
 }
