@@ -1,4 +1,47 @@
-// Плавный скролл к блоку
+// Mobile menu toggle
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const navMenu = document.getElementById('navMenu');
+const navMenuClose = document.getElementById('navMenuClose');
+const navOverlay = document.getElementById('navOverlay');
+const navLinks = document.querySelectorAll('.nav-link');
+const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+
+// Open menu
+mobileMenuBtn.addEventListener('click', () => {
+    navMenu.classList.add('active');
+    navOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+});
+
+// Close menu
+function closeMenu() {
+    navMenu.classList.remove('active');
+    navOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+navMenuClose.addEventListener('click', closeMenu);
+navOverlay.addEventListener('click', closeMenu);
+
+// Close menu on link click
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        closeMenu();
+    });
+});
+
+// Dropdown toggle on mobile
+dropdownToggles.forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+        if (window.innerWidth <= 968) {
+            e.preventDefault();
+            const dropdown = toggle.parentElement;
+            dropdown.classList.toggle('active');
+        }
+    });
+});
+
+// Smooth scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -34,22 +77,6 @@ phoneInput.addEventListener('input', function(e) {
         if (value.length >= 8) formattedValue += '-' + value.substring(8, 10);
         e.target.value = formattedValue;
     }
-});
-
-// Mobile menu toggle
-const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-const navMenu = document.querySelector('.nav-menu');
-
-mobileMenuBtn.addEventListener('click', function() {
-    navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
-    navMenu.style.position = 'absolute';
-    navMenu.style.top = '100%';
-    navMenu.style.left = '0';
-    navMenu.style.right = '0';
-    navMenu.style.flexDirection = 'column';
-    navMenu.style.backgroundColor = 'var(--burgundy-dark)';
-    navMenu.style.padding = '20px';
-    navMenu.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
 });
 
 // Set minimum date to today
