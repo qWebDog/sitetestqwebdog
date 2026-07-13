@@ -421,7 +421,7 @@ section {
     margin-right: auto;
 }
 
-/* About Section - Desktop */
+/* About Section */
 .about-content {
     display: flex;
     flex-direction: column;
@@ -464,7 +464,7 @@ section {
     position: relative;
     display: inline-block;
     width: 100%;
-    max-width: 518px;
+    max-width: 492px;
 }
 
 .about-image-placeholder {
