@@ -1,0 +1,291 @@
+/* Mobile Menu */
+@media (max-width: 968px) {
+    .nav-menu {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .hero-photo-wrapper {
+        max-width: 254px;
+    }
+
+    .hero-photo-frame {
+        top: -20px;
+        left: -20px;
+        right: -20px;
+        bottom: -20px;
+    }
+
+    .about-content {
+        gap: 35px;
+    }
+
+    .about-description {
+        font-size: 17px;
+    }
+
+    .about-description strong {
+        font-size: 19px;
+    }
+
+    .about-image-wrapper {
+        max-width: 419px;
+    }
+
+    .about-hero-frame {
+        top: -28px;
+        left: -28px;
+        right: -28px;
+        bottom: -28px;
+    }
+
+    .section-title {
+        font-size: 32px;
+    }
+
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .checkbox-group {
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding: 60px 20px;
+    }
+
+    .marquee-item {
+        font-size: 0.95rem;
+    }
+
+    .marquee-divider {
+        margin: 0 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .green-texture,
+    .hero-texture,
+    .nav-texture {
+        background-image: none !important;
+    }
+
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
+    }
+
+    nav {
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: 100vw;
+    }
+
+    .hero {
+        padding: 40px 15px;
+        width: 100%;
+        max-width: 100vw;
+    }
+
+    .hero-content {
+        padding: 0 10px;
+        width: 100%;
+    }
+
+    .hero-photo-wrapper {
+        max-width: 181px;
+        width: 100%;
+    }
+
+    .hero-photo-frame {
+        top: -15px;
+        left: -15px;
+        right: -15px;
+        bottom: -15px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+        padding: 0 10px;
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .about-content {
+        gap: 28px;
+    }
+
+    .about-description {
+        font-size: 16px;
+        line-height: 1.8;
+    }
+
+    .about-description strong {
+        font-size: 18px;
+    }
+
+    .about-image-wrapper {
+        max-width: 298px;
+    }
+
+    .about-hero-frame {
+        top: -21px;
+        left: -21px;
+        right: -21px;
+        bottom: -21px;
+    }
+
+    section {
+        padding: 40px 15px;
+        width: 100%;
+        max-width: 100vw;
+    }
+
+    .container {
+        width: 100%;
+        padding: 0 5px;
+    }
+
+    .services-grid,
+    .beer-grid,
+    .video-container,
+    .gallery-grid,
+    .staff-grid,
+    .services-list {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .floating-buttons {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .float-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+
+    .marquee-item {
+        font-size: 0.85rem;
+    }
+
+    .marquee-divider {
+        margin: 0 1rem;
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
+
+    .about-content {
+        gap: 28px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 16px;
+    }
+
+    footer {
+        padding: 30px 15px 15px;
+    }
+
+    .features-list-vertical li {
+        font-size: 16px;
+        padding: 12px 0;
+        padding-left: 35px;
+    }
+
+    .features-list-vertical li::before {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 375px) {
+    .hero-photo-wrapper {
+        max-width: 153px;
+    }
+
+    .hero-photo-frame {
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+    }
+
+    .about-content {
+        gap: 24px;
+    }
+
+    .about-description {
+        font-size: 15px;
+    }
+
+    .about-description strong {
+        font-size: 17px;
+    }
+
+    .about-image-wrapper {
+        max-width: 253px;
+    }
+
+    .about-hero-frame {
+        top: -14px;
+        left: -14px;
+        right: -14px;
+        bottom: -14px;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .hero {
+        padding: 30px 10px;
+    }
+
+    section {
+        padding: 30px 10px;
+    }
+
+    .container {
+        padding: 0;
+    }
+
+    .floating-buttons {
+        bottom: 15px;
+        right: 15px;
+    }
+
+    .float-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+
+    .features-list-vertical li {
+        font-size: 15px;
+        padding: 10px 0;
+        padding-left: 32px;
+    }
+}
