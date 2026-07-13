@@ -6,6 +6,7 @@
     <title>To Dublin - Мобильный ирландский паб</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="mobile.css" media="(max-width: 968px)">
 </head>
 <body>
 
@@ -13,10 +14,12 @@
     <nav class="nav-texture">
         <div class="nav-container">
             <a href="#" class="logo">☘ To Dublin</a>
-            <ul class="nav-menu">
-                <li><a href="#about">О проекте</a></li>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                <li><button class="nav-menu-close" id="navMenuClose">×</button></li>
+                <li><a href="#about" class="nav-link">О проекте</a></li>
                 <li class="dropdown">
-                    <a href="#services" class="dropdown-toggle">Услуги</a>
+                    <a href="#services" class="dropdown-toggle nav-link">Услуги</a>
                     <ul class="dropdown-menu">
                         <li><a href="#services">Основные услуги</a></li>
                         <li><a href="#additional">Дополнительные услуги</a></li>
@@ -25,13 +28,13 @@
                         <li><a href="#beer">Пиво и напитки</a></li>
                     </ul>
                 </li>
-                <li><a href="#gallery">Галерея</a></li>
-                <li><a href="#video">Видео</a></li>
-                <li><a href="#calendar">Календарь</a></li>
-                <li><a href="#contact">Контакты</a></li>
+                <li><a href="#gallery" class="nav-link">Галерея</a></li>
+                <li><a href="#video" class="nav-link">Видео</a></li>
+                <li><a href="#calendar" class="nav-link">Календарь</a></li>
+                <li><a href="#contact" class="nav-link">Контакты</a></li>
             </ul>
-            <button class="mobile-menu-btn">☰</button>
         </div>
+        <div class="nav-overlay" id="navOverlay"></div>
     </nav>
 
     <!-- Hero Section -->
