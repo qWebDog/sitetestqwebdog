@@ -17,14 +17,17 @@
         right: -100%;
         width: 280px;
         height: 100vh;
-        background-color: var(--burgundy);
+        background-color: rgba(30, 17, 18, 0.75);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
         padding: 80px 30px 30px;
         gap: 20px;
         transition: right 0.3s ease;
         z-index: 1000;
-        box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+        box-shadow: -5px 0 30px rgba(0,0,0,0.5);
         overflow-y: auto;
+        border-left: 1px solid rgba(212,175,55,0.2);
     }
 
     .nav-menu.active {
@@ -53,12 +56,16 @@
         opacity: 1;
         visibility: visible;
         transform: none;
-        background-color: var(--burgundy-dark);
+        background-color: rgba(21, 13, 1, 0.6);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         box-shadow: none;
         margin-top: 10px;
         margin-left: 20px;
         min-width: auto;
         display: none;
+        border-radius: 8px;
+        border: 1px solid rgba(212,175,55,0.15);
     }
 
     .dropdown.active .dropdown-menu {
@@ -69,14 +76,13 @@
         float: right;
     }
 
-    /* Overlay */
     .nav-overlay {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0,0,0,0.7);
+        background-color: rgba(0,0,0,0.5);
         z-index: 999;
         opacity: 0;
         visibility: hidden;
@@ -88,7 +94,6 @@
         visibility: visible;
     }
 
-    /* Close button */
     .nav-menu-close {
         position: absolute;
         top: 20px;
@@ -125,7 +130,7 @@
     }
 
     .about-image-wrapper {
-        max-width: 419px;
+        max-width: 398px;
     }
 
     .about-hero-frame {
@@ -235,7 +240,7 @@
     }
 
     .about-image-wrapper {
-        max-width: 298px;
+        max-width: 283px;
     }
 
     .about-hero-frame {
@@ -341,7 +346,7 @@
     }
 
     .about-image-wrapper {
-        max-width: 253px;
+        max-width: 240px;
     }
 
     .about-hero-frame {
