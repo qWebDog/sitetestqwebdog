@@ -282,7 +282,7 @@ h1, h2, h3,
   border: 1px solid rgba(247, 243, 238, 0.3);
 }
 
-/* ===== КАК ЭТО РАБОТАЕТ (МОБИЛЬНАЯ) ===== */
+/* ===== КАК ЭТО РАБОТАЕТ (МОБИЛЬНАЯ — ВЕРЁВКИ ВЫЛЕЗАЮТ ИЗ-ПОД РАМОК) ===== */
 .process {
   background: var(--accent);
   padding: 64px 0;
@@ -330,6 +330,7 @@ h1, h2, h3,
   padding-top: 4px;
 }
 
+/* Доска с рамкой */
 .process__step {
   background:
     radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
@@ -349,31 +350,43 @@ h1, h2, h3,
   z-index: 2;
 }
 
+/* Убираем верёвку вверх */
 .process__step::before {
   display: none;
 }
 
+/* Верёвка вниз — вылезает из-под рамки */
 .process__step::after {
   content: '';
   position: absolute;
-  bottom: -44px;
+  top: 60%;
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
-  height: 48px;
+  height: calc(40% + 44px);
   background: var(--rope);
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-  z-index: 1;
+  z-index: 0;
 }
 
+/* У последней доски нет верёвки вниз */
 .process__step:last-child::after {
   display: none;
 }
 
+/* Контент поверх верёвки */
+.process__step-title,
+.process__step-text {
+  position: relative;
+  z-index: 3;
+}
+
+/* Скрываем номер шага в мобильной версии */
 .process__step-number {
   display: none;
 }
 
+/* 5 шаг — золотая доска */
 .process__step--final {
   background:
     radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.15) 0%, transparent 40%),
