@@ -25,42 +25,23 @@ body {
   overflow-x: hidden;
 }
 
-body.modal-open {
-  overflow: hidden;
-}
-
 h1, h2, h3,
-.hero__title,
-.process__title,
-.process__step-title,
 .intro__title,
 .intro__main-title,
 .intro__card-title,
-.services__title,
-.services__card-title,
-.staff__title,
-.staff__card-title,
-.extras__title,
-.modal__title,
-.carousel__card-title {
+.process__title,
+.process__step-title {
   font-family: 'Cormorant Infant', serif;
   letter-spacing: 0.5px;
 }
 
 .nav__logo,
 .nav__menu-logo,
-.process__title,
-.process__step-title,
 .intro__title,
 .intro__main-title,
 .intro__card-title,
-.services__title,
-.services__card-title,
-.staff__title,
-.staff__card-title,
-.extras__title,
-.modal__title,
-.carousel__card-title {
+.process__title,
+.process__step-title {
   color: var(--gold);
 }
 
@@ -313,7 +294,7 @@ h1, h2, h3,
 }
 
 .intro__header {
-  text-align: left;
+  text-align: center;
   margin-bottom: 40px;
 }
 
@@ -324,20 +305,15 @@ h1, h2, h3,
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 12px;
-}
-
-.intro__title {
-  font-size: 30px;
-  font-weight: 400;
-  line-height: 1.15;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .intro__subtitle {
-  font-size: 15px;
-  opacity: 0.85;
-  line-height: 1.55;
+  font-size: 18px;
+  opacity: 0.92;
+  line-height: 1.45;
+  font-family: 'Cormorant Infant', serif;
+  font-weight: 500;
 }
 
 .intro__main {
@@ -422,14 +398,14 @@ h1, h2, h3,
 .intro__card-title {
   font-size: 19px;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   line-height: 1.3;
 }
 
 .intro__card-text {
   font-size: 13px;
   line-height: 1.55;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 /* ===== КАК ЭТО РАБОТАЕТ ===== */
@@ -558,409 +534,4 @@ h1, h2, h3,
   line-height: 1.55;
   color: var(--chalk);
   opacity: 0.9;
-}
-
-/* ===== ОСНОВНЫЕ УСЛУГИ ===== */
-.services {
-  background: var(--accent);
-  padding: 64px 0;
-  color: var(--light);
-}
-
-.services__container {
-  padding: 0 20px;
-}
-
-.services__header {
-  text-align: left;
-  margin-bottom: 40px;
-}
-
-.services__label {
-  display: inline-block;
-  color: var(--gold);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 12px;
-}
-
-.services__title {
-  font-size: 30px;
-  font-weight: 400;
-  line-height: 1.15;
-  margin-bottom: 14px;
-}
-
-.services__subtitle {
-  font-size: 15px;
-  opacity: 0.85;
-  line-height: 1.55;
-}
-
-.services__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
-
-.services__card {
-  background: rgba(247, 243, 238, 0.06);
-  border: 1px solid rgba(247, 243, 238, 0.12);
-  border-radius: 18px;
-  padding: 24px 20px;
-  text-align: center;
-}
-
-.services__card-icon {
-  font-size: 40px;
-  margin-bottom: 14px;
-}
-
-.services__card-title {
-  font-size: 19px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  line-height: 1.3;
-}
-
-.services__card-text {
-  font-size: 13px;
-  line-height: 1.55;
-  opacity: 0.85;
-}
-
-/* ===== ПЕРСОНАЛ ===== */
-.staff {
-  background: var(--primary);
-  padding: 64px 0;
-  color: var(--light);
-}
-
-.staff__container {
-  padding: 0 20px;
-}
-
-.staff__header {
-  text-align: left;
-  margin-bottom: 40px;
-}
-
-.staff__label {
-  display: inline-block;
-  color: var(--gold);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 12px;
-}
-
-.staff__title {
-  font-size: 30px;
-  font-weight: 400;
-  line-height: 1.15;
-  margin-bottom: 14px;
-}
-
-.staff__subtitle {
-  font-size: 15px;
-  opacity: 0.85;
-  line-height: 1.55;
-}
-
-.staff__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-  margin-bottom: 32px;
-}
-
-.staff__card {
-  background: rgba(247, 243, 238, 0.06);
-  border: 1px solid rgba(247, 243, 238, 0.12);
-  border-radius: 20px;
-  padding: 28px 20px;
-  text-align: center;
-}
-
-.staff__card-image {
-  font-size: 56px;
-  margin-bottom: 16px;
-}
-
-.staff__card-title {
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-.staff__card-text {
-  font-size: 14px;
-  line-height: 1.6;
-  opacity: 0.9;
-  margin-bottom: 20px;
-}
-
-.staff__card-list {
-  list-style: none;
-  text-align: left;
-}
-
-.staff__card-list li {
-  font-size: 13px;
-  line-height: 1.8;
-  padding-left: 8px;
-  opacity: 0.9;
-}
-
-.staff__note {
-  background: rgba(212, 162, 76, 0.15);
-  border: 2px solid var(--gold);
-  border-radius: 14px;
-  padding: 20px;
-  text-align: center;
-}
-
-.staff__note p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--light);
-}
-
-/* ===== КНОПКИ ДЛЯ МОДАЛОК ===== */
-.extras {
-  background: var(--accent);
-  padding: 64px 0;
-  color: var(--light);
-  text-align: center;
-}
-
-.extras__container {
-  padding: 0 20px;
-}
-
-.extras__title {
-  font-size: 30px;
-  font-weight: 400;
-  line-height: 1.15;
-  margin-bottom: 12px;
-}
-
-.extras__subtitle {
-  font-size: 15px;
-  opacity: 0.85;
-  margin-bottom: 28px;
-}
-
-.extras__buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-/* ===== МОДАЛКИ ===== */
-.modal {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.modal.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.modal__overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(6px);
-}
-
-.modal__content {
-  position: relative;
-  background: var(--primary);
-  color: var(--light);
-  width: 100%;
-  max-height: 92vh;
-  border-radius: 24px 24px 0 0;
-  padding: calc(32px + var(--safe-top)) 20px calc(32px + var(--safe-bottom));
-  overflow-y: auto;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-}
-
-.modal.active .modal__content {
-  transform: translateY(0);
-}
-
-.modal__close {
-  position: absolute;
-  top: calc(16px + var(--safe-top));
-  right: 16px;
-  background: rgba(247, 243, 238, 0.1);
-  border: none;
-  color: var(--gold);
-  font-size: 24px;
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  z-index: 10;
-}
-
-.modal__header {
-  text-align: left;
-  margin-bottom: 24px;
-  padding-right: 44px;
-}
-
-.modal__label {
-  display: inline-block;
-  color: var(--gold);
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 10px;
-}
-
-.modal__title {
-  font-size: 28px;
-  font-weight: 400;
-  line-height: 1.15;
-  margin-bottom: 10px;
-}
-
-.modal__subtitle {
-  font-size: 14px;
-  opacity: 0.85;
-}
-
-.modal__advantage {
-  background: rgba(212, 162, 76, 0.15);
-  border: 2px solid var(--gold);
-  border-radius: 14px;
-  padding: 20px;
-  text-align: center;
-  margin-top: 24px;
-}
-
-.modal__advantage p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--light);
-}
-
-/* ===== КАРУСЕЛЬ (МОБИЛЬНАЯ) ===== */
-.carousel {
-  position: relative;
-  overflow: hidden;
-  padding: 0;
-  margin: 0 -20px;
-}
-
-.carousel__track {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  padding: 0 20px 16px;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.carousel__track::-webkit-scrollbar {
-  display: none;
-}
-
-.carousel__slide {
-  flex: 0 0 calc(100% - 40px);
-  scroll-snap-align: center;
-  min-width: 0;
-}
-
-.carousel__card {
-  background: rgba(247, 243, 238, 0.06);
-  border: 1px solid rgba(247, 243, 238, 0.12);
-  border-radius: 18px;
-  padding: 28px 20px;
-  text-align: center;
-  height: 100%;
-}
-
-.carousel__card--wide {
-  padding: 28px 20px;
-}
-
-.carousel__card-icon {
-  font-size: 44px;
-  margin-bottom: 14px;
-}
-
-.carousel__card-title {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  line-height: 1.3;
-}
-
-.carousel__card-text {
-  font-size: 14px;
-  line-height: 1.6;
-  opacity: 0.85;
-  margin-bottom: 14px;
-}
-
-.carousel__card-list {
-  list-style: none;
-  text-align: left;
-}
-
-.carousel__card-list li {
-  font-size: 13px;
-  line-height: 1.8;
-  padding-left: 4px;
-  opacity: 0.9;
-}
-
-/* Скрываем стрелки на мобильном — используем свайп */
-.carousel__arrow {
-  display: none;
-}
-
-.carousel__dots {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  margin-top: 16px;
-}
-
-.carousel__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(247, 243, 238, 0.3);
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s;
-  padding: 0;
-}
-
-.carousel__dot.active {
-  background: var(--gold);
-  width: 22px;
-  border-radius: 4px;
 }
