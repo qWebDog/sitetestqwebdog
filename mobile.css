@@ -260,7 +260,7 @@ h1, h2, h3,
   border: 1px solid rgba(247, 243, 238, 0.3);
 }
 
-/* ===== КАК ЭТО РАБОТАЕТ (ВИСЯЩИЕ ДОСКИ) ===== */
+/* ===== КАК ЭТО РАБОТАЕТ (МОБИЛЬНАЯ — ВИСЯЩИЕ ДОСКИ БЕЗ НОМЕРОВ) ===== */
 .process {
   background: var(--accent);
   padding: 64px 0;
@@ -303,7 +303,7 @@ h1, h2, h3,
 .process__steps {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 70px;
   position: relative;
   padding-top: 50px;
 }
@@ -358,19 +358,9 @@ h1, h2, h3,
   transform-origin: bottom;
 }
 
-/* Точка крепления верёвки */
+/* Скрываем номер шага в мобильной версии */
 .process__step-number {
-  position: absolute;
-  top: -58px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 10px;
-  height: 10px;
-  background: var(--wood);
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 2px var(--rope),
-    0 2px 4px rgba(0, 0, 0, 0.4);
+  display: none;
 }
 
 /* 5 шаг — золотая доска */
@@ -394,13 +384,6 @@ h1, h2, h3,
 .process__step--final .process__step-text {
   color: var(--primary);
   opacity: 0.85;
-}
-
-.process__step--final .process__step-number {
-  background: var(--primary);
-  box-shadow:
-    0 0 0 2px var(--gold),
-    0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .process__step-title {
