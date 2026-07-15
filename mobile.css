@@ -720,7 +720,7 @@ h1, h2, h3,
 
 .calendar__frame {
   background: linear-gradient(135deg, #5C4033 0%, #8B6F47 50%, #5C4033 100%);
-  padding: 18px;
+  padding: 14px;
   border-radius: 10px;
   box-shadow:
     0 0 0 6px #3D2817,
@@ -738,53 +738,24 @@ h1, h2, h3,
   pointer-events: none;
 }
 
+/* Адаптивная обёртка для календаря */
 .calendar__wrapper {
   background: #fff;
   border-radius: 5px;
   overflow: hidden;
   box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.3);
+  /* Масштабирование для мобильных */
+  transform-origin: top center;
 }
 
 .calendar__wrapper iframe {
   display: block;
   width: 100%;
-  height: 400px;
+  height: 500px; /* Увеличенная высота для лучшего отображения */
+  min-height: 500px;
 }
 
 .calendar__cta {
   text-align: center;
   margin-top: 18px;
-}
-
-/* ===== НЕОНОВОЕ СВЕЧЕНИЕ ===== */
-@keyframes neonPulse {
-  0%, 100% {
-    text-shadow:
-      0 0 4px var(--gold),
-      0 0 8px var(--gold),
-      0 0 16px rgba(212, 162, 76, 0.6),
-      0 0 24px rgba(212, 162, 76, 0.3);
-  }
-  50% {
-    text-shadow:
-      0 0 6px var(--gold),
-      0 0 12px var(--gold),
-      0 0 22px rgba(212, 162, 76, 0.8),
-      0 0 32px rgba(212, 162, 76, 0.5);
-  }
-}
-
-@keyframes neonPulseNav {
-  0%, 100% {
-    text-shadow:
-      0 0 3px var(--gold),
-      0 0 6px rgba(212, 162, 76, 0.4),
-      0 0 12px rgba(212, 162, 76, 0.2);
-  }
-  50% {
-    text-shadow:
-      0 0 5px var(--gold),
-      0 0 10px rgba(212, 162, 76, 0.6),
-      0 0 18px rgba(212, 162, 76, 0.3);
-  }
 }
