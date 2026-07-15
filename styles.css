@@ -573,7 +573,7 @@ h1, h2, h3,
   opacity: 0.9;
 }
 
-/* ===== ГАЛЕРЕЯ (POLAROID) ===== */
+/* ===== ГАЛЕРЕЯ (POLAROID — ИСПРАВЛЕННАЯ) ===== */
 .gallery {
   background: var(--primary);
   padding: 60px 0;
@@ -616,7 +616,6 @@ h1, h2, h3,
   line-height: 1.5;
 }
 
-/* Убираем деревянную рамку */
 .gallery__frame {
   background: transparent;
   padding: 0;
@@ -631,7 +630,7 @@ h1, h2, h3,
 
 .gallery__carousel {
   position: relative;
-  overflow: visible;
+  overflow: hidden;
   padding: 30px 0;
 }
 
@@ -646,29 +645,25 @@ h1, h2, h3,
   min-width: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
+  padding: 0 20px;
 }
 
-/* Стиль Polaroid на десктопе */
+/* Стиль Polaroid — БЕЗ поворотов */
 .gallery__slide img {
-  width: 90%;
+  width: 100%;
   max-width: 450px;
   height: auto;
   display: block;
   background: #fff;
   padding: 16px 16px 50px 16px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
-  transform: rotate(-1deg);
   transition: transform 0.3s ease;
   filter: sepia(15%) contrast(1.05);
 }
 
-.gallery__slide:nth-child(even) img {
-  transform: rotate(1.5deg);
-}
-
 .gallery__slide img:hover {
-  transform: rotate(0deg) scale(1.03);
-  z-index: 10;
+  transform: scale(1.03);
 }
 
 .gallery__arrow {
@@ -705,7 +700,7 @@ h1, h2, h3,
   right: 20px;
 }
 
-/* ===== КАЛЕНДАРЬ (ДЕСКТОП) ===== */
+/* ===== КАЛЕНДАРЬ (ПУСТОЙ БЛОК — ДЕСКТОП) ===== */
 .calendar {
   background: var(--accent);
   padding: 60px 0;
@@ -760,18 +755,27 @@ h1, h2, h3,
   display: none;
 }
 
+/* Заглушка для календаря */
 .calendar__wrapper {
-  background: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  background: rgba(247, 243, 238, 0.08);
+  border: 2px dashed rgba(212, 162, 76, 0.4);
+  border-radius: 10px;
+  padding: 80px 30px;
+  text-align: center;
   width: 100%;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.calendar__wrapper iframe {
-  display: block;
-  width: 100%;
-  height: 500px;
+.calendar__placeholder {
+  color: var(--gold);
+  font-size: 20px;
+  font-weight: 500;
+  opacity: 0.8;
+  font-family: 'Cormorant Infant', serif;
+  letter-spacing: 0.5px;
 }
 
 .calendar__cta {
