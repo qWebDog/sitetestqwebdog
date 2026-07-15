@@ -41,9 +41,41 @@ document.addEventListener('DOMContentLoaded', () => {
     close.addEventListener('click', closeMenu);
   }
 
+  // Плавный скролл по ссылкам навигации
   if (menu) {
-    menu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', closeMenu);
+    menu.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            // Закрываем меню
+            closeMenu();
+            // Плавный скролл к секции
+            setTimeout(() => {
+              target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }, 300);
+          }
+        } else {
+          closeMenu();
+        }
+      });
+    });
+  }
+
+  // Плавный скролл по клику на логотип (возврат наверх)
+  const logo = document.querySelector('.nav__logo');
+  if (logo) {
+    logo.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     });
   }
 });
