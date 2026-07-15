@@ -380,70 +380,53 @@ h1, h2, h3,
 /* ===== КАК ЭТО РАБОТАЕТ ===== */
 .process {
   background: var(--accent);
-  padding: 50px 0;
-  position: relative;
+  padding: 32px 0;
   color: var(--light);
 }
 
 .process__container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 20px;
 }
 
 .process__header {
   text-align: center;
-  max-width: 720px;
-  margin: 0 auto 36px;
-}
-
-.process__label {
-  display: inline-block;
-  color: var(--gold);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
 }
 
 .process__title {
-  font-size: 44px;
+  font-size: 28px;
   font-weight: 400;
-  line-height: 1.1;
-  margin-bottom: 14px;
+  line-height: 1.15;
+  margin-bottom: 12px;
 }
 
+/* Подзаголовок такой же как intro__subtitle */
 .process__subtitle {
   font-size: 17px;
-  color: var(--light);
-  opacity: 0.85;
-  line-height: 1.55;
+  opacity: 0.92;
+  line-height: 1.4;
+  font-family: 'Cormorant Infant', serif;
+  font-weight: 500;
 }
 
 .process__steps {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
   position: relative;
-  padding-top: 20px;
+  padding-top: 4px;
 }
 
-.process__steps::before {
+.process__steps::after {
   content: '';
   position: absolute;
-  top: 44px;
-  left: 10%;
-  right: 10%;
-  height: 2px;
-  background: repeating-linear-gradient(
-    to right,
-    var(--gold) 0,
-    var(--gold) 8px,
-    transparent 8px,
-    transparent 16px
-  );
-  opacity: 0.5;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: var(--rope);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   z-index: 0;
 }
 
@@ -454,27 +437,25 @@ h1, h2, h3,
     radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 60%),
     linear-gradient(135deg, #2a2a2a 0%, #353535 50%, #2a2a2a 100%);
   border-radius: 6px;
-  padding: 28px 16px 22px;
-  text-align: center;
+  padding: 22px 16px 18px;
   position: relative;
-  z-index: 1;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   color: var(--chalk);
+  text-align: center;
+  border: 4px solid var(--wood);
   box-shadow:
-    0 0 0 4px var(--wood),
-    0 0 0 6px rgba(0, 0, 0, 0.4),
+    0 0 0 2px rgba(0, 0, 0, 0.4),
     inset 0 0 24px rgba(0, 0, 0, 0.4),
     0 6px 16px rgba(0, 0, 0, 0.3);
+  z-index: 2;
 }
 
-.process__step:hover {
-  transform: translateY(-6px);
-  box-shadow:
-    0 0 0 4px var(--wood),
-    0 0 0 6px rgba(0, 0, 0, 0.4),
-    inset 0 0 24px rgba(0, 0, 0, 0.4),
-    0 12px 24px rgba(0, 0, 0, 0.4),
-    0 0 16px rgba(212, 162, 76, 0.15);
+.process__step::before,
+.process__step::after {
+  display: none;
+}
+
+.process__step-number {
+  display: none;
 }
 
 .process__step--final {
@@ -483,21 +464,11 @@ h1, h2, h3,
     radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
     linear-gradient(135deg, #C99442 0%, #D4A24C 50%, #C99442 100%);
   color: var(--primary);
+  border: 4px solid var(--wood);
   box-shadow:
-    0 0 0 4px var(--wood),
-    0 0 0 6px rgba(0, 0, 0, 0.4),
+    0 0 0 2px rgba(0, 0, 0, 0.4),
     inset 0 0 24px rgba(0, 0, 0, 0.15),
     0 6px 16px rgba(0, 0, 0, 0.3);
-}
-
-.process__step--final:hover {
-  transform: translateY(-6px);
-  box-shadow:
-    0 0 0 4px var(--wood),
-    0 0 0 6px rgba(0, 0, 0, 0.4),
-    inset 0 0 24px rgba(0, 0, 0, 0.15),
-    0 12px 24px rgba(0, 0, 0, 0.4),
-    0 0 20px rgba(212, 162, 76, 0.4);
 }
 
 .process__step--final .process__step-title {
@@ -509,46 +480,18 @@ h1, h2, h3,
   opacity: 0.85;
 }
 
-.process__step--final .process__step-number {
-  background: var(--primary);
-  color: var(--gold);
-  box-shadow:
-    0 0 0 2px var(--gold),
-    0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.process__step-number {
-  position: absolute;
-  top: -16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 32px;
-  height: 32px;
-  background: var(--gold);
-  color: var(--primary);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  font-weight: 800;
-  box-shadow:
-    0 0 0 2px var(--chalk),
-    0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
 .process__step-title {
   font-size: 17px;
   font-weight: 600;
   color: var(--gold);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   line-height: 1.3;
+  margin-top: 6px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .process__step-text {
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.5;
   color: var(--chalk);
   opacity: 0.9;
