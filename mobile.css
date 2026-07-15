@@ -260,7 +260,7 @@ h1, h2, h3,
   border: 1px solid rgba(247, 243, 238, 0.3);
 }
 
-/* ===== КАК ЭТО РАБОТАЕТ (МОБИЛЬНАЯ — ВИСЯЩИЕ ДОСКИ БЕЗ НОМЕРОВ) ===== */
+/* ===== КАК ЭТО РАБОТАЕТ (МОБИЛЬНАЯ — РОВНЫЕ ДОСКИ НА ВЕРЁВКАХ) ===== */
 .process {
   background: var(--accent);
   padding: 64px 0;
@@ -308,7 +308,7 @@ h1, h2, h3,
   padding-top: 50px;
 }
 
-/* Висящая доска */
+/* Висящая доска — ровная, без наклона */
 .process__step {
   background:
     radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
@@ -320,21 +320,15 @@ h1, h2, h3,
   position: relative;
   color: var(--chalk);
   text-align: center;
+  /* Рамка через border, тень через box-shadow */
+  border: 4px solid var(--wood);
   box-shadow:
-    0 0 0 4px var(--wood),
-    0 0 0 6px rgba(0, 0, 0, 0.4),
+    0 0 0 2px rgba(0, 0, 0, 0.4),
     inset 0 0 24px rgba(0, 0, 0, 0.4),
     0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
-/* Лёгкий наклон для реалистичности */
-.process__step:nth-child(1) { transform: rotate(-1deg); }
-.process__step:nth-child(2) { transform: rotate(0.8deg); }
-.process__step:nth-child(3) { transform: rotate(-0.6deg); }
-.process__step:nth-child(4) { transform: rotate(1deg); }
-.process__step:nth-child(5) { transform: rotate(-0.8deg); }
-
-/* Верёвки */
+/* Верёвки — вертикальные, над рамкой */
 .process__step::before,
 .process__step::after {
   content: '';
@@ -344,18 +338,15 @@ h1, h2, h3,
   height: 50px;
   background: var(--rope);
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  z-index: 2;
 }
 
 .process__step::before {
   left: 25%;
-  transform: rotate(-10deg);
-  transform-origin: bottom;
 }
 
 .process__step::after {
   right: 25%;
-  transform: rotate(10deg);
-  transform-origin: bottom;
 }
 
 /* Скрываем номер шага в мобильной версии */
@@ -370,9 +361,9 @@ h1, h2, h3,
     radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
     linear-gradient(135deg, #C99442 0%, #D4A24C 50%, #C99442 100%);
   color: var(--primary);
+  border: 4px solid var(--wood);
   box-shadow:
-    0 0 0 4px var(--wood),
-    0 0 0 6px rgba(0, 0, 0, 0.4),
+    0 0 0 2px rgba(0, 0, 0, 0.4),
     inset 0 0 24px rgba(0, 0, 0, 0.15),
     0 6px 16px rgba(0, 0, 0, 0.3);
 }
