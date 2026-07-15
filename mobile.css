@@ -420,32 +420,24 @@ h1, h2, h3,
 }
 
 .process__header {
-  text-align: left;
+  text-align: center;
   margin-bottom: 24px;
-}
-
-.process__label {
-  display: inline-block;
-  color: var(--gold);
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 10px;
 }
 
 .process__title {
   font-size: 28px;
   font-weight: 400;
   line-height: 1.15;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
+/* Подзаголовок такой же как intro__subtitle */
 .process__subtitle {
-  font-size: 14px;
-  color: var(--light);
-  opacity: 0.85;
-  line-height: 1.5;
+  font-size: 17px;
+  opacity: 0.92;
+  line-height: 1.4;
+  font-family: 'Cormorant Infant', serif;
+  font-weight: 500;
 }
 
 .process__steps {
