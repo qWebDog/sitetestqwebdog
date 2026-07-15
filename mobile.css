@@ -51,9 +51,9 @@ h1, h2, h3,
   color: var(--gold);
 }
 
-/* ===== НАВИГАЦИЯ (зелёный фон) ===== */
+/* ===== НАВИГАЦИЯ (красный фон) ===== */
 .nav {
-  background: var(--accent);
+  background: var(--primary);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -106,7 +106,7 @@ h1, h2, h3,
   display: none;
 }
 
-/* Модалка навигации — КРАСНАЯ */
+/* Модалка навигации — красная */
 .nav__menu {
   position: fixed;
   top: 0;
@@ -313,6 +313,7 @@ h1, h2, h3,
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 10px;
+  animation: neonPulse 2.5s ease-in-out infinite;
 }
 
 .intro__subtitle {
@@ -452,6 +453,7 @@ h1, h2, h3,
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 12px;
+  animation: neonPulse 2.5s ease-in-out infinite;
 }
 
 .process__subtitle {
@@ -548,4 +550,22 @@ h1, h2, h3,
   line-height: 1.5;
   color: var(--chalk);
   opacity: 0.9;
+}
+
+/* ===== НЕОНОВОЕ СВЕЧЕНИЕ LABEL ===== */
+@keyframes neonPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 4px var(--gold),
+      0 0 8px var(--gold),
+      0 0 16px rgba(212, 162, 76, 0.6),
+      0 0 24px rgba(212, 162, 76, 0.3);
+  }
+  50% {
+    text-shadow:
+      0 0 6px var(--gold),
+      0 0 12px var(--gold),
+      0 0 22px rgba(212, 162, 76, 0.8),
+      0 0 32px rgba(212, 162, 76, 0.5);
+  }
 }
