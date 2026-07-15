@@ -12,8 +12,8 @@ html, body {
 }
 
 :root {
-    --burgundy: #1E1112;
-    --burgundy-dark: #150d01;
+    --burgundy: #7F180D;
+    --burgundy-dark: #5a1009;
     --emerald: #1E5945;
     --emerald-light: #256b54;
     --gold: #D4AF37;
@@ -464,7 +464,7 @@ section {
     position: relative;
     display: inline-block;
     width: 100%;
-    max-width: 492px;
+    max-width: 443px;
 }
 
 .about-image-placeholder {
