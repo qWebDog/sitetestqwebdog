@@ -17,7 +17,7 @@
         right: -100%;
         width: 280px;
         height: 100vh;
-        background-color: rgba(30, 17, 18, 0.75);
+        background-color: rgba(127, 24, 13, 0.75);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
@@ -56,7 +56,7 @@
         opacity: 1;
         visibility: visible;
         transform: none;
-        background-color: rgba(21, 13, 1, 0.6);
+        background-color: rgba(90, 16, 9, 0.6);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         box-shadow: none;
@@ -130,7 +130,7 @@
     }
 
     .about-image-wrapper {
-        max-width: 398px;
+        max-width: 358px;
     }
 
     .about-hero-frame {
@@ -240,7 +240,7 @@
     }
 
     .about-image-wrapper {
-        max-width: 283px;
+        max-width: 255px;
     }
 
     .about-hero-frame {
@@ -346,7 +346,7 @@
     }
 
     .about-image-wrapper {
-        max-width: 240px;
+        max-width: 216px;
     }
 
     .about-hero-frame {
