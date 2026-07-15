@@ -48,7 +48,7 @@ h1, h2, h3,
   color: var(--gold);
 }
 
-/* ===== НАВИГАЦИЯ (красный фон) ===== */
+/* ===== НАВИГАЦИЯ ===== */
 .nav {
   background: var(--primary);
   padding: 16px 0;
@@ -68,7 +68,6 @@ h1, h2, h3,
   gap: 60px;
 }
 
-/* Логотип с неоновым свечением */
 .nav__logo {
   font-family: 'Rye', cursive;
   font-size: 24px;
@@ -79,7 +78,6 @@ h1, h2, h3,
   animation: neonPulse 2.5s ease-in-out infinite;
 }
 
-/* Скрываем дублирующий логотип на десктопе */
 .nav__menu-logo {
   display: none;
 }
@@ -90,7 +88,6 @@ h1, h2, h3,
   gap: 0;
 }
 
-/* Ссылки с разделителями и неоновым свечением */
 .nav__link {
   color: var(--light);
   text-decoration: none;
@@ -102,7 +99,6 @@ h1, h2, h3,
   animation: neonPulseNav 3s ease-in-out infinite;
 }
 
-/* Разделители между ссылками */
 .nav__link:not(:last-child)::after {
   content: '|';
   position: absolute;
@@ -122,7 +118,6 @@ h1, h2, h3,
   display: none;
 }
 
-/* Скрываем CTA-кнопку на десктопе */
 .nav__cta {
   display: none;
 }
@@ -404,7 +399,7 @@ h1, h2, h3,
   opacity: 0.9;
 }
 
-/* ===== КАК ЭТО РАБОТАЕТ (НОМЕРНЫЕ ЗНАКИ) ===== */
+/* ===== КАК ЭТО РАБОТАЕТ (ГРИФЕЛЬНЫЕ ТАБЛИЧКИ) ===== */
 .process {
   background: var(--accent);
   padding: 50px 0;
@@ -469,107 +464,113 @@ h1, h2, h3,
   z-index: 0;
 }
 
-/* Номерной знак */
+/* Грифельная табличка (применяется ко всем шагам, включая 5-й) */
 .process__step {
-  background: linear-gradient(180deg, #F5D547 0%, #E8C431 100%);
-  border-radius: 8px;
+  background:
+    radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 60%),
+    linear-gradient(135deg, #2a2a2a 0%, #353535 50%, #2a2a2a 100%);
+  border-radius: 6px;
   padding: 28px 16px 22px;
   text-align: center;
   position: relative;
   z-index: 1;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  color: #1a1a1a;
-  border: 3px solid #1a1a1a;
+  color: var(--chalk);
+  border: 4px solid var(--wood);
   box-shadow:
-    inset 0 0 0 2px #F5D547,
-    inset 0 0 0 4px #1a1a1a,
+    0 0 0 2px rgba(0, 0, 0, 0.4),
+    inset 0 0 24px rgba(0, 0, 0, 0.4),
     0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
 .process__step:hover {
   transform: translateY(-6px);
   box-shadow:
-    inset 0 0 0 2px #F5D547,
-    inset 0 0 0 4px #1a1a1a,
+    0 0 0 2px rgba(0, 0, 0, 0.4),
+    inset 0 0 24px rgba(0, 0, 0, 0.4),
     0 12px 24px rgba(0, 0, 0, 0.4),
     0 0 16px rgba(212, 162, 76, 0.15);
 }
 
-/* 5 шаг — красный номерной знак */
+/* 5-й шаг теперь идентичен остальным */
 .process__step--final {
-  background: linear-gradient(180deg, #D4342A 0%, #B8281F 100%);
-  color: var(--light);
-  border: 3px solid #1a1a1a;
+  background:
+    radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 60%),
+    linear-gradient(135deg, #2a2a2a 0%, #353535 50%, #2a2a2a 100%);
+  color: var(--chalk);
+  border: 4px solid var(--wood);
   box-shadow:
-    inset 0 0 0 2px #D4342A,
-    inset 0 0 0 4px #1a1a1a,
+    0 0 0 2px rgba(0, 0, 0, 0.4),
+    inset 0 0 24px rgba(0, 0, 0, 0.4),
     0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
 .process__step--final:hover {
   transform: translateY(-6px);
   box-shadow:
-    inset 0 0 0 2px #D4342A,
-    inset 0 0 0 4px #1a1a1a,
+    0 0 0 2px rgba(0, 0, 0, 0.4),
+    inset 0 0 24px rgba(0, 0, 0, 0.4),
     0 12px 24px rgba(0, 0, 0, 0.4),
-    0 0 20px rgba(212, 162, 76, 0.4);
+    0 0 16px rgba(212, 162, 76, 0.15);
 }
 
 .process__step--final .process__step-title {
-  color: var(--light);
+  color: var(--gold);
 }
 
 .process__step--final .process__step-text {
-  color: var(--light);
-  opacity: 0.95;
+  color: var(--chalk);
+  opacity: 0.9;
 }
 
-/* Номер шага — как код региона на номере */
+/* Номер шага */
 .process__step-number {
   position: absolute;
-  top: -16px;
+  top: -18px;
   left: 50%;
   transform: translateX(-50%);
   width: 36px;
   height: 36px;
-  background: #1a1a1a;
-  color: #F5D547;
-  border-radius: 4px;
+  background: var(--gold);
+  color: var(--primary);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-weight: 900;
-  letter-spacing: 0;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  border: 2px solid #F5D547;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow:
+    0 0 0 2px var(--chalk),
+    0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .process__step--final .process__step-number {
-  background: #1a1a1a;
-  color: #D4342A;
-  border: 2px solid #D4342A;
+  background: var(--gold);
+  color: var(--primary);
+  box-shadow:
+    0 0 0 2px var(--chalk),
+    0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .process__step-title {
-  font-size: 16px;
-  font-weight: 800;
-  color: #1a1a1a;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--gold);
   margin-bottom: 8px;
-  line-height: 1.2;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-family: 'Inter', sans-serif;
-  text-shadow: none;
+  line-height: 1.3;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .process__step-text {
-  font-size: 12px;
-  line-height: 1.45;
-  color: #1a1a1a;
-  opacity: 0.85;
-  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--chalk);
+  opacity: 0.9;
 }
 
 /* ===== ГАЛЕРЕЯ ===== */
@@ -615,7 +616,6 @@ h1, h2, h3,
   line-height: 1.5;
 }
 
-/* Деревянная рамка вокруг карусели */
 .gallery__frame {
   background: linear-gradient(135deg, #5C4033 0%, #8B6F47 50%, #5C4033 100%);
   padding: 20px;
@@ -737,7 +737,6 @@ h1, h2, h3,
   line-height: 1.5;
 }
 
-/* Деревянная рамка вокруг календаря */
 .calendar__frame {
   background: linear-gradient(135deg, #5C4033 0%, #8B6F47 50%, #5C4033 100%);
   padding: 24px;
@@ -758,125 +757,21 @@ h1, h2, h3,
   pointer-events: none;
 }
 
-.calendar__month {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
-  padding: 0 8px;
+.calendar__wrapper {
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
-.calendar__nav {
-  background: var(--primary);
-  color: var(--light);
-  border: 2px solid var(--gold);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  font-size: 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-
-.calendar__nav:hover {
-  background: var(--gold);
-  color: var(--primary);
-  transform: scale(1.1);
-}
-
-.calendar__month-title {
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--gold);
-  text-transform: capitalize;
-}
-
-.calendar__grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
-  margin-bottom: 24px;
-}
-
-.calendar__day-header {
-  text-align: center;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--gold);
-  padding: 8px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.calendar__day {
-  background: rgba(247, 243, 238, 0.1);
-  border: 2px solid rgba(247, 243, 238, 0.2);
-  border-radius: 8px;
-  padding: 12px;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--light);
-  cursor: default;
-  transition: all 0.2s;
-}
-
-.calendar__day--available {
-  background: rgba(32, 96, 61, 0.6);
-  border-color: var(--gold);
-  color: var(--light);
-  cursor: pointer;
-}
-
-.calendar__day--available:hover {
-  background: var(--gold);
-  color: var(--primary);
-  transform: scale(1.05);
-}
-
-.calendar__day--booked {
-  background: rgba(127, 24, 13, 0.6);
-  border-color: rgba(127, 24, 13, 0.8);
-  color: rgba(247, 243, 238, 0.5);
-  cursor: not-allowed;
-}
-
-.calendar__legend {
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-  margin-bottom: 24px;
-}
-
-.calendar__legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-}
-
-.calendar__legend-dot {
-  width: 16px;
-  height: 16px;
-  border-radius: 4px;
-  border: 2px solid;
-}
-
-.calendar__legend-dot--available {
-  background: rgba(32, 96, 61, 0.6);
-  border-color: var(--gold);
-}
-
-.calendar__legend-dot--booked {
-  background: rgba(127, 24, 13, 0.6);
-  border-color: rgba(127, 24, 13, 0.8);
+.calendar__wrapper iframe {
+  display: block;
+  width: 100%;
 }
 
 .calendar__cta {
   text-align: center;
+  margin-top: 24px;
 }
 
 /* ===== НЕОНОВОЕ СВЕЧЕНИЕ ===== */
