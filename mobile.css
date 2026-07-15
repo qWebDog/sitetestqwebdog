@@ -64,7 +64,7 @@ h1, h2, h3,
 .nav__container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 14px 20px;
   position: relative;
 }
@@ -76,6 +76,7 @@ h1, h2, h3,
   color: var(--gold);
   text-decoration: none;
   letter-spacing: 1px;
+  animation: neonPulse 2.5s ease-in-out infinite;
 }
 
 .nav__burger {
@@ -141,6 +142,7 @@ h1, h2, h3,
   color: var(--gold);
   text-decoration: none;
   letter-spacing: 1.5px;
+  animation: neonPulse 2.5s ease-in-out infinite;
 }
 
 .nav__menu-center {
@@ -158,6 +160,7 @@ h1, h2, h3,
   font-size: 18px;
   font-weight: 500;
   text-align: center;
+  animation: neonPulseNav 3s ease-in-out infinite;
 }
 
 .nav__menu-bottom {
@@ -574,6 +577,307 @@ h1, h2, h3,
   color: #1a1a1a;
   opacity: 0.85;
   font-weight: 500;
+}
+
+/* ===== ГАЛЕРЕЯ ===== */
+.gallery {
+  background: var(--primary);
+  padding: 40px 0;
+  color: var(--light);
+}
+
+.gallery__container {
+  padding: 0 20px;
+}
+
+.gallery__header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.gallery__label {
+  display: inline-block;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  animation: neonPulse 2.5s ease-in-out infinite;
+}
+
+.gallery__title {
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+.gallery__subtitle {
+  font-size: 15px;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+/* Деревянная рамка вокруг карусели */
+.gallery__frame {
+  background: linear-gradient(135deg, #5C4033 0%, #8B6F47 50%, #5C4033 100%);
+  padding: 14px;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 6px #3D2817,
+    0 0 0 9px #2D1810,
+    0 16px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.gallery__frame::before {
+  content: '';
+  position: absolute;
+  inset: 9px;
+  border: 2px solid #6B4423;
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+.gallery__carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.gallery__track {
+  display: flex;
+  gap: 0;
+  transition: transform 0.4s ease;
+}
+
+.gallery__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.gallery__slide img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(127, 24, 13, 0.9);
+  color: var(--light);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.gallery__arrow:hover {
+  background: var(--gold);
+  color: var(--primary);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.gallery__arrow--prev {
+  left: 12px;
+}
+
+.gallery__arrow--next {
+  right: 12px;
+}
+
+/* ===== КАЛЕНДАРЬ ===== */
+.calendar {
+  background: var(--accent);
+  padding: 40px 0;
+  color: var(--light);
+}
+
+.calendar__container {
+  padding: 0 20px;
+}
+
+.calendar__header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.calendar__label {
+  display: inline-block;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  animation: neonPulse 2.5s ease-in-out infinite;
+}
+
+.calendar__title {
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+.calendar__subtitle {
+  font-size: 15px;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+/* Деревянная рамка вокруг календаря */
+.calendar__frame {
+  background: linear-gradient(135deg, #5C4033 0%, #8B6F47 50%, #5C4033 100%);
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 6px #3D2817,
+    0 0 0 9px #2D1810,
+    0 16px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.calendar__frame::before {
+  content: '';
+  position: absolute;
+  inset: 9px;
+  border: 2px solid #6B4423;
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+.calendar__month {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding: 0 6px;
+}
+
+.calendar__nav {
+  background: var(--primary);
+  color: var(--light);
+  border: 2px solid var(--gold);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.calendar__nav:hover {
+  background: var(--gold);
+  color: var(--primary);
+  transform: scale(1.1);
+}
+
+.calendar__month-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--gold);
+  text-transform: capitalize;
+}
+
+.calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.calendar__day-header {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  padding: 6px 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.calendar__day {
+  background: rgba(247, 243, 238, 0.1);
+  border: 2px solid rgba(247, 243, 238, 0.2);
+  border-radius: 6px;
+  padding: 10px 4px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--light);
+  cursor: default;
+  transition: all 0.2s;
+}
+
+.calendar__day--available {
+  background: rgba(32, 96, 61, 0.6);
+  border-color: var(--gold);
+  color: var(--light);
+  cursor: pointer;
+}
+
+.calendar__day--available:hover {
+  background: var(--gold);
+  color: var(--primary);
+  transform: scale(1.05);
+}
+
+.calendar__day--booked {
+  background: rgba(127, 24, 13, 0.6);
+  border-color: rgba(127, 24, 13, 0.8);
+  color: rgba(247, 243, 238, 0.5);
+  cursor: not-allowed;
+}
+
+.calendar__legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.calendar__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.calendar__legend-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 2px solid;
+}
+
+.calendar__legend-dot--available {
+  background: rgba(32, 96, 61, 0.6);
+  border-color: var(--gold);
+}
+
+.calendar__legend-dot--booked {
+  background: rgba(127, 24, 13, 0.6);
+  border-color: rgba(127, 24, 13, 0.8);
+}
+
+.calendar__cta {
+  text-align: center;
 }
 
 /* ===== НЕОНОВОЕ СВЕЧЕНИЕ ===== */
