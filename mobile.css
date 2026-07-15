@@ -19,7 +19,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Заголовки шрифтом Rye */
+/* Заголовки шрифтом Cormorant Infant */
 h1, h2, h3,
 .hero__title,
 .process__title,
@@ -27,7 +27,7 @@ h1, h2, h3,
 .services__title,
 .services__main-title,
 .services__card-title {
-  font-family: 'Rye', cursive;
+  font-family: 'Cormorant Infant', serif;
   letter-spacing: 0.5px;
 }
 
@@ -43,20 +43,18 @@ h1, h2, h3,
 .nav__container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 16px 20px;
+  position: relative;
 }
 
 .nav__logo {
   font-family: 'Rye', cursive;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 400;
   color: var(--light);
   text-decoration: none;
   letter-spacing: 1px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
 
 .nav__burger {
@@ -65,7 +63,10 @@ h1, h2, h3,
   background: transparent;
   border: none;
   cursor: pointer;
-  position: relative;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -80,57 +81,92 @@ h1, h2, h3,
   transition: all 0.3s ease;
 }
 
-.nav__burger.active span:nth-child(1) {
-  transform: translateY(10.5px) rotate(45deg);
-}
-
-.nav__burger.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.nav__burger.active span:nth-child(3) {
-  transform: translateY(-10.5px) rotate(-45deg);
-}
-
+/* Полноэкранное меню */
 .nav__menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
   background: var(--primary);
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease, padding 0.4s ease;
-  padding: 0 20px;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 20px 40px;
+  transform: translateY(-100%);
+  transition: transform 0.4s ease;
+  z-index: 99;
 }
 
 .nav__menu.active {
-  max-height: 600px;
-  padding: 10px 20px 24px;
+  transform: translateY(0);
+}
+
+.nav__menu-top {
+  text-align: center;
+}
+
+.nav__menu-logo {
+  font-family: 'Rye', cursive;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--light);
+  text-decoration: none;
+  letter-spacing: 1.5px;
+}
+
+.nav__menu-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
+  justify-content: center;
 }
 
 .nav__link {
   color: var(--light);
   text-decoration: none;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
-  padding: 14px 0;
-  border-bottom: 1px solid rgba(247, 243, 238, 0.1);
+  text-align: center;
 }
 
-.nav__link:last-of-type {
-  border-bottom: none;
+.nav__menu-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
 }
 
 .nav__cta {
   background: var(--accent);
   color: var(--light);
-  padding: 14px;
-  border-radius: 8px;
+  padding: 16px 32px;
+  border-radius: 10px;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   text-align: center;
-  margin-top: 12px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.nav__close {
+  background: transparent;
+  border: none;
+  color: var(--light);
+  font-size: 32px;
+  cursor: pointer;
+  padding: 8px 16px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.nav__close:hover {
+  opacity: 1;
 }
 
 /* ===== HERO ===== */
@@ -201,7 +237,7 @@ h1, h2, h3,
   border: 1px solid rgba(247, 243, 238, 0.3);
 }
 
-/* ===== КАК ЭТО РАБОТАЕТ (зелёный фон + бордовые карточки) ===== */
+/* ===== КАК ЭТО РАБОТАЕТ ===== */
 .process {
   background: var(--accent);
   padding: 64px 0;
@@ -267,7 +303,6 @@ h1, h2, h3,
   opacity: 0.3;
 }
 
-/* Бордовая карточка */
 .process__step {
   background: var(--primary);
   border-radius: 18px;
@@ -277,7 +312,6 @@ h1, h2, h3,
   color: var(--light);
 }
 
-/* Финальная — светлая */
 .process__step--final {
   background: var(--light);
   color: var(--text);
