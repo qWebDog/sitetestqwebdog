@@ -79,6 +79,11 @@ h1, h2, h3,
   animation: neonPulse 2.5s ease-in-out infinite;
 }
 
+/* Скрываем дублирующий логотип на десктопе */
+.nav__menu-logo {
+  display: none;
+}
+
 .nav__menu {
   display: flex;
   align-items: center;
@@ -115,22 +120,6 @@ h1, h2, h3,
 
 .nav__link::after {
   display: none;
-}
-
-/* Неоновое свечение для категорий (ссылок) */
-@keyframes neonPulseNav {
-  0%, 100% {
-    text-shadow:
-      0 0 3px var(--gold),
-      0 0 6px rgba(212, 162, 76, 0.4),
-      0 0 12px rgba(212, 162, 76, 0.2);
-  }
-  50% {
-    text-shadow:
-      0 0 5px var(--gold),
-      0 0 10px rgba(212, 162, 76, 0.6),
-      0 0 18px rgba(212, 162, 76, 0.3);
-  }
 }
 
 /* Скрываем CTA-кнопку на десктопе */
@@ -415,7 +404,7 @@ h1, h2, h3,
   opacity: 0.9;
 }
 
-/* ===== КАК ЭТО РАБОТАЕТ ===== */
+/* ===== КАК ЭТО РАБОТАЕТ (НОМЕРНЫЕ ЗНАКИ) ===== */
 .process {
   background: var(--accent);
   padding: 50px 0;
@@ -480,111 +469,107 @@ h1, h2, h3,
   z-index: 0;
 }
 
+/* Номерной знак */
 .process__step {
-  background:
-    radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
-    radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 60%),
-    linear-gradient(135deg, #2a2a2a 0%, #353535 50%, #2a2a2a 100%);
-  border-radius: 6px;
+  background: linear-gradient(180deg, #F5D547 0%, #E8C431 100%);
+  border-radius: 8px;
   padding: 28px 16px 22px;
   text-align: center;
   position: relative;
   z-index: 1;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  color: var(--chalk);
+  color: #1a1a1a;
+  border: 3px solid #1a1a1a;
   box-shadow:
-    0 0 0 4px var(--wood),
-    0 0 0 6px rgba(0, 0, 0, 0.4),
-    inset 0 0 24px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 2px #F5D547,
+    inset 0 0 0 4px #1a1a1a,
     0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
 .process__step:hover {
   transform: translateY(-6px);
   box-shadow:
-    0 0 0 4px var(--wood),
-    0 0 0 6px rgba(0, 0, 0, 0.4),
-    inset 0 0 24px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 2px #F5D547,
+    inset 0 0 0 4px #1a1a1a,
     0 12px 24px rgba(0, 0, 0, 0.4),
     0 0 16px rgba(212, 162, 76, 0.15);
 }
 
+/* 5 шаг — красный номерной знак */
 .process__step--final {
-  background:
-    radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
-    linear-gradient(135deg, #C99442 0%, #D4A24C 50%, #C99442 100%);
-  color: var(--primary);
+  background: linear-gradient(180deg, #D4342A 0%, #B8281F 100%);
+  color: var(--light);
+  border: 3px solid #1a1a1a;
   box-shadow:
-    0 0 0 4px var(--wood),
-    0 0 0 6px rgba(0, 0, 0, 0.4),
-    inset 0 0 24px rgba(0, 0, 0, 0.15),
+    inset 0 0 0 2px #D4342A,
+    inset 0 0 0 4px #1a1a1a,
     0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
 .process__step--final:hover {
   transform: translateY(-6px);
   box-shadow:
-    0 0 0 4px var(--wood),
-    0 0 0 6px rgba(0, 0, 0, 0.4),
-    inset 0 0 24px rgba(0, 0, 0, 0.15),
+    inset 0 0 0 2px #D4342A,
+    inset 0 0 0 4px #1a1a1a,
     0 12px 24px rgba(0, 0, 0, 0.4),
     0 0 20px rgba(212, 162, 76, 0.4);
 }
 
 .process__step--final .process__step-title {
-  color: var(--primary);
+  color: var(--light);
 }
 
 .process__step--final .process__step-text {
-  color: var(--primary);
-  opacity: 0.85;
+  color: var(--light);
+  opacity: 0.95;
 }
 
-.process__step--final .process__step-number {
-  background: var(--primary);
-  color: var(--gold);
-  box-shadow:
-    0 0 0 2px var(--gold),
-    0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
+/* Номер шага — как код региона на номере */
 .process__step-number {
   position: absolute;
   top: -16px;
   left: 50%;
   transform: translateX(-50%);
-  width: 32px;
-  height: 32px;
-  background: var(--gold);
-  color: var(--primary);
-  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  background: #1a1a1a;
+  color: #F5D547;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  font-weight: 800;
-  box-shadow:
-    0 0 0 2px var(--chalk),
-    0 4px 10px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  border: 2px solid #F5D547;
+}
+
+.process__step--final .process__step-number {
+  background: #1a1a1a;
+  color: #D4342A;
+  border: 2px solid #D4342A;
 }
 
 .process__step-title {
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--gold);
+  font-size: 16px;
+  font-weight: 800;
+  color: #1a1a1a;
   margin-bottom: 8px;
-  line-height: 1.3;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Inter', sans-serif;
+  text-shadow: none;
 }
 
 .process__step-text {
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--chalk);
-  opacity: 0.9;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #1a1a1a;
+  opacity: 0.85;
+  font-weight: 500;
 }
 
 /* ===== НЕОНОВОЕ СВЕЧЕНИЕ ===== */
