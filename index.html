@@ -6,7 +6,7 @@
   <title>To Dublin — мобильный ирландский паб на ваше мероприятие</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rye&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Rye&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" id="main-style">
 </head>
 <body>
@@ -14,15 +14,23 @@
   <!-- ===== НАВИГАЦИЯ ===== -->
   <header class="nav">
     <div class="nav__container">
-      <a href="#" class="nav__logo">☘ To Dublin</a>
+      <a href="#" class="nav__logo">To Dublin</a>
 
       <nav class="nav__menu" id="menu">
-        <a href="#process" class="nav__link">Как это работает</a>
-        <a href="#services" class="nav__link">Услуги</a>
-        <a href="#formats" class="nav__link">Форматы</a>
-        <a href="#gallery" class="nav__link">Галерея</a>
-        <a href="#contacts" class="nav__link">Контакты</a>
-        <a href="#request" class="nav__cta">Заказать паб</a>
+        <div class="nav__menu-top">
+          <a href="#" class="nav__menu-logo">To Dublin</a>
+        </div>
+        <div class="nav__menu-center">
+          <a href="#process" class="nav__link">Как это работает</a>
+          <a href="#services" class="nav__link">Услуги</a>
+          <a href="#formats" class="nav__link">Форматы</a>
+          <a href="#gallery" class="nav__link">Галерея</a>
+          <a href="#contacts" class="nav__link">Контакты</a>
+        </div>
+        <div class="nav__menu-bottom">
+          <a href="#request" class="nav__cta">Заказать паб</a>
+          <button class="nav__close" id="close" aria-label="Закрыть меню">✕</button>
+        </div>
       </nav>
 
       <button class="nav__burger" id="burger" aria-label="Открыть меню">
