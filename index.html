@@ -23,6 +23,8 @@
         <div class="nav__menu-center">
           <a href="#intro" class="nav__link">Что мы делаем</a>
           <a href="#process" class="nav__link">Как это работает</a>
+          <a href="#gallery" class="nav__link">Галерея</a>
+          <a href="#calendar" class="nav__link">Календарь</a>
         </div>
         <div class="nav__menu-bottom">
           <a href="#request" class="nav__cta">Заказать паб</a>
@@ -58,7 +60,7 @@
     </div>
   </section>
 
-    <!-- ===== ЧТО МЫ ДЕЛАЕМ ===== -->
+  <!-- ===== ЧТО МЫ ДЕЛАЕМ ===== -->
   <section class="intro" id="intro">
     <div class="intro__container">
       <div class="intro__header">
@@ -131,7 +133,7 @@
     </div>
   </section>
 
-   <!-- ===== КАК ЭТО РАБОТАЕТ ===== -->
+  <!-- ===== КАК ЭТО РАБОТАЕТ ===== -->
   <section class="process" id="process">
     <div class="process__container">
       <div class="process__header">
@@ -171,7 +173,130 @@
       </div>
     </div>
   </section>
-  
+
+  <!-- ===== ГАЛЕРЕЯ ===== -->
+  <section class="gallery" id="gallery">
+    <div class="gallery__container">
+      <div class="gallery__header">
+        <span class="gallery__label">Галерея</span>
+        <h2 class="gallery__title">Наши мероприятия</h2>
+        <p class="gallery__subtitle">
+          Смотрите фотографии с наших мероприятий и вдохновляйтесь атмосферой To Dublin.
+        </p>
+      </div>
+
+      <div class="gallery__frame">
+        <div class="gallery__carousel">
+          <div class="gallery__track">
+            <div class="gallery__slide">
+              <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800&q=80" alt="Мероприятие 1">
+            </div>
+            <div class="gallery__slide">
+              <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80" alt="Мероприятие 2">
+            </div>
+            <div class="gallery__slide">
+              <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80" alt="Мероприятие 3">
+            </div>
+            <div class="gallery__slide">
+              <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&q=80" alt="Мероприятие 4">
+            </div>
+            <div class="gallery__slide">
+              <img src="https://images.unsplash.com/photo-1429962714452-bf525e32e819?w=800&q=80" alt="Мероприятие 5">
+            </div>
+          </div>
+          <button class="gallery__arrow gallery__arrow--prev" aria-label="Назад">‹</button>
+          <button class="gallery__arrow gallery__arrow--next" aria-label="Вперёд">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== КАЛЕНДАРЬ ===== -->
+  <section class="calendar" id="calendar">
+    <div class="calendar__container">
+      <div class="calendar__header">
+        <span class="calendar__label">Календарь</span>
+        <h2 class="calendar__title">Свободные даты</h2>
+        <p class="calendar__subtitle">
+          Проверьте доступные даты для бронирования мобильного паба.
+        </p>
+      </div>
+
+      <div class="calendar__frame">
+        <div class="calendar__month">
+          <button class="calendar__nav" aria-label="Предыдущий месяц">‹</button>
+          <h3 class="calendar__month-title">Июль 2025</h3>
+          <button class="calendar__nav" aria-label="Следующий месяц">›</button>
+        </div>
+
+        <div class="calendar__grid">
+          <div class="calendar__day-header">Пн</div>
+          <div class="calendar__day-header">Вт</div>
+          <div class="calendar__day-header">Ср</div>
+          <div class="calendar__day-header">Чт</div>
+          <div class="calendar__day-header">Пт</div>
+          <div class="calendar__day-header">Сб</div>
+          <div class="calendar__day-header">Вс</div>
+
+          <div class="calendar__day">30</div>
+          <div class="calendar__day">1</div>
+          <div class="calendar__day calendar__day--available">2</div>
+          <div class="calendar__day calendar__day--available">3</div>
+          <div class="calendar__day calendar__day--available">4</div>
+          <div class="calendar__day calendar__day--booked">5</div>
+          <div class="calendar__day calendar__day--booked">6</div>
+
+          <div class="calendar__day calendar__day--available">7</div>
+          <div class="calendar__day calendar__day--available">8</div>
+          <div class="calendar__day calendar__day--available">9</div>
+          <div class="calendar__day calendar__day--available">10</div>
+          <div class="calendar__day calendar__day--booked">11</div>
+          <div class="calendar__day calendar__day--booked">12</div>
+          <div class="calendar__day calendar__day--booked">13</div>
+
+          <div class="calendar__day calendar__day--available">14</div>
+          <div class="calendar__day calendar__day--available">15</div>
+          <div class="calendar__day calendar__day--available">16</div>
+          <div class="calendar__day calendar__day--available">17</div>
+          <div class="calendar__day calendar__day--available">18</div>
+          <div class="calendar__day calendar__day--booked">19</div>
+          <div class="calendar__day calendar__day--booked">20</div>
+
+          <div class="calendar__day calendar__day--available">21</div>
+          <div class="calendar__day calendar__day--available">22</div>
+          <div class="calendar__day calendar__day--available">23</div>
+          <div class="calendar__day calendar__day--available">24</div>
+          <div class="calendar__day calendar__day--available">25</div>
+          <div class="calendar__day calendar__day--available">26</div>
+          <div class="calendar__day calendar__day--booked">27</div>
+
+          <div class="calendar__day calendar__day--booked">28</div>
+          <div class="calendar__day calendar__day--available">29</div>
+          <div class="calendar__day calendar__day--available">30</div>
+          <div class="calendar__day calendar__day--available">31</div>
+          <div class="calendar__day">1</div>
+          <div class="calendar__day">2</div>
+          <div class="calendar__day">3</div>
+        </div>
+
+        <div class="calendar__legend">
+          <div class="calendar__legend-item">
+            <span class="calendar__legend-dot calendar__legend-dot--available"></span>
+            <span>Свободно</span>
+          </div>
+          <div class="calendar__legend-item">
+            <span class="calendar__legend-dot calendar__legend-dot--booked"></span>
+            <span>Забронировано</span>
+          </div>
+        </div>
+
+        <div class="calendar__cta">
+          <a href="#request" class="btn btn--primary">Забронировать дату</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <script src="script.js"></script>
 </body>
 </html>
