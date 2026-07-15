@@ -560,7 +560,7 @@ h1, h2, h3,
   opacity: 0.9;
 }
 
-/* ===== ГАЛЕРЕЯ ===== */
+/* ===== ГАЛЕРЕЯ (POLAROID) ===== */
 .gallery {
   background: var(--primary);
   padding: 40px 0;
@@ -600,30 +600,23 @@ h1, h2, h3,
   line-height: 1.5;
 }
 
+/* Убираем деревянную рамку */
 .gallery__frame {
-  background: linear-gradient(135deg, #5C4033 0%, #8B6F47 50%, #5C4033 100%);
-  padding: 14px;
-  border-radius: 10px;
-  box-shadow:
-    0 0 0 6px #3D2817,
-    0 0 0 9px #2D1810,
-    0 16px 30px rgba(0, 0, 0, 0.5);
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
   position: relative;
 }
 
 .gallery__frame::before {
-  content: '';
-  position: absolute;
-  inset: 9px;
-  border: 2px solid #6B4423;
-  border-radius: 5px;
-  pointer-events: none;
+  display: none;
 }
 
 .gallery__carousel {
   position: relative;
-  overflow: hidden;
-  border-radius: 5px;
+  overflow: visible; /* Изменено для Polaroid эффекта */
+  padding: 20px 0;
 }
 
 .gallery__track {
@@ -635,13 +628,31 @@ h1, h2, h3,
 .gallery__slide {
   flex: 0 0 100%;
   min-width: 0;
+  display: flex;
+  justify-content: center;
 }
 
+/* Стиль Polaroid */
 .gallery__slide img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
+  width: 90%;
+  max-width: 320px;
+  height: auto;
   display: block;
+  background: #fff;
+  padding: 12px 12px 40px 12px; /* Больше места снизу как у Polaroid */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transform: rotate(-2deg);
+  transition: transform 0.3s ease;
+  filter: sepia(20%) contrast(1.1); /* Эффект старого фото */
+}
+
+.gallery__slide:nth-child(even) img {
+  transform: rotate(2deg);
+}
+
+.gallery__slide img:hover {
+  transform: rotate(0deg) scale(1.02);
+  z-index: 10;
 }
 
 .gallery__arrow {
@@ -671,14 +682,14 @@ h1, h2, h3,
 }
 
 .gallery__arrow--prev {
-  left: 12px;
+  left: 0;
 }
 
 .gallery__arrow--next {
-  right: 12px;
+  right: 0;
 }
 
-/* ===== КАЛЕНДАРЬ ===== */
+/* ===== КАЛЕНДАРЬ (УМЕНЬШЕННЫЙ) ===== */
 .calendar {
   background: var(--accent);
   padding: 40px 0;
@@ -686,12 +697,12 @@ h1, h2, h3,
 }
 
 .calendar__container {
-  padding: 0 16px;
+  padding: 0 12px;
 }
 
 .calendar__header {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .calendar__label {
@@ -701,24 +712,24 @@ h1, h2, h3,
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   animation: neonPulse 2.5s ease-in-out infinite;
 }
 
 .calendar__title {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 400;
   line-height: 1.15;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .calendar__subtitle {
-  font-size: 14px;
+  font-size: 13px;
   opacity: 0.9;
   line-height: 1.5;
 }
 
-/* Убираем деревянную рамку на мобильных */
+/* Убираем рамку */
 .calendar__frame {
   background: transparent;
   padding: 0;
@@ -731,23 +742,27 @@ h1, h2, h3,
   display: none;
 }
 
-/* Обёртка для календаря без рамки */
 .calendar__wrapper {
   background: #fff;
-  border-radius: 8px;
+  border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   width: 100%;
+  /* Масштабирование в 2 раза */
+  transform: scale(0.5);
+  transform-origin: top center;
+  margin-top: -50%; /* Компенсация масштаба */
+  margin-bottom: -50%;
 }
 
 .calendar__wrapper iframe {
   display: block;
   width: 100%;
-  height: 420px;
+  height: 450px;
   border: none;
 }
 
 .calendar__cta {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 24px;
 }
