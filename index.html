@@ -211,91 +211,33 @@
     </div>
   </section>
 
-  <!-- ===== КАЛЕНДАРЬ ===== -->
-  <section class="calendar" id="calendar">
-    <div class="calendar__container">
-      <div class="calendar__header">
-        <span class="calendar__label">Календарь</span>
-        <h2 class="calendar__title">Свободные даты</h2>
-        <p class="calendar__subtitle">
-          Проверьте доступные даты для бронирования мобильного паба.
-        </p>
+ <!-- ===== КАЛЕНДАРЬ ===== -->
+<section class="calendar" id="calendar">
+  <div class="calendar__container">
+    <div class="calendar__header">
+      <span class="calendar__label">Календарь</span>
+      <h2 class="calendar__title">Свободные даты</h2>
+      <p class="calendar__subtitle">
+        Проверьте доступные даты для бронирования мобильного паба.
+      </p>
+    </div>
+
+    <div class="calendar__frame">
+      <div class="calendar__wrapper">
+        <iframe 
+          src="https://calendar.yandex.ru/embed/week?&layer_ids=32412885&tz_id=Europe/Moscow&layer_names=Мои события" 
+          width="100%" 
+          height="450" 
+          frameborder="0" 
+          style="border: none; border-radius: 6px;">
+        </iframe>
       </div>
-
-      <div class="calendar__frame">
-        <div class="calendar__month">
-          <button class="calendar__nav" aria-label="Предыдущий месяц">‹</button>
-          <h3 class="calendar__month-title">Июль 2025</h3>
-          <button class="calendar__nav" aria-label="Следующий месяц">›</button>
-        </div>
-
-        <div class="calendar__grid">
-          <div class="calendar__day-header">Пн</div>
-          <div class="calendar__day-header">Вт</div>
-          <div class="calendar__day-header">Ср</div>
-          <div class="calendar__day-header">Чт</div>
-          <div class="calendar__day-header">Пт</div>
-          <div class="calendar__day-header">Сб</div>
-          <div class="calendar__day-header">Вс</div>
-
-          <div class="calendar__day">30</div>
-          <div class="calendar__day">1</div>
-          <div class="calendar__day calendar__day--available">2</div>
-          <div class="calendar__day calendar__day--available">3</div>
-          <div class="calendar__day calendar__day--available">4</div>
-          <div class="calendar__day calendar__day--booked">5</div>
-          <div class="calendar__day calendar__day--booked">6</div>
-
-          <div class="calendar__day calendar__day--available">7</div>
-          <div class="calendar__day calendar__day--available">8</div>
-          <div class="calendar__day calendar__day--available">9</div>
-          <div class="calendar__day calendar__day--available">10</div>
-          <div class="calendar__day calendar__day--booked">11</div>
-          <div class="calendar__day calendar__day--booked">12</div>
-          <div class="calendar__day calendar__day--booked">13</div>
-
-          <div class="calendar__day calendar__day--available">14</div>
-          <div class="calendar__day calendar__day--available">15</div>
-          <div class="calendar__day calendar__day--available">16</div>
-          <div class="calendar__day calendar__day--available">17</div>
-          <div class="calendar__day calendar__day--available">18</div>
-          <div class="calendar__day calendar__day--booked">19</div>
-          <div class="calendar__day calendar__day--booked">20</div>
-
-          <div class="calendar__day calendar__day--available">21</div>
-          <div class="calendar__day calendar__day--available">22</div>
-          <div class="calendar__day calendar__day--available">23</div>
-          <div class="calendar__day calendar__day--available">24</div>
-          <div class="calendar__day calendar__day--available">25</div>
-          <div class="calendar__day calendar__day--available">26</div>
-          <div class="calendar__day calendar__day--booked">27</div>
-
-          <div class="calendar__day calendar__day--booked">28</div>
-          <div class="calendar__day calendar__day--available">29</div>
-          <div class="calendar__day calendar__day--available">30</div>
-          <div class="calendar__day calendar__day--available">31</div>
-          <div class="calendar__day">1</div>
-          <div class="calendar__day">2</div>
-          <div class="calendar__day">3</div>
-        </div>
-
-        <div class="calendar__legend">
-          <div class="calendar__legend-item">
-            <span class="calendar__legend-dot calendar__legend-dot--available"></span>
-            <span>Свободно</span>
-          </div>
-          <div class="calendar__legend-item">
-            <span class="calendar__legend-dot calendar__legend-dot--booked"></span>
-            <span>Забронировано</span>
-          </div>
-        </div>
-
-        <div class="calendar__cta">
-          <a href="#request" class="btn btn--primary">Забронировать дату</a>
-        </div>
+      <div class="calendar__cta">
+        <a href="#request" class="btn btn--primary">Забронировать дату</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <script src="script.js"></script>
 </body>
