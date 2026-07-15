@@ -187,7 +187,7 @@ nav {
 
 .hero {
     margin-top: 60px;
-    min-height: 90vh;
+    min-height: 50vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -230,39 +230,6 @@ nav {
     align-items: center;
     gap: 40px;
     margin: 0 auto;
-}
-
-.hero-photo-wrapper {
-    position: relative;
-    display: inline-block;
-    max-width: 370px;
-    width: 100%;
-    animation: fadeInUp 1s ease;
-    margin: 0 auto;
-}
-
-.hero-photo {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    display: block;
-}
-
-.hero-photo-frame {
-    position: absolute;
-    top: -30px;
-    left: -30px;
-    right: -30px;
-    bottom: -30px;
-    background-image: url('image/hero-frame.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 2;
-    pointer-events: none;
 }
 
 .hero-buttons {
