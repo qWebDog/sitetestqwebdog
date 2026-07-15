@@ -8,6 +8,7 @@
   --primary: #7F180D;
   --accent: #20603D;
   --light: #F7F3EE;
+  --gold: #D4A24C;
   --text: #1a1a1a;
 }
 
@@ -28,6 +29,17 @@ h1, h2, h3,
 .services__card-title {
   font-family: 'Cormorant Infant', serif;
   letter-spacing: 0.5px;
+}
+
+/* ===== ЗОЛОТЫЕ ЭЛЕМЕНТЫ ===== */
+.nav__logo,
+.nav__menu-logo,
+.process__title,
+.process__step-title,
+.services__title,
+.services__main-title,
+.services__card-title {
+  color: var(--gold);
 }
 
 /* ===== НАВИГАЦИЯ ===== */
@@ -54,7 +66,6 @@ h1, h2, h3,
   font-family: 'Rye', cursive;
   font-size: 24px;
   font-weight: 400;
-  color: var(--light);
   text-decoration: none;
   letter-spacing: 1px;
 }
@@ -81,7 +92,7 @@ h1, h2, h3,
   bottom: -6px;
   width: 0;
   height: 2px;
-  background: var(--accent);
+  background: var(--gold);
   transition: width 0.3s ease;
 }
 
@@ -133,11 +144,13 @@ h1, h2, h3,
   text-align: center;
 }
 
+/* Заголовок hero остаётся светлым — НЕ золотой */
 .hero__title {
   font-size: 72px;
   font-weight: 400;
   line-height: 1.05;
   margin-bottom: 32px;
+  color: var(--light);
 }
 
 .hero__subtitle {
@@ -208,19 +221,17 @@ h1, h2, h3,
 
 .process__label {
   display: inline-block;
-  color: var(--light);
+  color: var(--gold);
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 16px;
-  opacity: 0.85;
 }
 
 .process__title {
   font-size: 52px;
   font-weight: 400;
-  color: var(--light);
   line-height: 1.1;
   margin-bottom: 20px;
 }
@@ -248,12 +259,12 @@ h1, h2, h3,
   height: 2px;
   background: repeating-linear-gradient(
     to right,
-    var(--light) 0,
-    var(--light) 8px,
+    var(--gold) 0,
+    var(--gold) 8px,
     transparent 8px,
     transparent 16px
   );
-  opacity: 0.3;
+  opacity: 0.4;
   z-index: 0;
 }
 
@@ -301,7 +312,7 @@ h1, h2, h3,
   transform: translateX(-50%);
   width: 36px;
   height: 36px;
-  background: var(--light);
+  background: var(--gold);
   color: var(--primary);
   border-radius: 50%;
   display: flex;
@@ -316,7 +327,6 @@ h1, h2, h3,
 .process__step-title {
   font-size: 18px;
   font-weight: 400;
-  color: var(--light);
   margin-bottom: 10px;
   line-height: 1.3;
 }
@@ -353,19 +363,17 @@ h1, h2, h3,
 
 .services__label {
   display: inline-block;
-  color: var(--light);
+  color: var(--gold);
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 16px;
-  opacity: 0.85;
 }
 
 .services__title {
   font-size: 52px;
   font-weight: 400;
-  color: var(--light);
   line-height: 1.1;
   margin-bottom: 20px;
 }
@@ -396,7 +404,7 @@ h1, h2, h3,
   right: -80px;
   width: 300px;
   height: 300px;
-  background: rgba(247, 243, 238, 0.05);
+  background: rgba(212, 162, 76, 0.08);
   border-radius: 50%;
 }
 
@@ -407,8 +415,8 @@ h1, h2, h3,
 
 .services__main-badge {
   display: inline-block;
-  background: rgba(247, 243, 238, 0.15);
-  color: var(--light);
+  background: rgba(212, 162, 76, 0.2);
+  color: var(--gold);
   padding: 6px 14px;
   border-radius: 50px;
   font-size: 12px;
@@ -416,12 +424,12 @@ h1, h2, h3,
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 20px;
+  border: 1px solid rgba(212, 162, 76, 0.3);
 }
 
 .services__main-title {
   font-size: 36px;
   font-weight: 400;
-  color: var(--light);
   line-height: 1.15;
   margin-bottom: 20px;
 }
@@ -473,13 +481,12 @@ h1, h2, h3,
 .services__card:hover {
   background: rgba(247, 243, 238, 0.1);
   transform: translateY(-6px);
-  border-color: rgba(247, 243, 238, 0.25);
+  border-color: var(--gold);
 }
 
 .services__card-title {
   font-size: 20px;
   font-weight: 400;
-  color: var(--light);
   margin-bottom: 12px;
   line-height: 1.3;
 }
