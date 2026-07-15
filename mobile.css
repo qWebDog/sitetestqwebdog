@@ -9,7 +9,6 @@
   --accent: #20603D;
   --light: #F7F3EE;
   --text: #1a1a1a;
-  /* Отступы для безопасной зоны (iPhone с челкой и нижним баром) */
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
@@ -97,7 +96,7 @@ h1, h2, h3,
   left: 0;
   width: 100%;
   height: 100vh;
-  height: 100dvh; /* динамическая высота — корректно работает в мобильных браузерах */
+  height: 100dvh;
   background: var(--primary);
   display: flex;
   flex-direction: column;
@@ -317,10 +316,11 @@ h1, h2, h3,
 .process__step {
   background: var(--primary);
   border-radius: 18px;
-  padding: 24px 20px 24px 60px;
+  padding: 24px 20px;
   position: relative;
   border: 1px solid rgba(247, 243, 238, 0.1);
   color: var(--light);
+  text-align: center;
 }
 
 .process__step--final {
@@ -345,8 +345,9 @@ h1, h2, h3,
 
 .process__step-number {
   position: absolute;
-  top: 24px;
-  left: -4px;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 32px;
   height: 32px;
   background: var(--light);
@@ -361,18 +362,13 @@ h1, h2, h3,
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
-.process__step-icon {
-  font-size: 36px;
-  margin-bottom: 12px;
-  line-height: 1;
-}
-
 .process__step-title {
   font-size: 17px;
   font-weight: 400;
   color: var(--light);
   margin-bottom: 8px;
   line-height: 1.3;
+  margin-top: 12px;
 }
 
 .process__step-text {
@@ -430,6 +426,7 @@ h1, h2, h3,
   margin-bottom: 32px;
   position: relative;
   overflow: hidden;
+  text-align: center;
 }
 
 .services__main::before {
@@ -474,6 +471,7 @@ h1, h2, h3,
   display: flex;
   flex-direction: column;
   gap: 8px;
+  align-items: center;
 }
 
 .services__main-list li {
@@ -497,12 +495,7 @@ h1, h2, h3,
   border: 1px solid rgba(247, 243, 238, 0.12);
   border-radius: 18px;
   padding: 24px 20px;
-}
-
-.services__card-icon {
-  font-size: 36px;
-  margin-bottom: 14px;
-  line-height: 1;
+  text-align: center;
 }
 
 .services__card-title {
