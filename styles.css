@@ -18,7 +18,7 @@ body {
   line-height: 1.6;
 }
 
-/* Заголовки шрифтом Rye */
+/* Заголовки шрифтом Cormorant Infant */
 h1, h2, h3,
 .hero__title,
 .process__title,
@@ -26,7 +26,7 @@ h1, h2, h3,
 .services__title,
 .services__main-title,
 .services__card-title {
-  font-family: 'Rye', cursive;
+  font-family: 'Cormorant Infant', serif;
   letter-spacing: 0.5px;
 }
 
@@ -57,9 +57,6 @@ h1, h2, h3,
   color: var(--light);
   text-decoration: none;
   letter-spacing: 1px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
 .nav__menu {
@@ -109,6 +106,10 @@ h1, h2, h3,
 }
 
 .nav__burger {
+  display: none;
+}
+
+.nav__close {
   display: none;
 }
 
@@ -185,7 +186,7 @@ h1, h2, h3,
   border-color: var(--light);
 }
 
-/* ===== КАК ЭТО РАБОТАЕТ (зелёный фон + бордовые карточки) ===== */
+/* ===== КАК ЭТО РАБОТАЕТ ===== */
 .process {
   background: var(--accent);
   padding: 120px 0;
@@ -256,7 +257,6 @@ h1, h2, h3,
   z-index: 0;
 }
 
-/* Бордовая карточка */
 .process__step {
   background: var(--primary);
   border-radius: 20px;
@@ -274,7 +274,6 @@ h1, h2, h3,
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* Финальная карточка — светлая для акцента */
 .process__step--final {
   background: var(--light);
   color: var(--text);
