@@ -194,7 +194,7 @@ h1, h2, h3,
 /* ===== HERO ===== */
 .hero {
   background: var(--primary);
-  padding: 56px 20px 72px;
+  padding: 48px 20px 64px;
   color: var(--light);
   position: relative;
 }
@@ -211,18 +211,10 @@ h1, h2, h3,
   text-align: center;
 }
 
-.hero__title {
-  font-size: 36px;
-  font-weight: 400;
-  line-height: 1.1;
-  margin-bottom: 20px;
-  color: var(--light);
-}
-
 .hero__subtitle {
   font-size: 15px;
   opacity: 0.88;
-  margin-bottom: 32px;
+  margin: 32px auto 32px;
   line-height: 1.55;
 }
 
@@ -235,11 +227,10 @@ h1, h2, h3,
 
 /* Фото в раме старинной картины */
 .hero__image {
-  margin-top: 40px;
   width: 100%;
   max-width: 400px;
+  margin: 0 auto;
   position: relative;
-  /* Внешняя золотая рамка */
   padding: 8px;
   background: linear-gradient(135deg, #B8860B 0%, #D4A24C 50%, #B8860B 100%);
   box-shadow:
@@ -291,7 +282,7 @@ h1, h2, h3,
   border: 1px solid rgba(247, 243, 238, 0.3);
 }
 
-/* ===== КАК ЭТО РАБОТАЕТ (МОБИЛЬНАЯ — ДОСКИ СВЯЗАНЫ ВЕРЁВКАМИ ПОД РАМКАМИ) ===== */
+/* ===== КАК ЭТО РАБОТАЕТ (МОБИЛЬНАЯ) ===== */
 .process {
   background: var(--accent);
   padding: 64px 0;
@@ -331,7 +322,6 @@ h1, h2, h3,
   line-height: 1.55;
 }
 
-/* Контейнер с уменьшенным расстоянием */
 .process__steps {
   display: flex;
   flex-direction: column;
@@ -340,7 +330,6 @@ h1, h2, h3,
   padding-top: 4px;
 }
 
-/* Доска с рамкой */
 .process__step {
   background:
     radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
@@ -360,12 +349,10 @@ h1, h2, h3,
   z-index: 2;
 }
 
-/* Убираем верёвку вверх у всех досок */
 .process__step::before {
   display: none;
 }
 
-/* Верёвка вниз — под рамкой, связывает с следующей доской */
 .process__step::after {
   content: '';
   position: absolute;
@@ -379,17 +366,14 @@ h1, h2, h3,
   z-index: 1;
 }
 
-/* У последней доски нет верёвки вниз */
 .process__step:last-child::after {
   display: none;
 }
 
-/* Скрываем номер шага в мобильной версии */
 .process__step-number {
   display: none;
 }
 
-/* 5 шаг — золотая доска */
 .process__step--final {
   background:
     radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.15) 0%, transparent 40%),
