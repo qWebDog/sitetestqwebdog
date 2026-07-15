@@ -12,6 +12,7 @@
   --text: #1a1a1a;
   --chalk: #E8E4DB;
   --wood: #6B4423;
+  --rope: #8B6F47;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
@@ -259,7 +260,7 @@ h1, h2, h3,
   border: 1px solid rgba(247, 243, 238, 0.3);
 }
 
-/* ===== КАК ЭТО РАБОТАЕТ (ГРАФИТОВЫЕ ДОСКИ) ===== */
+/* ===== КАК ЭТО РАБОТАЕТ (ВИСЯЩИЕ ДОСКИ) ===== */
 .process {
   background: var(--accent);
   padding: 64px 0;
@@ -302,30 +303,12 @@ h1, h2, h3,
 .process__steps {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 50px;
   position: relative;
-  padding-left: 30px;
+  padding-top: 50px;
 }
 
-/* Вертикальная пунктирная линия */
-.process__steps::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 14px;
-  width: 2px;
-  background: repeating-linear-gradient(
-    to bottom,
-    var(--gold) 0,
-    var(--gold) 6px,
-    transparent 6px,
-    transparent 12px
-  );
-  opacity: 0.5;
-}
-
-/* Графитовая доска */
+/* Висящая доска */
 .process__step {
   background:
     radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
@@ -342,6 +325,52 @@ h1, h2, h3,
     0 0 0 6px rgba(0, 0, 0, 0.4),
     inset 0 0 24px rgba(0, 0, 0, 0.4),
     0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Лёгкий наклон для реалистичности */
+.process__step:nth-child(1) { transform: rotate(-1deg); }
+.process__step:nth-child(2) { transform: rotate(0.8deg); }
+.process__step:nth-child(3) { transform: rotate(-0.6deg); }
+.process__step:nth-child(4) { transform: rotate(1deg); }
+.process__step:nth-child(5) { transform: rotate(-0.8deg); }
+
+/* Верёвки */
+.process__step::before,
+.process__step::after {
+  content: '';
+  position: absolute;
+  top: -50px;
+  width: 2px;
+  height: 50px;
+  background: var(--rope);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.process__step::before {
+  left: 25%;
+  transform: rotate(-10deg);
+  transform-origin: bottom;
+}
+
+.process__step::after {
+  right: 25%;
+  transform: rotate(10deg);
+  transform-origin: bottom;
+}
+
+/* Точка крепления верёвки */
+.process__step-number {
+  position: absolute;
+  top: -58px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background: var(--wood);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 2px var(--rope),
+    0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 /* 5 шаг — золотая доска */
@@ -369,31 +398,9 @@ h1, h2, h3,
 
 .process__step--final .process__step-number {
   background: var(--primary);
-  color: var(--gold);
   box-shadow:
     0 0 0 2px var(--gold),
-    0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* Номер шага — меловой кружок */
-.process__step-number {
-  position: absolute;
-  top: -16px;
-  left: -30px;
-  width: 32px;
-  height: 32px;
-  background: var(--gold);
-  color: var(--primary);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  font-weight: 800;
-  box-shadow:
-    0 0 0 2px var(--chalk),
-    0 4px 10px rgba(0, 0, 0, 0.3);
+    0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .process__step-title {
