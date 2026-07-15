@@ -11,8 +11,8 @@
   --gold: #D4A24C;
   --text: #1a1a1a;
   --chalk: #E8E4DB;
-  --graphite: #2d2d2d;
   --wood: #6B4423;
+  --rope: #8B6F47;
 }
 
 body {
@@ -201,7 +201,7 @@ h1, h2, h3,
   border-color: var(--light);
 }
 
-/* ===== КАК ЭТО РАБОТАЕТ (ГРАФИТОВЫЕ ДОСКИ) ===== */
+/* ===== КАК ЭТО РАБОТАЕТ (ВИСЯЩИЕ ДОСКИ) ===== */
 .process {
   background: var(--accent);
   padding: 120px 0;
@@ -250,30 +250,11 @@ h1, h2, h3,
   grid-template-columns: repeat(5, 1fr);
   gap: 28px;
   position: relative;
+  padding-top: 60px;
 }
 
-/* Пунктирная линия между досками */
-.process__steps::before {
-  content: '';
-  position: absolute;
-  top: 60px;
-  left: 10%;
-  right: 10%;
-  height: 2px;
-  background: repeating-linear-gradient(
-    to right,
-    var(--gold) 0,
-    var(--gold) 8px,
-    transparent 8px,
-    transparent 16px
-  );
-  opacity: 0.5;
-  z-index: 0;
-}
-
-/* Графитовая доска */
+/* Висящая доска */
 .process__step {
-  /* Многослойный фон: текстура мела + графит */
   background:
     radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
     radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
@@ -286,7 +267,6 @@ h1, h2, h3,
   z-index: 1;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   color: var(--chalk);
-  /* Деревянная рамка через box-shadow */
   box-shadow:
     0 0 0 5px var(--wood),
     0 0 0 7px rgba(0, 0, 0, 0.4),
@@ -294,8 +274,54 @@ h1, h2, h3,
     0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
+/* Лёгкий наклон для реалистичности */
+.process__step:nth-child(1) { transform: rotate(-1.5deg); }
+.process__step:nth-child(2) { transform: rotate(0.8deg); }
+.process__step:nth-child(3) { transform: rotate(-0.5deg); }
+.process__step:nth-child(4) { transform: rotate(1.2deg); }
+.process__step:nth-child(5) { transform: rotate(-0.8deg); }
+
+/* Верёвки */
+.process__step::before,
+.process__step::after {
+  content: '';
+  position: absolute;
+  top: -60px;
+  width: 2px;
+  height: 60px;
+  background: var(--rope);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.process__step::before {
+  left: 20%;
+  transform: rotate(-8deg);
+  transform-origin: bottom;
+}
+
+.process__step::after {
+  right: 20%;
+  transform: rotate(8deg);
+  transform-origin: bottom;
+}
+
+/* Точка крепления верёвки */
+.process__step-number {
+  position: absolute;
+  top: -68px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background: var(--wood);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 2px var(--rope),
+    0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
 .process__step:hover {
-  transform: translateY(-8px);
+  transform: translateY(-8px) rotate(0deg);
   box-shadow:
     0 0 0 5px var(--wood),
     0 0 0 7px rgba(0, 0, 0, 0.4),
@@ -304,7 +330,7 @@ h1, h2, h3,
     0 0 20px rgba(212, 162, 76, 0.15);
 }
 
-/* 5 шаг — золотая доска (инверсия) */
+/* 5 шаг — золотая доска */
 .process__step--final {
   background:
     radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.15) 0%, transparent 40%),
@@ -319,7 +345,7 @@ h1, h2, h3,
 }
 
 .process__step--final:hover {
-  transform: translateY(-8px);
+  transform: translateY(-8px) rotate(0deg);
   box-shadow:
     0 0 0 5px var(--wood),
     0 0 0 7px rgba(0, 0, 0, 0.4),
@@ -339,32 +365,9 @@ h1, h2, h3,
 
 .process__step--final .process__step-number {
   background: var(--primary);
-  color: var(--gold);
   box-shadow:
     0 0 0 2px var(--gold),
-    0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* Номер шага — меловой кружок */
-.process__step-number {
-  position: absolute;
-  top: -18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 36px;
-  height: 36px;
-  background: var(--gold);
-  color: var(--primary);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  font-weight: 800;
-  box-shadow:
-    0 0 0 2px var(--chalk),
-    0 4px 12px rgba(0, 0, 0, 0.3);
+    0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .process__step-title {
