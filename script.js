@@ -1,69 +1,6 @@
-// Mobile menu toggle
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const navMenu = document.getElementById('navMenu');
-const navMenuClose = document.getElementById('navMenuClose');
-const navOverlay = document.getElementById('navOverlay');
-const navLinks = document.querySelectorAll('.nav-link');
-const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-
-// Open menu
-mobileMenuBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    navMenu.classList.add('active');
-    navOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-});
-
-// Close menu
-function closeMenu() {
-    navMenu.classList.remove('active');
-    navOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-    document.querySelectorAll('.dropdown.active').forEach(d => d.classList.remove('active'));
-}
-
-navMenuClose.addEventListener('click', closeMenu);
-navOverlay.addEventListener('click', closeMenu);
-
-// Закрытие при клике в любое место, кроме меню и dropdown-категорий
-document.addEventListener('click', (e) => {
-    if (navMenu.classList.contains('active')) {
-        const isClickInsideMenu = navMenu.contains(e.target);
-        const isClickOnDropdownToggle = e.target.closest('.dropdown-toggle');
-
-        if (!isClickInsideMenu && !isClickOnDropdownToggle) {
-            closeMenu();
-        }
-    }
-});
-
-// Закрытие при клике на обычную ссылку (не категорию)
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        closeMenu();
-    });
-});
-
-// Dropdown toggle на мобильных - не закрывает меню
-dropdownToggles.forEach(toggle => {
-    toggle.addEventListener('click', (e) => {
-        if (window.innerWidth <= 968) {
-            e.preventDefault();
-            e.stopPropagation();
-            const dropdown = toggle.parentElement;
-            document.querySelectorAll('.dropdown.active').forEach(d => {
-                if (d !== dropdown) d.classList.remove('active');
-            });
-            dropdown.classList.toggle('active');
-        }
-    });
-});
-
 // Smooth scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        if (this.classList.contains('dropdown-toggle')) return;
-
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
