@@ -10,6 +10,9 @@
   --light: #F7F3EE;
   --gold: #D4A24C;
   --text: #1a1a1a;
+  --chalk: #E8E4DB;
+  --graphite: #2d2d2d;
+  --wood: #6B4423;
 }
 
 body {
@@ -144,7 +147,6 @@ h1, h2, h3,
   text-align: center;
 }
 
-/* Заголовок hero остаётся светлым — НЕ золотой */
 .hero__title {
   font-size: 72px;
   font-weight: 400;
@@ -199,7 +201,7 @@ h1, h2, h3,
   border-color: var(--light);
 }
 
-/* ===== КАК ЭТО РАБОТАЕТ ===== */
+/* ===== КАК ЭТО РАБОТАЕТ (ГРАФИТОВЫЕ ДОСКИ) ===== */
 .process {
   background: var(--accent);
   padding: 120px 0;
@@ -246,14 +248,15 @@ h1, h2, h3,
 .process__steps {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 24px;
+  gap: 28px;
   position: relative;
 }
 
+/* Пунктирная линия между досками */
 .process__steps::before {
   content: '';
   position: absolute;
-  top: 56px;
+  top: 60px;
   left: 10%;
   right: 10%;
   height: 2px;
@@ -264,32 +267,65 @@ h1, h2, h3,
     transparent 8px,
     transparent 16px
   );
-  opacity: 0.4;
+  opacity: 0.5;
   z-index: 0;
 }
 
+/* Графитовая доска */
 .process__step {
-  background: var(--primary);
-  border-radius: 20px;
-  padding: 32px 24px 28px;
+  /* Многослойный фон: текстура мела + графит */
+  background:
+    radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 60%),
+    linear-gradient(135deg, #2a2a2a 0%, #353535 50%, #2a2a2a 100%);
+  border-radius: 6px;
+  padding: 36px 22px 28px;
   text-align: center;
   position: relative;
   z-index: 1;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid rgba(247, 243, 238, 0.1);
-  color: var(--light);
+  color: var(--chalk);
+  /* Деревянная рамка через box-shadow */
+  box-shadow:
+    0 0 0 5px var(--wood),
+    0 0 0 7px rgba(0, 0, 0, 0.4),
+    inset 0 0 30px rgba(0, 0, 0, 0.4),
+    0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 .process__step:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    0 0 0 5px var(--wood),
+    0 0 0 7px rgba(0, 0, 0, 0.4),
+    inset 0 0 30px rgba(0, 0, 0, 0.4),
+    0 16px 32px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(212, 162, 76, 0.15);
 }
 
-/* 5 шаг — золотой */
+/* 5 шаг — золотая доска (инверсия) */
 .process__step--final {
-  background: var(--gold);
+  background:
+    radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+    linear-gradient(135deg, #C99442 0%, #D4A24C 50%, #C99442 100%);
   color: var(--primary);
-  border: none;
+  box-shadow:
+    0 0 0 5px var(--wood),
+    0 0 0 7px rgba(0, 0, 0, 0.4),
+    inset 0 0 30px rgba(0, 0, 0, 0.15),
+    0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.process__step--final:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 0 0 5px var(--wood),
+    0 0 0 7px rgba(0, 0, 0, 0.4),
+    inset 0 0 30px rgba(0, 0, 0, 0.15),
+    0 16px 32px rgba(0, 0, 0, 0.4),
+    0 0 24px rgba(212, 162, 76, 0.4);
 }
 
 .process__step--final .process__step-title {
@@ -304,8 +340,12 @@ h1, h2, h3,
 .process__step--final .process__step-number {
   background: var(--primary);
   color: var(--gold);
+  box-shadow:
+    0 0 0 2px var(--gold),
+    0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
+/* Номер шага — меловой кружок */
 .process__step-number {
   position: absolute;
   top: -18px;
@@ -322,22 +362,25 @@ h1, h2, h3,
   font-family: 'Inter', sans-serif;
   font-size: 13px;
   font-weight: 800;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 0 0 2px var(--chalk),
+    0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Увеличенные и жирные заголовки карточек */
 .process__step-title {
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 10px;
+  color: var(--gold);
+  margin-bottom: 12px;
   line-height: 1.3;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .process__step-text {
   font-size: 14px;
   line-height: 1.55;
-  color: var(--light);
-  opacity: 0.85;
+  color: var(--chalk);
+  opacity: 0.9;
 }
 
 /* ===== УСЛУГИ ===== */
@@ -486,7 +529,6 @@ h1, h2, h3,
   border-color: var(--gold);
 }
 
-/* Увеличенные и жирные заголовки карточек */
 .services__card-title {
   font-size: 22px;
   font-weight: 600;
