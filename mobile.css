@@ -260,7 +260,7 @@ h1, h2, h3,
   border: 1px solid rgba(247, 243, 238, 0.3);
 }
 
-/* ===== КАК ЭТО РАБОТАЕТ (МОБИЛЬНАЯ — РОВНЫЕ ДОСКИ НА ВЕРЁВКАХ) ===== */
+/* ===== КАК ЭТО РАБОТАЕТ (МОБИЛЬНАЯ — ДОСКИ СВЯЗАНЫ ВЕРЁВКАМИ) ===== */
 .process {
   background: var(--accent);
   padding: 64px 0;
@@ -300,15 +300,16 @@ h1, h2, h3,
   line-height: 1.55;
 }
 
+/* Контейнер с уменьшенным расстоянием */
 .process__steps {
   display: flex;
   flex-direction: column;
-  gap: 70px;
+  gap: 40px;
   position: relative;
-  padding-top: 50px;
+  padding-top: 54px;
 }
 
-/* Висящая доска — ровная, без наклона */
+/* Доска с рамкой */
 .process__step {
   background:
     radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
@@ -320,33 +321,43 @@ h1, h2, h3,
   position: relative;
   color: var(--chalk);
   text-align: center;
-  /* Рамка через border, тень через box-shadow */
   border: 4px solid var(--wood);
   box-shadow:
     0 0 0 2px rgba(0, 0, 0, 0.4),
     inset 0 0 24px rgba(0, 0, 0, 0.4),
     0 6px 16px rgba(0, 0, 0, 0.3);
+  z-index: 1;
 }
 
-/* Верёвки — вертикальные, над рамкой */
-.process__step::before,
+/* Верёвка вверх — вылезает из-под рамки */
+.process__step::before {
+  content: '';
+  position: absolute;
+  top: -54px;
+  left: 25%;
+  width: 2px;
+  height: 58px;
+  background: var(--rope);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+/* Верёвка вниз — связывает с следующей доской */
 .process__step::after {
   content: '';
   position: absolute;
-  top: -50px;
+  bottom: -48px;
+  right: 25%;
   width: 2px;
-  height: 50px;
+  height: 52px;
   background: var(--rope);
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-  z-index: 2;
+  z-index: 0;
 }
 
-.process__step::before {
-  left: 25%;
-}
-
-.process__step::after {
-  right: 25%;
+/* У последней доски нет верёвки вниз */
+.process__step:last-child::after {
+  display: none;
 }
 
 /* Скрываем номер шага в мобильной версии */
