@@ -201,7 +201,7 @@ h1, h2, h3,
   border-color: var(--light);
 }
 
-/* ===== КАК ЭТО РАБОТАЕТ (ВИСЯЩИЕ ДОСКИ) ===== */
+/* ===== КАК ЭТО РАБОТАЕТ (ДЕСКТОП — ГРАФИТОВЫЕ ДОСКИ БЕЗ ВЕРЁВОК) ===== */
 .process {
   background: var(--accent);
   padding: 120px 0;
@@ -248,12 +248,31 @@ h1, h2, h3,
 .process__steps {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 28px;
+  gap: 24px;
   position: relative;
-  padding-top: 60px;
+  padding-top: 24px;
 }
 
-/* Висящая доска */
+/* Пунктирная линия между досками */
+.process__steps::before {
+  content: '';
+  position: absolute;
+  top: 56px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--gold) 0,
+    var(--gold) 8px,
+    transparent 8px,
+    transparent 16px
+  );
+  opacity: 0.5;
+  z-index: 0;
+}
+
+/* Графитовая доска — ровная, без верёвок */
 .process__step {
   background:
     radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
@@ -274,54 +293,8 @@ h1, h2, h3,
     0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Лёгкий наклон для реалистичности */
-.process__step:nth-child(1) { transform: rotate(-1.5deg); }
-.process__step:nth-child(2) { transform: rotate(0.8deg); }
-.process__step:nth-child(3) { transform: rotate(-0.5deg); }
-.process__step:nth-child(4) { transform: rotate(1.2deg); }
-.process__step:nth-child(5) { transform: rotate(-0.8deg); }
-
-/* Верёвки */
-.process__step::before,
-.process__step::after {
-  content: '';
-  position: absolute;
-  top: -60px;
-  width: 2px;
-  height: 60px;
-  background: var(--rope);
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-}
-
-.process__step::before {
-  left: 20%;
-  transform: rotate(-8deg);
-  transform-origin: bottom;
-}
-
-.process__step::after {
-  right: 20%;
-  transform: rotate(8deg);
-  transform-origin: bottom;
-}
-
-/* Точка крепления верёвки */
-.process__step-number {
-  position: absolute;
-  top: -68px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 12px;
-  height: 12px;
-  background: var(--wood);
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 2px var(--rope),
-    0 2px 4px rgba(0, 0, 0, 0.4);
-}
-
 .process__step:hover {
-  transform: translateY(-8px) rotate(0deg);
+  transform: translateY(-8px);
   box-shadow:
     0 0 0 5px var(--wood),
     0 0 0 7px rgba(0, 0, 0, 0.4),
@@ -345,7 +318,7 @@ h1, h2, h3,
 }
 
 .process__step--final:hover {
-  transform: translateY(-8px) rotate(0deg);
+  transform: translateY(-8px);
   box-shadow:
     0 0 0 5px var(--wood),
     0 0 0 7px rgba(0, 0, 0, 0.4),
@@ -365,9 +338,32 @@ h1, h2, h3,
 
 .process__step--final .process__step-number {
   background: var(--primary);
+  color: var(--gold);
   box-shadow:
     0 0 0 2px var(--gold),
-    0 2px 4px rgba(0, 0, 0, 0.4);
+    0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Номер шага — золотой кружок с цифрой */
+.process__step-number {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 36px;
+  background: var(--gold);
+  color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow:
+    0 0 0 2px var(--chalk),
+    0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .process__step-title {
