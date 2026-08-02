@@ -573,7 +573,7 @@ h1, h2, h3,
   opacity: 0.9;
 }
 
-/* ===== ГАЛЕРЕЯ (POLAROID) ===== */
+/* ===== ГАЛЕРЕЯ (СТОПКА POLAROID) ===== */
 .gallery {
   background: var(--primary);
   padding: 60px 0;
@@ -600,32 +600,38 @@ h1, h2, h3,
 
 .gallery__carousel {
   position: relative;
-  overflow: hidden;
-  padding: 30px 0;
+  width: 100%;
+  max-width: 400px;
+  height: 480px;
+  margin: 0 auto;
+  perspective: 1000px;
 }
 
 .gallery__track {
-  display: flex;
-  gap: 0;
-  transition: transform 0.4s ease;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .gallery__slide {
-  flex: 0 0 100%;
-  min-width: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 20px;
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease;
+  transform-origin: center bottom;
 }
 
 .gallery__polaroid {
   background: #fff;
   padding: 16px 16px 50px 16px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
   width: 100%;
-  max-width: 450px;
+  max-width: 340px;
   position: relative;
 }
 
@@ -643,16 +649,47 @@ h1, h2, h3,
   right: 0;
   text-align: center;
   font-family: 'Caveat', cursive;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 500;
   color: #2a2a2a;
   margin: 0;
   padding: 0 16px;
-  transform: rotate(-2deg);
 }
 
-.gallery__slide img:hover {
-  transform: scale(1.03);
+.gallery__slide.active {
+  z-index: 10;
+  transform: translate(0, 0) rotate(0deg);
+  opacity: 1;
+}
+
+.gallery__slide.next {
+  z-index: 9;
+  transform: translate(15px, 15px) rotate(4deg);
+  opacity: 1;
+}
+
+.gallery__slide.next-2 {
+  z-index: 8;
+  transform: translate(30px, 30px) rotate(-3deg);
+  opacity: 1;
+}
+
+.gallery__slide.hidden {
+  z-index: 7;
+  transform: translate(45px, 45px) rotate(2deg);
+  opacity: 1;
+}
+
+.gallery__slide.fly-out-right {
+  z-index: 20;
+  transform: translate(150%, 80px) rotate(20deg);
+  opacity: 0;
+}
+
+.gallery__slide.fly-out-left {
+  z-index: 20;
+  transform: translate(-150%, 80px) rotate(-20deg);
+  opacity: 0;
 }
 
 .gallery__arrow {
@@ -672,7 +709,7 @@ h1, h2, h3,
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
-  z-index: 10;
+  z-index: 30;
 }
 
 .gallery__arrow:hover {
@@ -682,11 +719,11 @@ h1, h2, h3,
 }
 
 .gallery__arrow--prev {
-  left: 20px;
+  left: -20px;
 }
 
 .gallery__arrow--next {
-  right: 20px;
+  right: -20px;
 }
 
 /* ===== КАЛЕНДАРЬ (ДЕСКТОП - КОМПАКТНЫЙ) ===== */
@@ -697,7 +734,7 @@ h1, h2, h3,
 }
 
 .calendar__container {
-  max-width: 800px; /* Уменьшена ширина для лучшего вмещения */
+  max-width: 800px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -720,7 +757,7 @@ h1, h2, h3,
 }
 
 .calendar__title {
-  font-size: 36px; /* Чуть меньше заголовок */
+  font-size: 36px;
   font-weight: 400;
   line-height: 1.1;
   margin-bottom: 12px;
@@ -735,7 +772,7 @@ h1, h2, h3,
 .calendar__frame {
   background: #fff;
   border-radius: 12px;
-  padding: 16px; /* Уменьшены внутренние отступы */
+  padding: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
@@ -802,14 +839,14 @@ h1, h2, h3,
 }
 
 .fc .fc-toolbar-title {
-  font-size: 18px !important; /* Компактный заголовок месяца */
+  font-size: 18px !important;
   color: var(--text);
   font-weight: 600;
 }
 
 .fc .fc-button-primary {
   border-radius: 6px;
-  padding: 4px 10px !important; /* Компактные кнопки */
+  padding: 4px 10px !important;
   font-weight: 500;
   text-transform: none;
   font-size: 12px !important;
