@@ -560,7 +560,7 @@ h1, h2, h3,
   opacity: 0.9;
 }
 
-/* ===== ГАЛЕРЕЯ (POLAROID) ===== */
+/* ===== ГАЛЕРЕЯ (СТОПКА POLAROID - МОБИЛЬНАЯ) ===== */
 .gallery {
   background: var(--primary);
   padding: 40px 0;
@@ -585,32 +585,38 @@ h1, h2, h3,
 
 .gallery__carousel {
   position: relative;
-  overflow: hidden;
-  padding: 20px 0;
+  width: 100%;
+  max-width: 320px;
+  height: 420px;
+  margin: 0 auto;
+  perspective: 1000px;
 }
 
 .gallery__track {
-  display: flex;
-  gap: 0;
-  transition: transform 0.4s ease;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .gallery__slide {
-  flex: 0 0 100%;
-  min-width: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 10px;
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease;
+  transform-origin: center bottom;
 }
 
 .gallery__polaroid {
   background: #fff;
-  padding: 12px 12px 40px 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease;
+  padding: 12px 12px 45px 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
   width: 100%;
-  max-width: 320px;
+  max-width: 280px;
   position: relative;
 }
 
@@ -633,11 +639,42 @@ h1, h2, h3,
   color: #2a2a2a;
   margin: 0;
   padding: 0 12px;
-  transform: rotate(-2deg);
 }
 
-.gallery__slide img:hover {
-  transform: scale(1.02);
+.gallery__slide.active {
+  z-index: 10;
+  transform: translate(0, 0) rotate(0deg);
+  opacity: 1;
+}
+
+.gallery__slide.next {
+  z-index: 9;
+  transform: translate(12px, 12px) rotate(4deg);
+  opacity: 1;
+}
+
+.gallery__slide.next-2 {
+  z-index: 8;
+  transform: translate(24px, 24px) rotate(-3deg);
+  opacity: 1;
+}
+
+.gallery__slide.hidden {
+  z-index: 7;
+  transform: translate(36px, 36px) rotate(2deg);
+  opacity: 1;
+}
+
+.gallery__slide.fly-out-right {
+  z-index: 20;
+  transform: translate(120%, 60px) rotate(20deg);
+  opacity: 0;
+}
+
+.gallery__slide.fly-out-left {
+  z-index: 20;
+  transform: translate(-120%, 60px) rotate(-20deg);
+  opacity: 0;
 }
 
 .gallery__arrow {
