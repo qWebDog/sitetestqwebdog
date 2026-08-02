@@ -236,109 +236,154 @@ document.addEventListener('DOMContentLoaded', () => {
     startAutoPlay();
   }
 
-  // ===== КАЛЕНДАРЬ FULLCALENDAR =====
-  function initCalendar() {
-    const calendarEl = document.getElementById('customCalendar');
-    if (!calendarEl || calendarEl.dataset.initialized === 'true') return;
+    // ===== ГАЛЕРЕЯ: ЭФФЕКТ СТОПКИ POLAROID (ПЛАВНЫЙ) =====
+  const galleryTrack = document.getElementById('galleryTrack');
+  const galleryCarousel = document.getElementById('galleryCarousel');
+  
+  if (galleryTrack && galleryCarousel) {
+    const slides = galleryTrack.querySelectorAll('.gallery__slide');
+    const prevBtn = galleryCarousel.querySelector('.gallery__arrow--prev');
+    const nextBtn = galleryCarousel.querySelector('.gallery__arrow--next');
+    
+    let currentIndex = 0;
+    let isAnimating = false;
+    let autoPlayInterval;
+    const AUTO_PLAY_DELAY = 3000;
+    const ANIMATION_DURATION = 600;
 
-    const isMobile = isMobileDevice();
-
-    const calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth',
-      locale: 'ru',
-      headerToolbar: {
-        left: 'prev,next',
-        center: 'title',
-        right: isMobile ? '' : 'today dayGridMonth,timeGridWeek'
-      },
-      buttonText: {
-        today: 'Сегодня',
-        month: 'Месяц',
-        week: 'Неделя'
-      },
-      firstDay: 1,
-      height: isMobile ? 'auto' : 450,
-      events: function(fetchInfo, successCallback, failureCallback) {
-        if (!ICAL_URL) {
-          const today = new Date();
-          const demoEvents = [];
-          for (let i = 0; i < 8; i++) {
-            const date = new Date(today);
-            date.setDate(today.getDate() + Math.floor(Math.random() * 30));
-            demoEvents.push({
-              title: 'Занято',
-              start: date,
-              allDay: true,
-              backgroundColor: '#7F180D',
-              borderColor: '#7F180D',
-              textColor: '#F7F3EE'
-            });
-          }
-          successCallback(demoEvents);
-          return;
+    function updateStack() {
+      slides.forEach((slide, index) => {
+        slide.style.transition = '';
+        slide.classList.remove('active', 'next', 'next-2', 'hidden', 
+                              'fly-out-right', 'fly-out-left', 
+                              'fade-in-right', 'fade-in-left');
+        
+        let diff = (index - currentIndex + slides.length) % slides.length;
+        
+        if (diff === 0) {
+          slide.classList.add('active');
+        } else if (diff === 1) {
+          slide.classList.add('next');
+        } else if (diff === 2) {
+          slide.classList.add('next-2');
+        } else {
+          slide.classList.add('hidden');
         }
+      });
+    }
 
-        fetch(ICAL_URL)
-          .then(response => response.text())
-          .then(icsData => {
-            const jcalData = ICAL.parse(icsData);
-            const vcalendar = new ICAL.Component(jcalData);
-            const vevents = vcalendar.getAllSubcomponents('vevent');
+    function nextSlide() {
+      if (isAnimating) return;
+      isAnimating = true;
+      
+      const currentSlide = slides[currentIndex];
+      const nextIndex = (currentIndex + 1) % slides.length;
+      const nextSlideEl = slides[nextIndex];
+      
+      // 1. Текущее фото улетает вправо
+      currentSlide.classList.remove('active', 'next', 'next-2', 'hidden');
+      currentSlide.classList.add('fly-out-right');
+      
+      // 2. Следующее фото появляется слева с плавным fade-in
+      nextSlideEl.classList.remove('active', 'next', 'next-2', 'hidden', 'fly-out-right');
+      nextSlideEl.classList.add('fade-in-left');
+      
+      // Форсируем перерисовку
+      void nextSlideEl.offsetWidth;
+      
+      // 3. Плавно перемещаем в центр
+      nextSlideEl.classList.remove('fade-in-left');
+      nextSlideEl.classList.add('active');
+      
+      currentIndex = nextIndex;
+      
+      setTimeout(() => {
+        updateStack();
+        isAnimating = false;
+      }, ANIMATION_DURATION);
+    }
 
-            const events = vevents.map(vevent => {
-              const event = new ICAL.Event(vevent);
-              return {
-                title: event.summary || 'Занято',
-                start: event.startDate.toJSDate(),
-                end: event.endDate ? event.endDate.toJSDate() : event.startDate.toJSDate(),
-                allDay: event.startDate.isDate,
-                backgroundColor: '#7F180D',
-                borderColor: '#7F180D',
-                textColor: '#F7F3EE'
-              };
-            });
+    function prevSlide() {
+      if (isAnimating) return;
+      isAnimating = true;
+      
+      const currentSlide = slides[currentIndex];
+      const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+      const prevSlideEl = slides[prevIndex];
+      
+      // 1. Текущее фото улетает влево
+      currentSlide.classList.remove('active', 'next', 'next-2', 'hidden');
+      currentSlide.classList.add('fly-out-left');
+      
+      // 2. Предыдущее фото появляется справа с плавным fade-in
+      prevSlideEl.classList.remove('active', 'next', 'next-2', 'hidden', 'fly-out-left');
+      prevSlideEl.classList.add('fade-in-right');
+      
+      // Форсируем перерисовку
+      void prevSlideEl.offsetWidth;
+      
+      // 3. Плавно перемещаем в центр
+      prevSlideEl.classList.remove('fade-in-right');
+      prevSlideEl.classList.add('active');
+      
+      currentIndex = prevIndex;
+      
+      setTimeout(() => {
+        updateStack();
+        isAnimating = false;
+      }, ANIMATION_DURATION);
+    }
 
-            successCallback(events);
-          })
-          .catch(error => {
-            console.error('Ошибка загрузки календаря:', error);
-            failureCallback(error);
-          });
-      },
-      eventClick: function(info) {
-        if (!isMobile) {
-          alert('Дата занята: ' + info.event.title);
-        }
+    function startAutoPlay() {
+      stopAutoPlay();
+      autoPlayInterval = setInterval(nextSlide, AUTO_PLAY_DELAY);
+    }
+
+    function stopAutoPlay() {
+      if (autoPlayInterval) {
+        clearInterval(autoPlayInterval);
       }
-    });
+    }
 
-    calendar.render();
-    calendarEl.dataset.initialized = 'true';
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        startAutoPlay();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        startAutoPlay();
+      });
+    }
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    galleryCarousel.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAutoPlay();
+    }, { passive: true });
+
+    galleryCarousel.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+      startAutoPlay();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) < 50) return;
+
+      if (diff > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    }
+
+    updateStack();
+    startAutoPlay();
   }
-
-  initCalendar();
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && menu && menu.classList.contains('active')) {
-      closeMenu();
-    }
-  });
-});
-
-let lastIsMobile = isMobileDevice();
-window.addEventListener('resize', () => {
-  const currentIsMobile = isMobileDevice();
-  if (currentIsMobile !== lastIsMobile) {
-    lastIsMobile = currentIsMobile;
-    loadStyles();
-    const menu = document.getElementById('menu');
-    const burger = document.getElementById('burger');
-    if (menu) {
-      menu.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-    if (burger) {
-      burger.classList.remove('active');
-    }
-  }
-});
