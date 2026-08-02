@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 
-/* Плавный скролл */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 70px;
@@ -437,7 +436,7 @@ h1, h2, h3,
   opacity: 0.9;
 }
 
-/* ===== КАК ЭТО РАБОТАЕТ (ГРИФЕЛЬНЫЕ ТАБЛИЧКИ — МОБИЛЬНАЯ) ===== */
+/* ===== КАК ЭТО РАБОТАЕТ ===== */
 .process {
   background: var(--accent);
   padding: 32px 0;
@@ -493,7 +492,6 @@ h1, h2, h3,
   z-index: 0;
 }
 
-/* Грифельная табличка */
 .process__step {
   background:
     radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
@@ -518,12 +516,10 @@ h1, h2, h3,
   display: none;
 }
 
-/* Скрываем номера шагов в мобильной версии */
 .process__step-number {
   display: none;
 }
 
-/* 5-й шаг идентичен остальным */
 .process__step--final {
   background:
     radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
@@ -564,7 +560,7 @@ h1, h2, h3,
   opacity: 0.9;
 }
 
-/* ===== ГАЛЕРЕЯ (POLAROID — БЕЗ СТРЕЛОК) ===== */
+/* ===== ГАЛЕРЕЯ (POLAROID) ===== */
 .gallery {
   background: var(--primary);
   padding: 40px 0;
@@ -608,7 +604,6 @@ h1, h2, h3,
   padding: 0 10px;
 }
 
-/* Polaroid контейнер */
 .gallery__polaroid {
   background: #fff;
   padding: 12px 12px 40px 12px;
@@ -626,7 +621,6 @@ h1, h2, h3,
   filter: sepia(15%) contrast(1.05);
 }
 
-/* Рукописная подпись */
 .gallery__caption {
   position: absolute;
   bottom: 12px;
@@ -646,12 +640,11 @@ h1, h2, h3,
   transform: scale(1.02);
 }
 
-/* Скрываем стрелки на мобильном */
 .gallery__arrow {
   display: none;
 }
 
-/* ===== КАЛЕНДАРЬ (МОБИЛЬНАЯ ВЕРСИЯ) ===== */
+/* ===== КАЛЕНДАРЬ (МОБИЛЬНАЯ) ===== */
 .calendar {
   background: var(--accent);
   padding: 40px 0;
@@ -691,106 +684,126 @@ h1, h2, h3,
   line-height: 1.5;
 }
 
-/* Скрываем десктопный календарь на мобильных */
-.calendar__frame--desktop {
-  display: none;
+.calendar__frame {
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Кнопка открытия календаря */
-.calendar__mobile-trigger {
-  text-align: center;
-  padding: 20px 0;
-}
-
-/* ===== МОДАЛКА КАЛЕНДАРЯ ===== */
-.calendar-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
+.calendar__legend {
   display: flex;
-  align-items: flex-end;
   justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  gap: 16px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #e0e0e0;
 }
 
-.calendar-modal.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.calendar-modal .modal__overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(6px);
-}
-
-.calendar-modal .modal__content {
-  position: relative;
-  background: var(--primary);
-  width: 100%;
-  max-height: 92vh;
-  border-radius: 24px 24px 0 0;
-  padding: calc(32px + var(--safe-top)) 20px calc(32px + var(--safe-bottom));
-  overflow-y: auto;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-}
-
-.calendar-modal.active .modal__content {
-  transform: translateY(0);
-}
-
-.calendar-modal .modal__close {
-  position: absolute;
-  top: calc(16px + var(--safe-top));
-  right: 16px;
-  background: rgba(247, 243, 238, 0.1);
-  border: none;
-  color: var(--gold);
-  font-size: 24px;
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
+.calendar__legend-item {
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  z-index: 10;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text);
 }
 
-.calendar-modal .modal__header {
-  text-align: center;
-  margin-bottom: 20px;
-  padding-right: 44px;
+.calendar__legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
 }
 
-.calendar-modal .modal__title {
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--gold);
-  font-family: 'Cormorant Infant', serif;
+.calendar__legend-dot--booked {
+  background: var(--primary);
 }
 
-.calendar-modal .calendar__wrapper {
+.calendar__legend-dot--available {
   background: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  width: 100%;
+  border: 2px solid #e0e0e0;
 }
 
-.calendar-modal .calendar__wrapper iframe {
-  display: block;
-  width: 100%;
-  height: 450px;
-}
-
-.calendar-modal .modal__cta {
+.calendar__cta {
   text-align: center;
   margin-top: 20px;
+}
+
+/* ===== FULLCALENDAR (МОБИЛЬНАЯ) ===== */
+#customCalendar {
+  font-family: 'Inter', sans-serif;
+}
+
+.fc {
+  --fc-border-color: #e0e0e0;
+  --fc-page-bg-color: #fff;
+  --fc-neutral-bg-color: #f5f5f5;
+  --fc-today-bg-color: rgba(212, 162, 76, 0.1);
+  --fc-event-bg-color: #7F180D;
+  --fc-event-border-color: #7F180D;
+  --fc-event-text-color: #F7F3EE;
+  --fc-button-bg-color: #20603D;
+  --fc-button-border-color: #20603D;
+  --fc-button-hover-bg-color: #7F180D;
+  --fc-button-hover-border-color: #7F180D;
+  --fc-button-active-bg-color: #7F180D;
+  --fc-button-active-border-color: #7F180D;
+}
+
+.fc .fc-toolbar {
+  flex-direction: column !important;
+  gap: 8px;
+}
+
+.fc .fc-toolbar-title {
+  font-size: 16px !important;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.fc .fc-button-primary {
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: none;
+  box-shadow: none;
+}
+
+.fc .fc-col-header-cell-cushion {
+  color: var(--gold);
+  font-weight: 600;
+  padding: 6px 2px;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+.fc .fc-daygrid-day-number {
+  color: var(--text);
+  font-weight: 500;
+  padding: 3px 4px;
+  font-size: 11px;
+}
+
+.fc .fc-event {
+  border-radius: 3px;
+  padding: 1px 3px;
+  font-size: 9px;
+  font-weight: 500;
+  border: none;
+}
+
+.fc .fc-day-today {
+  background-color: rgba(212, 162, 76, 0.1) !important;
+}
+
+.fc .fc-scrollgrid {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.fc .fc-daygrid-day-frame {
+  min-height: 40px;
 }
 
 /* ===== НЕОНОВОЕ СВЕЧЕНИЕ ===== */
