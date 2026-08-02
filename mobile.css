@@ -608,8 +608,10 @@ h1, h2, h3,
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              opacity 0.6s ease;
   transform-origin: center bottom;
+  opacity: 0; /* По умолчанию скрыты */
 }
 
 .gallery__polaroid {
@@ -642,41 +644,62 @@ h1, h2, h3,
   padding: 0 12px;
 }
 
-/* Состояния для мобильной стопки (возвращены большие значения) */
+/* Активное фото — видно и в центре */
 .gallery__slide.active {
   z-index: 10;
-  transform: translate(0, 0) rotate(0deg);
+  transform: translate(0, 0) rotate(0deg) scale(1);
   opacity: 1;
 }
 
+/* Следующее фото — видно, но смещено */
 .gallery__slide.next {
   z-index: 9;
-  transform: translate(12px, 12px) rotate(4deg);
+  transform: translate(12px, 12px) rotate(4deg) scale(0.95);
   opacity: 1;
 }
 
 .gallery__slide.next-2 {
   z-index: 8;
-  transform: translate(24px, 24px) rotate(-3deg);
+  transform: translate(24px, 24px) rotate(-3deg) scale(0.9);
   opacity: 1;
 }
 
 .gallery__slide.hidden {
   z-index: 7;
-  transform: translate(36px, 36px) rotate(2deg);
-  opacity: 1;
+  transform: translate(36px, 36px) rotate(2deg) scale(0.85);
+  opacity: 0.7;
 }
 
+/* Анимация вылета вправо */
 .gallery__slide.fly-out-right {
   z-index: 20;
-  transform: translate(120%, 60px) rotate(20deg);
+  transform: translate(120%, 60px) rotate(20deg) scale(0.8);
   opacity: 0;
 }
 
+/* Анимация вылета влево */
 .gallery__slide.fly-out-left {
   z-index: 20;
-  transform: translate(-120%, 60px) rotate(-20deg);
+  transform: translate(-120%, 60px) rotate(-20deg) scale(0.8);
   opacity: 0;
+}
+
+/* Плавное появление из-за экрана справа */
+.gallery__slide.fade-in-right {
+  z-index: 15;
+  transform: translate(100%, 0) rotate(0deg) scale(0.9);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              opacity 0.6s ease;
+}
+
+/* Плавное появление из-за экрана слева */
+.gallery__slide.fade-in-left {
+  z-index: 15;
+  transform: translate(-100%, 0) rotate(0deg) scale(0.9);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              opacity 0.6s ease;
 }
 
 .gallery__arrow {
