@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
     close.addEventListener('click', closeMenu);
   }
 
-  // Плавный скролл по ссылкам навигации
   if (menu) {
     menu.querySelectorAll('a[href^="#"]').forEach(link => {
       link.addEventListener('click', (e) => {
@@ -50,9 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
           e.preventDefault();
           const target = document.querySelector(href);
           if (target) {
-            // Закрываем меню
             closeMenu();
-            // Плавный скролл к секции
             setTimeout(() => {
               target.scrollIntoView({
                 behavior: 'smooth',
@@ -67,7 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Плавный скролл по клику на логотип (возврат наверх)
   const logo = document.querySelector('.nav__logo');
   if (logo) {
     logo.addEventListener('click', (e) => {
@@ -78,6 +74,146 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // ===== ГАЛЕРЕЯ: АВТОПРОКРУТКА + СВАЙПЫ =====
+  const galleryTrack = document.getElementById('galleryTrack');
+  const galleryCarousel = document.getElementById('galleryCarousel');
+  
+  if (galleryTrack && galleryCarousel) {
+    const slides = galleryTrack.querySelectorAll('.gallery__slide');
+    const prevBtn = galleryCarousel.querySelector('.gallery__arrow--prev');
+    const nextBtn = galleryCarousel.querySelector('.gallery__arrow--next');
+    let currentIndex = 0;
+    let autoPlayInterval;
+    const AUTO_PLAY_DELAY = 1500; // 1.5 секунды
+
+    function updateGallery() {
+      galleryTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % slides.length;
+      updateGallery();
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      updateGallery();
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      autoPlayInterval = setInterval(nextSlide, AUTO_PLAY_DELAY);
+    }
+
+    function stopAutoPlay() {
+      if (autoPlayInterval) {
+        clearInterval(autoPlayInterval);
+      }
+    }
+
+    // Стрелки (десктоп)
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        startAutoPlay();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        startAutoPlay();
+      });
+    }
+
+    // Свайпы (мобильная версия)
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    galleryCarousel.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAutoPlay();
+    }, { passive: true });
+
+    galleryCarousel.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+      startAutoPlay();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) < 50) return;
+
+      if (diff > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    }
+
+    // Запуск автопрокрутки
+    startAutoPlay();
+  }
+
+  // ===== МОДАЛКА КАЛЕНДАРЯ =====
+  const calendarModal = document.getElementById('calendarModal');
+  const openCalendarModalBtn = document.getElementById('openCalendarModal');
+  const closeCalendarModalBtn = document.getElementById('closeCalendarModalBtn');
+  const closeCalendarModalOverlay = document.getElementById('closeCalendarModal');
+  const closeModalAndBook = document.getElementById('closeModalAndBook');
+
+  function openCalendarModal() {
+    if (calendarModal) {
+      calendarModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeCalendarModal() {
+    if (calendarModal) {
+      calendarModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+
+  if (openCalendarModalBtn) {
+    openCalendarModalBtn.addEventListener('click', openCalendarModal);
+  }
+
+  if (closeCalendarModalBtn) {
+    closeCalendarModalBtn.addEventListener('click', closeCalendarModal);
+  }
+
+  if (closeCalendarModalOverlay) {
+    closeCalendarModalOverlay.addEventListener('click', closeCalendarModal);
+  }
+
+  if (closeModalAndBook) {
+    closeModalAndBook.addEventListener('click', () => {
+      closeCalendarModal();
+      const requestSection = document.querySelector('#request');
+      if (requestSection) {
+        requestSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  }
+
+  // Закрытие по Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (calendarModal && calendarModal.classList.contains('active')) {
+        closeCalendarModal();
+      }
+      if (menu && menu.classList.contains('active')) {
+        closeMenu();
+      }
+    }
+  });
 });
 
 let lastIsMobile = isMobileDevice();
