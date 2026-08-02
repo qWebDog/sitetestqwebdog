@@ -689,23 +689,23 @@ h1, h2, h3,
   right: 20px;
 }
 
-/* ===== КАЛЕНДАРЬ (ДЕСКТОП) ===== */
+/* ===== КАЛЕНДАРЬ (ДЕСКТОП - КОМПАКТНЫЙ) ===== */
 .calendar {
   background: var(--accent);
-  padding: 60px 0;
+  padding: 50px 0;
   color: var(--light);
 }
 
 .calendar__container {
-  max-width: 900px;
+  max-width: 800px; /* Уменьшена ширина для лучшего вмещения */
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 20px;
 }
 
 .calendar__header {
   text-align: center;
   max-width: 720px;
-  margin: 0 auto 40px;
+  margin: 0 auto 30px;
 }
 
 .calendar__label {
@@ -720,14 +720,14 @@ h1, h2, h3,
 }
 
 .calendar__title {
-  font-size: 44px;
+  font-size: 36px; /* Чуть меньше заголовок */
   font-weight: 400;
   line-height: 1.1;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .calendar__subtitle {
-  font-size: 17px;
+  font-size: 16px;
   opacity: 0.9;
   line-height: 1.5;
 }
@@ -735,7 +735,7 @@ h1, h2, h3,
 .calendar__frame {
   background: #fff;
   border-radius: 12px;
-  padding: 24px;
+  padding: 16px; /* Уменьшены внутренние отступы */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
@@ -743,8 +743,8 @@ h1, h2, h3,
   display: flex;
   justify-content: center;
   gap: 24px;
-  margin-top: 20px;
-  padding-top: 16px;
+  margin-top: 16px;
+  padding-top: 12px;
   border-top: 1px solid #e0e0e0;
 }
 
@@ -752,14 +752,14 @@ h1, h2, h3,
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text);
 }
 
 .calendar__legend-dot {
-  width: 16px;
-  height: 16px;
-  border-radius: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
 }
 
 .calendar__legend-dot--booked {
@@ -773,10 +773,10 @@ h1, h2, h3,
 
 .calendar__cta {
   text-align: center;
-  margin-top: 24px;
+  margin-top: 20px;
 }
 
-/* ===== FULLCALENDAR СТИЛИ ===== */
+/* ===== FULLCALENDAR СТИЛИ (КОМПАКТНЫЕ) ===== */
 #customCalendar {
   font-family: 'Inter', sans-serif;
 }
@@ -797,34 +797,39 @@ h1, h2, h3,
   --fc-button-active-border-color: #7F180D;
 }
 
-.fc .fc-button-primary {
-  border-radius: 8px;
-  padding: 8px 16px;
-  font-weight: 500;
-  text-transform: none;
-  font-size: 14px;
-  box-shadow: none;
+.fc .fc-toolbar {
+  margin-bottom: 12px !important;
 }
 
 .fc .fc-toolbar-title {
-  font-size: 22px;
+  font-size: 18px !important; /* Компактный заголовок месяца */
   color: var(--text);
   font-weight: 600;
+}
+
+.fc .fc-button-primary {
+  border-radius: 6px;
+  padding: 4px 10px !important; /* Компактные кнопки */
+  font-weight: 500;
+  text-transform: none;
+  font-size: 12px !important;
+  box-shadow: none;
 }
 
 .fc .fc-col-header-cell-cushion {
   color: var(--gold);
   font-weight: 600;
-  padding: 12px;
+  padding: 8px !important;
   text-transform: uppercase;
-  font-size: 13px;
-  letter-spacing: 1px;
+  font-size: 12px !important;
+  letter-spacing: 0.5px;
 }
 
 .fc .fc-daygrid-day-number {
   color: var(--text);
   font-weight: 500;
-  padding: 6px 10px;
+  padding: 4px 6px !important;
+  font-size: 13px !important;
 }
 
 .fc .fc-day-today {
@@ -832,15 +837,11 @@ h1, h2, h3,
 }
 
 .fc .fc-event {
-  border-radius: 6px;
-  padding: 4px 8px;
-  font-size: 13px;
+  border-radius: 4px;
+  padding: 2px 4px !important;
+  font-size: 11px !important;
   font-weight: 500;
   border: none;
-}
-
-.fc .fc-daygrid-day.fc-day-today {
-  background: rgba(212, 162, 76, 0.1);
 }
 
 .fc .fc-scrollgrid {
