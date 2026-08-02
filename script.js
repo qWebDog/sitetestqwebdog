@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = galleryCarousel.querySelector('.gallery__arrow--next');
     let currentIndex = 0;
     let autoPlayInterval;
-    const AUTO_PLAY_DELAY = 1500;
+    const AUTO_PLAY_DELAY = 3000;
 
     function updateGallery() {
       galleryTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
