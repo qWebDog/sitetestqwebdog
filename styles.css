@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 
-/* Плавный скролл */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
@@ -403,7 +402,7 @@ h1, h2, h3,
   opacity: 0.9;
 }
 
-/* ===== КАК ЭТО РАБОТАЕТ (ГРИФЕЛЬНЫЕ ТАБЛИЧКИ) ===== */
+/* ===== КАК ЭТО РАБОТАЕТ ===== */
 .process {
   background: var(--accent);
   padding: 50px 0;
@@ -468,7 +467,6 @@ h1, h2, h3,
   z-index: 0;
 }
 
-/* Грифельная табличка */
 .process__step {
   background:
     radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
@@ -498,7 +496,6 @@ h1, h2, h3,
     0 0 16px rgba(212, 162, 76, 0.15);
 }
 
-/* 5-й шаг идентичен остальным */
 .process__step--final {
   background:
     radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
@@ -576,7 +573,7 @@ h1, h2, h3,
   opacity: 0.9;
 }
 
-/* ===== ГАЛЕРЕЯ (POLAROID — ДЕСКТОП) ===== */
+/* ===== ГАЛЕРЕЯ (POLAROID) ===== */
 .gallery {
   background: var(--primary);
   padding: 60px 0;
@@ -622,7 +619,6 @@ h1, h2, h3,
   padding: 0 20px;
 }
 
-/* Polaroid контейнер */
 .gallery__polaroid {
   background: #fff;
   padding: 16px 16px 50px 16px;
@@ -640,7 +636,6 @@ h1, h2, h3,
   filter: sepia(15%) contrast(1.05);
 }
 
-/* Рукописная подпись */
 .gallery__caption {
   position: absolute;
   bottom: 14px;
@@ -737,40 +732,43 @@ h1, h2, h3,
   line-height: 1.5;
 }
 
-/* Показываем только на десктопе */
-.calendar__frame--desktop {
-  display: block;
-}
-
-/* Скрываем мобильную кнопку на десктопе */
-.calendar__mobile-trigger {
-  display: none;
-}
-
 .calendar__frame {
-  background: transparent;
-  padding: 0;
-  border-radius: 0;
-  box-shadow: none;
-  position: relative;
-}
-
-.calendar__frame::before {
-  display: none;
-}
-
-.calendar__wrapper {
   background: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  width: 100%;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
-.calendar__wrapper iframe {
-  display: block;
-  width: 100%;
-  height: 500px;
+.calendar__legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.calendar__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.calendar__legend-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.calendar__legend-dot--booked {
+  background: var(--primary);
+}
+
+.calendar__legend-dot--available {
+  background: #fff;
+  border: 2px solid #e0e0e0;
 }
 
 .calendar__cta {
@@ -778,9 +776,76 @@ h1, h2, h3,
   margin-top: 24px;
 }
 
-/* Скрываем модалку на десктопе */
-.calendar-modal {
-  display: none;
+/* ===== FULLCALENDAR СТИЛИ ===== */
+#customCalendar {
+  font-family: 'Inter', sans-serif;
+}
+
+.fc {
+  --fc-border-color: #e0e0e0;
+  --fc-page-bg-color: #fff;
+  --fc-neutral-bg-color: #f5f5f5;
+  --fc-today-bg-color: rgba(212, 162, 76, 0.1);
+  --fc-event-bg-color: #7F180D;
+  --fc-event-border-color: #7F180D;
+  --fc-event-text-color: #F7F3EE;
+  --fc-button-bg-color: #20603D;
+  --fc-button-border-color: #20603D;
+  --fc-button-hover-bg-color: #7F180D;
+  --fc-button-hover-border-color: #7F180D;
+  --fc-button-active-bg-color: #7F180D;
+  --fc-button-active-border-color: #7F180D;
+}
+
+.fc .fc-button-primary {
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 500;
+  text-transform: none;
+  font-size: 14px;
+  box-shadow: none;
+}
+
+.fc .fc-toolbar-title {
+  font-size: 22px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.fc .fc-col-header-cell-cushion {
+  color: var(--gold);
+  font-weight: 600;
+  padding: 12px;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.fc .fc-daygrid-day-number {
+  color: var(--text);
+  font-weight: 500;
+  padding: 6px 10px;
+}
+
+.fc .fc-day-today {
+  background-color: rgba(212, 162, 76, 0.1) !important;
+}
+
+.fc .fc-event {
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+  background: rgba(212, 162, 76, 0.1);
+}
+
+.fc .fc-scrollgrid {
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 /* ===== НЕОНОВОЕ СВЕЧЕНИЕ ===== */
