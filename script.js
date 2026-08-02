@@ -16,6 +16,9 @@ function loadStyles() {
 
 loadStyles();
 
+// ===== ICAL ССЫЛКА ИЗ ЯНДЕКС.КАЛЕНДАРЯ =====
+const ICAL_URL = 'https://export.calendar.yandex.ru/calendar/ВАША_ССЫЛКА.ics';
+
 document.addEventListener('DOMContentLoaded', () => {
   const burger = document.getElementById('burger');
   const menu = document.getElementById('menu');
@@ -85,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = galleryCarousel.querySelector('.gallery__arrow--next');
     let currentIndex = 0;
     let autoPlayInterval;
-    const AUTO_PLAY_DELAY = 1500; // 1.5 секунды
+    const AUTO_PLAY_DELAY = 1500;
 
     function updateGallery() {
       galleryTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
@@ -112,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Стрелки (десктоп)
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
         prevSlide();
@@ -127,7 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Свайпы (мобильная версия)
     let touchStartX = 0;
     let touchEndX = 0;
 
@@ -153,65 +154,94 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Запуск автопрокрутки
     startAutoPlay();
   }
 
-  // ===== МОДАЛКА КАЛЕНДАРЯ =====
-  const calendarModal = document.getElementById('calendarModal');
-  const openCalendarModalBtn = document.getElementById('openCalendarModal');
-  const closeCalendarModalBtn = document.getElementById('closeCalendarModalBtn');
-  const closeCalendarModalOverlay = document.getElementById('closeCalendarModal');
-  const closeModalAndBook = document.getElementById('closeModalAndBook');
+  // ===== КАЛЕНДАРЬ FULLCALENDAR =====
+  function initCalendar() {
+    const calendarEl = document.getElementById('customCalendar');
+    if (!calendarEl || calendarEl.dataset.initialized === 'true') return;
 
-  function openCalendarModal() {
-    if (calendarModal) {
-      calendarModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-  }
+    const isMobile = isMobileDevice();
 
-  function closeCalendarModal() {
-    if (calendarModal) {
-      calendarModal.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  }
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      locale: 'ru',
+      headerToolbar: {
+        left: 'prev,next',
+        center: 'title',
+        right: isMobile ? '' : 'today dayGridMonth,timeGridWeek'
+      },
+      buttonText: {
+        today: 'Сегодня',
+        month: 'Месяц',
+        week: 'Неделя'
+      },
+      firstDay: 1,
+      height: isMobile ? 'auto' : 550,
+      events: function(fetchInfo, successCallback, failureCallback) {
+        if (!ICAL_URL || ICAL_URL.includes('ВАША_ССЫЛКА')) {
+          const today = new Date();
+          const demoEvents = [];
+          for (let i = 0; i < 8; i++) {
+            const date = new Date(today);
+            date.setDate(today.getDate() + Math.floor(Math.random() * 30));
+            demoEvents.push({
+              title: 'Занято',
+              start: date,
+              allDay: true,
+              backgroundColor: '#7F180D',
+              borderColor: '#7F180D',
+              textColor: '#F7F3EE'
+            });
+          }
+          successCallback(demoEvents);
+          return;
+        }
 
-  if (openCalendarModalBtn) {
-    openCalendarModalBtn.addEventListener('click', openCalendarModal);
-  }
+        fetch(ICAL_URL)
+          .then(response => response.text())
+          .then(icsData => {
+            const jcalData = ICAL.parse(icsData);
+            const vcalendar = new ICAL.Component(jcalData);
+            const vevents = vcalendar.getAllSubcomponents('vevent');
 
-  if (closeCalendarModalBtn) {
-    closeCalendarModalBtn.addEventListener('click', closeCalendarModal);
-  }
+            const events = vevents.map(vevent => {
+              const event = new ICAL.Event(vevent);
+              return {
+                title: event.summary || 'Занято',
+                start: event.startDate.toJSDate(),
+                end: event.endDate ? event.endDate.toJSDate() : event.startDate.toJSDate(),
+                allDay: event.startDate.isDate,
+                backgroundColor: '#7F180D',
+                borderColor: '#7F180D',
+                textColor: '#F7F3EE'
+              };
+            });
 
-  if (closeCalendarModalOverlay) {
-    closeCalendarModalOverlay.addEventListener('click', closeCalendarModal);
-  }
-
-  if (closeModalAndBook) {
-    closeModalAndBook.addEventListener('click', () => {
-      closeCalendarModal();
-      const requestSection = document.querySelector('#request');
-      if (requestSection) {
-        requestSection.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
+            successCallback(events);
+          })
+          .catch(error => {
+            console.error('Ошибка загрузки календаря:', error);
+            failureCallback(error);
+          });
+      },
+      eventClick: function(info) {
+        if (!isMobile) {
+          alert('Дата занята: ' + info.event.title);
+        }
       }
     });
+
+    calendar.render();
+    calendarEl.dataset.initialized = 'true';
   }
 
-  // Закрытие по Escape
+  initCalendar();
+
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      if (calendarModal && calendarModal.classList.contains('active')) {
-        closeCalendarModal();
-      }
-      if (menu && menu.classList.contains('active')) {
-        closeMenu();
-      }
+    if (e.key === 'Escape' && menu && menu.classList.contains('active')) {
+      closeMenu();
     }
   });
 });
