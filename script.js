@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ===== ГАЛЕРЕЯ: АВТОПРОКРУТКА + СВАЙПЫ =====
+  // ===== ГАЛЕРЕЯ: ЭФФЕКТ СТОПКИ POLAROID =====
   const galleryTrack = document.getElementById('galleryTrack');
   const galleryCarousel = document.getElementById('galleryCarousel');
   
@@ -86,22 +86,71 @@ document.addEventListener('DOMContentLoaded', () => {
     const slides = galleryTrack.querySelectorAll('.gallery__slide');
     const prevBtn = galleryCarousel.querySelector('.gallery__arrow--prev');
     const nextBtn = galleryCarousel.querySelector('.gallery__arrow--next');
+    
     let currentIndex = 0;
+    let isAnimating = false;
     let autoPlayInterval;
-    const AUTO_PLAY_DELAY = 3000; // Изменено на 3 секунды
+    const AUTO_PLAY_DELAY = 3000;
 
-    function updateGallery() {
-      galleryTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+    function updateStack() {
+      slides.forEach((slide, index) => {
+        slide.classList.remove('active', 'next', 'next-2', 'hidden', 'fly-out-right', 'fly-out-left');
+        
+        let diff = (index - currentIndex + slides.length) % slides.length;
+        
+        if (diff === 0) {
+          slide.classList.add('active');
+        } else if (diff === 1) {
+          slide.classList.add('next');
+        } else if (diff === 2) {
+          slide.classList.add('next-2');
+        } else {
+          slide.classList.add('hidden');
+        }
+      });
     }
 
     function nextSlide() {
-      currentIndex = (currentIndex + 1) % slides.length;
-      updateGallery();
+      if (isAnimating) return;
+      isAnimating = true;
+      
+      const currentSlide = slides[currentIndex];
+      currentSlide.classList.add('fly-out-right');
+      
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateStack();
+        isAnimating = false;
+      }, 500);
     }
 
     function prevSlide() {
-      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-      updateGallery();
+      if (isAnimating) return;
+      isAnimating = true;
+      
+      const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+      const prevSlideEl = slides[prevIndex];
+      const currentSlide = slides[currentIndex];
+      
+      prevSlideEl.style.transition = 'none';
+      prevSlideEl.classList.remove('hidden', 'next', 'next-2', 'active');
+      prevSlideEl.classList.add('fly-out-left');
+      
+      void prevSlideEl.offsetWidth;
+      
+      prevSlideEl.style.transition = '';
+      prevSlideEl.classList.remove('fly-out-left');
+      prevSlideEl.classList.add('active');
+      
+      currentSlide.classList.remove('active');
+      currentSlide.classList.add('hidden');
+      
+      currentIndex = prevIndex;
+      
+      setTimeout(() => {
+        updateStack();
+        isAnimating = false;
+      }, 500);
     }
 
     function startAutoPlay() {
@@ -154,6 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    updateStack();
     startAutoPlay();
   }
 
@@ -178,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
         week: 'Неделя'
       },
       firstDay: 1,
-      height: isMobile ? 'auto' : 450, // Уменьшена высота для десктопа (было 550)
+      height: isMobile ? 'auto' : 450,
       events: function(fetchInfo, successCallback, failureCallback) {
         if (!ICAL_URL) {
           const today = new Date();
