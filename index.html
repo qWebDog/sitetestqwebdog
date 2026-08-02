@@ -6,7 +6,7 @@
   <title>To Dublin — мобильный ирландский паб на ваше мероприятие</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Rye&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cormorant+Infant:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Rye&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" id="main-style">
 </head>
 <body>
@@ -174,34 +174,41 @@
     </div>
   </section>
 
-  <!-- ===== ГАЛЕРЕЯ ===== -->
+  <!-- ===== ГАЛЕРЕЯ (POLAROID) ===== -->
   <section class="gallery" id="gallery">
     <div class="gallery__container">
-      <div class="gallery__header">
-        <span class="gallery__label">Галерея</span>
-        <h2 class="gallery__title">Наши мероприятия</h2>
-        <p class="gallery__subtitle">
-          Смотрите фотографии с наших мероприятий и вдохновляйтесь атмосферой To Dublin.
-        </p>
-      </div>
-
       <div class="gallery__frame">
-        <div class="gallery__carousel">
-          <div class="gallery__track">
+        <div class="gallery__carousel" id="galleryCarousel">
+          <div class="gallery__track" id="galleryTrack">
             <div class="gallery__slide">
-              <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800&q=80" alt="Мероприятие 1">
+              <div class="gallery__polaroid">
+                <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800&q=80" alt="Мероприятие 1">
+                <p class="gallery__caption">Праздник на свежем воздухе</p>
+              </div>
             </div>
             <div class="gallery__slide">
-              <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80" alt="Мероприятие 2">
+              <div class="gallery__polaroid">
+                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80" alt="Мероприятие 2">
+                <p class="gallery__caption">Корпоратив в стиле паба</p>
+              </div>
             </div>
             <div class="gallery__slide">
-              <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80" alt="Мероприятие 3">
+              <div class="gallery__polaroid">
+                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80" alt="Мероприятие 3">
+                <p class="gallery__caption">Вечер с друзьями</p>
+              </div>
             </div>
             <div class="gallery__slide">
-              <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&q=80" alt="Мероприятие 4">
+              <div class="gallery__polaroid">
+                <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&q=80" alt="Мероприятие 4">
+                <p class="gallery__caption">Фестиваль на природе</p>
+              </div>
             </div>
             <div class="gallery__slide">
-              <img src="https://images.unsplash.com/photo-1429962714452-bf525e32e819?w=800&q=80" alt="Мероприятие 5">
+              <div class="gallery__polaroid">
+                <img src="https://images.unsplash.com/photo-1429962714452-bf525e32e819?w=800&q=80" alt="Мероприятие 5">
+                <p class="gallery__caption">День рождения</p>
+              </div>
             </div>
           </div>
           <button class="gallery__arrow gallery__arrow--prev" aria-label="Назад">‹</button>
@@ -211,27 +218,64 @@
     </div>
   </section>
 
- <!-- ===== КАЛЕНДАРЬ ===== -->
-<section class="calendar" id="calendar">
-  <div class="calendar__container">
-    <div class="calendar__header">
-      <span class="calendar__label">Календарь</span>
-      <h2 class="calendar__title">Свободные даты</h2>
-      <p class="calendar__subtitle">
-        Проверьте доступные даты для бронирования мобильного паба.
-      </p>
-    </div>
-
-    <div class="calendar__frame">
-      <div class="calendar__wrapper">
-        <p class="calendar__placeholder">Календарь скоро будет доступен</p>
+  <!-- ===== КАЛЕНДАРЬ ===== -->
+  <section class="calendar" id="calendar">
+    <div class="calendar__container">
+      <div class="calendar__header">
+        <span class="calendar__label">Календарь</span>
+        <h2 class="calendar__title">Свободные даты</h2>
+        <p class="calendar__subtitle">
+          Проверьте доступные даты для бронирования мобильного паба.
+        </p>
       </div>
-      <div class="calendar__cta">
-        <a href="#request" class="btn btn--primary">Забронировать дату</a>
+
+      <!-- Десктоп: календарь на странице -->
+      <div class="calendar__frame calendar__frame--desktop">
+        <div class="calendar__wrapper">
+          <iframe 
+            src="https://calendar.yandex.ru/embed/month?private_token=8c436274898397b54fd84b20ad7359b52b9f5194&tz_id=Europe/Moscow" 
+            width="100%" 
+            height="500" 
+            frameborder="0" 
+            style="border: none; border-radius: 6px;">
+          </iframe>
+        </div>
+        <div class="calendar__cta">
+          <a href="#request" class="btn btn--primary">Забронировать дату</a>
+        </div>
+      </div>
+
+      <!-- Мобильные: кнопка открыть календарь -->
+      <div class="calendar__mobile-trigger">
+        <button class="btn btn--primary" id="openCalendarModal">
+          📅 Открыть календарь
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Модалка с календарём для мобильных -->
+  <div class="modal calendar-modal" id="calendarModal">
+    <div class="modal__overlay" id="closeCalendarModal"></div>
+    <div class="modal__content">
+      <button class="modal__close" id="closeCalendarModalBtn" aria-label="Закрыть">✕</button>
+      <div class="modal__header">
+        <h3 class="modal__title">Свободные даты</h3>
+      </div>
+      <div class="calendar__wrapper">
+        <iframe 
+          src="https://calendar.yandex.ru/embed/month?private_token=8c436274898397b54fd84b20ad7359b52b9f5194&tz_id=Europe/Moscow" 
+          width="100%" 
+          height="450" 
+          frameborder="0" 
+          style="border: none; border-radius: 6px;">
+        </iframe>
+      </div>
+      <div class="modal__cta">
+        <a href="#request" class="btn btn--primary" id="closeModalAndBook">Забронировать дату</a>
       </div>
     </div>
   </div>
-</section>
 
   <script src="script.js"></script>
 </body>
