@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
       isAnimating = true;
       
       const currentSlide = slides[currentIndex];
+      // Верхнее фото улетает вправо
       currentSlide.classList.add('fly-out-right');
       
       setTimeout(() => {
@@ -132,23 +133,38 @@ document.addEventListener('DOMContentLoaded', () => {
       const prevSlideEl = slides[prevIndex];
       const currentSlide = slides[currentIndex];
       
-      prevSlideEl.style.transition = 'none';
-      prevSlideEl.classList.remove('hidden', 'next', 'next-2', 'active');
-      prevSlideEl.classList.add('fly-out-left');
+      // Сдвигаем все слайды на один уровень глубже (кроме текущего и предыдущего)
+      slides.forEach((slide, index) => {
+        if (index === currentIndex || index === prevIndex) return;
+        
+        let diff = (index - currentIndex + slides.length) % slides.length;
+        
+        if (diff === 1) {
+          // next → next-2
+          slide.classList.remove('next');
+          slide.classList.add('next-2');
+        } else if (diff === 2) {
+          // next-2 → hidden
+          slide.classList.remove('next-2');
+          slide.classList.add('hidden');
+        } else if (diff >= 3) {
+          // hidden остаётся hidden
+          slide.classList.remove('active', 'next', 'next-2');
+          slide.classList.add('hidden');
+        }
+      });
       
-      void prevSlideEl.offsetWidth;
-      
-      prevSlideEl.style.transition = '';
-      prevSlideEl.classList.remove('fly-out-left');
-      prevSlideEl.classList.add('active');
-      
+      // Текущее фото опускается на второй уровень (next)
       currentSlide.classList.remove('active');
-      currentSlide.classList.add('hidden');
+      currentSlide.classList.add('next');
+      
+      // Предыдущее фото поднимается из глубины стопки (hidden → active)
+      prevSlideEl.classList.remove('hidden');
+      prevSlideEl.classList.add('active');
       
       currentIndex = prevIndex;
       
       setTimeout(() => {
-        updateStack();
         isAnimating = false;
       }, 500);
     }
