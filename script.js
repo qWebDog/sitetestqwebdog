@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ===== ГАЛЕРЕЯ: ЭФФЕКТ СТОПКИ POLAROID =====
+  // ===== ГАЛЕРЕЯ: ЭФФЕКТ СТОПКИ POLAROID (СИММЕТРИЧНЫЙ) =====
   const galleryTrack = document.getElementById('galleryTrack');
   const galleryCarousel = document.getElementById('galleryCarousel');
   
@@ -91,9 +91,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let isAnimating = false;
     let autoPlayInterval;
     const AUTO_PLAY_DELAY = 3000;
+    const ANIMATION_DURATION = 500;
 
+    // Расставляет все слайды по стопке без анимации
     function updateStack() {
       slides.forEach((slide, index) => {
+        // Сбрасываем стили и классы
+        slide.style.transition = '';
         slide.classList.remove('active', 'next', 'next-2', 'hidden', 'fly-out-right', 'fly-out-left');
         
         let diff = (index - currentIndex + slides.length) % slides.length;
@@ -110,63 +114,72 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // Следующий слайд: текущий улетает вправо, новый приезжает слева
     function nextSlide() {
       if (isAnimating) return;
       isAnimating = true;
       
       const currentSlide = slides[currentIndex];
-      // Верхнее фото улетает вправо
+      const nextIndex = (currentIndex + 1) % slides.length;
+      const nextSlideEl = slides[nextIndex];
+      
+      // 1. Текущее фото улетает вправо за экран
+      currentSlide.classList.remove('active', 'next', 'next-2', 'hidden');
       currentSlide.classList.add('fly-out-right');
       
+      // 2. Следующее фото мгновенно позиционируем слева за экраном
+      nextSlideEl.style.transition = 'none';
+      nextSlideEl.classList.remove('active', 'next', 'next-2', 'hidden', 'fly-out-right');
+      nextSlideEl.classList.add('fly-out-left');
+      
+      // Форсируем перерисовку
+      void nextSlideEl.offsetWidth;
+      
+      // 3. Включаем transition и плавно перемещаем в центр
+      nextSlideEl.style.transition = '';
+      nextSlideEl.classList.remove('fly-out-left');
+      nextSlideEl.classList.add('active');
+      
+      currentIndex = nextIndex;
+      
       setTimeout(() => {
-        currentIndex = (currentIndex + 1) % slides.length;
         updateStack();
         isAnimating = false;
-      }, 500);
+      }, ANIMATION_DURATION);
     }
 
+    // Предыдущий слайд: текущий улетает влево, новый приезжает справа
     function prevSlide() {
       if (isAnimating) return;
       isAnimating = true;
       
+      const currentSlide = slides[currentIndex];
       const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
       const prevSlideEl = slides[prevIndex];
-      const currentSlide = slides[currentIndex];
       
-      // Сдвигаем все слайды на один уровень глубже (кроме текущего и предыдущего)
-      slides.forEach((slide, index) => {
-        if (index === currentIndex || index === prevIndex) return;
-        
-        let diff = (index - currentIndex + slides.length) % slides.length;
-        
-        if (diff === 1) {
-          // next → next-2
-          slide.classList.remove('next');
-          slide.classList.add('next-2');
-        } else if (diff === 2) {
-          // next-2 → hidden
-          slide.classList.remove('next-2');
-          slide.classList.add('hidden');
-        } else if (diff >= 3) {
-          // hidden остаётся hidden
-          slide.classList.remove('active', 'next', 'next-2');
-          slide.classList.add('hidden');
-        }
-      });
+      // 1. Текущее фото улетает влево за экран
+      currentSlide.classList.remove('active', 'next', 'next-2', 'hidden');
+      currentSlide.classList.add('fly-out-left');
       
-      // Текущее фото опускается на второй уровень (next)
-      currentSlide.classList.remove('active');
-      currentSlide.classList.add('next');
+      // 2. Предыдущее фото мгновенно позиционируем справа за экраном
+      prevSlideEl.style.transition = 'none';
+      prevSlideEl.classList.remove('active', 'next', 'next-2', 'hidden', 'fly-out-left');
+      prevSlideEl.classList.add('fly-out-right');
       
-      // Предыдущее фото поднимается из глубины стопки (hidden → active)
-      prevSlideEl.classList.remove('hidden');
+      // Форсируем перерисовку
+      void prevSlideEl.offsetWidth;
+      
+      // 3. Включаем transition и плавно перемещаем в центр
+      prevSlideEl.style.transition = '';
+      prevSlideEl.classList.remove('fly-out-right');
       prevSlideEl.classList.add('active');
       
       currentIndex = prevIndex;
       
       setTimeout(() => {
+        updateStack();
         isAnimating = false;
-      }, 500);
+      }, ANIMATION_DURATION);
     }
 
     function startAutoPlay() {
@@ -213,9 +226,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (Math.abs(diff) < 50) return;
 
       if (diff > 0) {
-        nextSlide();
+        nextSlide(); // Свайп влево → следующее фото
       } else {
-        prevSlide();
+        prevSlide(); // Свайп вправо → предыдущее фото
       }
     }
 
