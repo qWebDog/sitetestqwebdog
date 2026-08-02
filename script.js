@@ -17,7 +17,7 @@ function loadStyles() {
 loadStyles();
 
 // ===== ICAL ССЫЛКА ИЗ ЯНДЕКС.КАЛЕНДАРЯ =====
-const ICAL_URL = 'https://export.calendar.yandex.ru/calendar/ВАША_ССЫЛКА.ics';
+const ICAL_URL = 'https://calendar.yandex.ru/export/ics.xml?private_token=8c436274898397b54fd84b20ad7359b52b9f5194&tz_id=Europe/Moscow';
 
 document.addEventListener('DOMContentLoaded', () => {
   const burger = document.getElementById('burger');
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = galleryCarousel.querySelector('.gallery__arrow--next');
     let currentIndex = 0;
     let autoPlayInterval;
-    const AUTO_PLAY_DELAY = 3000;
+    const AUTO_PLAY_DELAY = 3000; // Изменено на 3 секунды
 
     function updateGallery() {
       galleryTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
@@ -178,9 +178,9 @@ document.addEventListener('DOMContentLoaded', () => {
         week: 'Неделя'
       },
       firstDay: 1,
-      height: isMobile ? 'auto' : 550,
+      height: isMobile ? 'auto' : 450, // Уменьшена высота для десктопа (было 550)
       events: function(fetchInfo, successCallback, failureCallback) {
-        if (!ICAL_URL || ICAL_URL.includes('ВАША_ССЫЛКА')) {
+        if (!ICAL_URL) {
           const today = new Date();
           const demoEvents = [];
           for (let i = 0; i < 8; i++) {
