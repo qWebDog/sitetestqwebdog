@@ -28,6 +28,10 @@ body {
   line-height: 1.6;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 h1, h2, h3,
 .intro__title,
 .intro__main-title,
@@ -464,7 +468,7 @@ h1, h2, h3,
   z-index: 0;
 }
 
-/* Грифельная табличка (применяется ко всем шагам, включая 5-й) */
+/* Грифельная табличка */
 .process__step {
   background:
     radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
@@ -494,7 +498,7 @@ h1, h2, h3,
     0 0 16px rgba(212, 162, 76, 0.15);
 }
 
-/* 5-й шаг теперь идентичен остальным */
+/* 5-й шаг идентичен остальным */
 .process__step--final {
   background:
     radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
@@ -527,7 +531,6 @@ h1, h2, h3,
   opacity: 0.9;
 }
 
-/* Номер шага */
 .process__step-number {
   position: absolute;
   top: -18px;
@@ -573,7 +576,7 @@ h1, h2, h3,
   opacity: 0.9;
 }
 
-/* ===== ГАЛЕРЕЯ (POLAROID — ИСПРАВЛЕННАЯ) ===== */
+/* ===== ГАЛЕРЕЯ (POLAROID — ДЕСКТОП) ===== */
 .gallery {
   background: var(--primary);
   padding: 60px 0;
@@ -584,36 +587,6 @@ h1, h2, h3,
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 40px;
-}
-
-.gallery__header {
-  text-align: center;
-  max-width: 720px;
-  margin: 0 auto 40px;
-}
-
-.gallery__label {
-  display: inline-block;
-  color: var(--gold);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 12px;
-  animation: neonPulse 2.5s ease-in-out infinite;
-}
-
-.gallery__title {
-  font-size: 44px;
-  font-weight: 400;
-  line-height: 1.1;
-  margin-bottom: 16px;
-}
-
-.gallery__subtitle {
-  font-size: 17px;
-  opacity: 0.9;
-  line-height: 1.5;
 }
 
 .gallery__frame {
@@ -649,17 +622,38 @@ h1, h2, h3,
   padding: 0 20px;
 }
 
-/* Стиль Polaroid — БЕЗ поворотов */
-.gallery__slide img {
-  width: 100%;
-  max-width: 450px;
-  height: auto;
-  display: block;
+/* Polaroid контейнер */
+.gallery__polaroid {
   background: #fff;
   padding: 16px 16px 50px 16px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
   transition: transform 0.3s ease;
+  width: 100%;
+  max-width: 450px;
+  position: relative;
+}
+
+.gallery__polaroid img {
+  width: 100%;
+  height: auto;
+  display: block;
   filter: sepia(15%) contrast(1.05);
+}
+
+/* Рукописная подпись */
+.gallery__caption {
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  font-size: 28px;
+  font-weight: 500;
+  color: #2a2a2a;
+  margin: 0;
+  padding: 0 16px;
+  transform: rotate(-2deg);
 }
 
 .gallery__slide img:hover {
@@ -700,7 +694,7 @@ h1, h2, h3,
   right: 20px;
 }
 
-/* ===== КАЛЕНДАРЬ (ПУСТОЙ БЛОК — ДЕСКТОП) ===== */
+/* ===== КАЛЕНДАРЬ (ДЕСКТОП) ===== */
 .calendar {
   background: var(--accent);
   padding: 60px 0;
@@ -743,6 +737,16 @@ h1, h2, h3,
   line-height: 1.5;
 }
 
+/* Показываем только на десктопе */
+.calendar__frame--desktop {
+  display: block;
+}
+
+/* Скрываем мобильную кнопку на десктопе */
+.calendar__mobile-trigger {
+  display: none;
+}
+
 .calendar__frame {
   background: transparent;
   padding: 0;
@@ -755,30 +759,59 @@ h1, h2, h3,
   display: none;
 }
 
-/* Заглушка для календаря */
 .calendar__wrapper {
-  background: rgba(247, 243, 238, 0.08);
-  border: 2px dashed rgba(212, 162, 76, 0.4);
-  border-radius: 10px;
-  padding: 80px 30px;
-  text-align: center;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   width: 100%;
-  min-height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.calendar__placeholder {
-  color: var(--gold);
-  font-size: 20px;
-  font-weight: 500;
-  opacity: 0.8;
-  font-family: 'Cormorant Infant', serif;
-  letter-spacing: 0.5px;
+.calendar__wrapper iframe {
+  display: block;
+  width: 100%;
+  height: 500px;
 }
 
 .calendar__cta {
   text-align: center;
   margin-top: 24px;
+}
+
+/* Скрываем модалку на десктопе */
+.calendar-modal {
+  display: none;
+}
+
+/* ===== НЕОНОВОЕ СВЕЧЕНИЕ ===== */
+@keyframes neonPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 4px var(--gold),
+      0 0 8px var(--gold),
+      0 0 16px rgba(212, 162, 76, 0.6),
+      0 0 24px rgba(212, 162, 76, 0.3);
+  }
+  50% {
+    text-shadow:
+      0 0 6px var(--gold),
+      0 0 12px var(--gold),
+      0 0 22px rgba(212, 162, 76, 0.8),
+      0 0 32px rgba(212, 162, 76, 0.5);
+  }
+}
+
+@keyframes neonPulseNav {
+  0%, 100% {
+    text-shadow:
+      0 0 3px var(--gold),
+      0 0 6px rgba(212, 162, 76, 0.4),
+      0 0 12px rgba(212, 162, 76, 0.2);
+  }
+  50% {
+    text-shadow:
+      0 0 5px var(--gold),
+      0 0 10px rgba(212, 162, 76, 0.6),
+      0 0 18px rgba(212, 162, 76, 0.3);
+  }
 }
