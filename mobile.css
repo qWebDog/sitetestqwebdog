@@ -565,10 +565,12 @@ h1, h2, h3,
   background: var(--primary);
   padding: 40px 0;
   color: var(--light);
+  overflow: hidden; /* Предотвращает горизонтальный скролл */
 }
 
 .gallery__container {
   padding: 0 20px;
+  overflow: hidden; /* Дополнительная защита */
 }
 
 .gallery__frame {
@@ -577,6 +579,7 @@ h1, h2, h3,
   border-radius: 0;
   box-shadow: none;
   position: relative;
+  overflow: hidden; /* Скрываем выходящие элементы */
 }
 
 .gallery__frame::before {
@@ -590,12 +593,14 @@ h1, h2, h3,
   height: 420px;
   margin: 0 auto;
   perspective: 1000px;
+  overflow: hidden; /* КРИТИЧНО: скрывает вылетающие слайды */
 }
 
 .gallery__track {
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: hidden; /* Дополнительная защита */
 }
 
 .gallery__slide {
@@ -641,6 +646,7 @@ h1, h2, h3,
   padding: 0 12px;
 }
 
+/* Состояния для мобильной стопки (уменьшены смещения) */
 .gallery__slide.active {
   z-index: 10;
   transform: translate(0, 0) rotate(0deg);
@@ -649,31 +655,32 @@ h1, h2, h3,
 
 .gallery__slide.next {
   z-index: 9;
-  transform: translate(12px, 12px) rotate(4deg);
+  transform: translate(8px, 8px) rotate(3deg); /* Уменьшено с 12px */
   opacity: 1;
 }
 
 .gallery__slide.next-2 {
   z-index: 8;
-  transform: translate(24px, 24px) rotate(-3deg);
+  transform: translate(16px, 16px) rotate(-2deg); /* Уменьшено с 24px */
   opacity: 1;
 }
 
 .gallery__slide.hidden {
   z-index: 7;
-  transform: translate(36px, 36px) rotate(2deg);
+  transform: translate(24px, 24px) rotate(1deg); /* Уменьшено с 36px */
   opacity: 1;
 }
 
+/* Анимация вылета — УМЕНЬШЕНА для предотвращения скролла */
 .gallery__slide.fly-out-right {
   z-index: 20;
-  transform: translate(120%, 60px) rotate(20deg);
+  transform: translate(100%, 50px) rotate(15deg); /* Было 120% */
   opacity: 0;
 }
 
 .gallery__slide.fly-out-left {
   z-index: 20;
-  transform: translate(-120%, 60px) rotate(-20deg);
+  transform: translate(-100%, 50px) rotate(-15deg); /* Было -120% */
   opacity: 0;
 }
 
