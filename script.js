@@ -21,7 +21,7 @@ const ICAL_URL = 'https://calendar.yandex.ru/export/ics.xml?private_token=8c4362
 
 // ===== ВАШ CLOUDFLARE WORKERS PROXY =====
 // ЗАМЕНИТЕ НА СВОЙ URL!
-const CLOUDFLARE_PROXY = 'https://todublin-calendar-proxy.YOUR-USERNAME.workers.dev';
+const CLOUDFLARE_PROXY = 'https://round-cell-ba3ctodublin-calendar-proxy.qwebdog.workers.dev';
 
 // ===== КЭШИРОВАНИЕ =====
 const CACHE_KEY = 'todublin_calendar_cache';
