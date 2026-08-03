@@ -372,7 +372,7 @@ document.addEventListener('DOMContentLoaded', () => {
         week: 'Неделя'
       },
       firstDay: 1,
-      height: isMobile ? 420 : 500,
+      height: isMobile ? 'auto' : 500,
       events: async function(fetchInfo, successCallback, failureCallback) {
         try {
           const result = await calendarDataPromise;
