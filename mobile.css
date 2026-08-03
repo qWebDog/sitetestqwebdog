@@ -767,12 +767,9 @@ h1, h2, h3,
   margin-top: 20px;
 }
 
-/* ===== FULLCALENDAR (МОБИЛЬНАЯ - МАСШТАБИРОВАНИЕ) ===== */
+/* ===== FULLCALENDAR (МОБИЛЬНАЯ) ===== */
 #customCalendar {
   font-family: 'Inter', sans-serif;
-  transform: scale(0.75);
-  transform-origin: top center;
-  margin-bottom: -100px; /* Компенсация масштаба */
 }
 
 .fc {
