@@ -93,7 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateStack() {
       slides.forEach((slide, index) => {
-        slide.classList.remove('active', 'next', 'next-2', 'hidden', 'fly-out-right', 'fly-out-left');
+        slide.classList.remove('active', 'next', 'next-2', 'hidden', 
+                              'fly-out-right', 'fly-out-left',
+                              'slide-in-right', 'slide-in-left');
         
         let diff = (index - currentIndex + slides.length) % slides.length;
         
@@ -109,20 +111,41 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // Следующее фото: текущее улетает вправо, новое приезжает слева ПОВЕРХ
     function nextSlide() {
       if (isAnimating) return;
       isAnimating = true;
       
       const currentSlide = slides[currentIndex];
+      const nextIndex = (currentIndex + 1) % slides.length;
+      const nextSlideEl = slides[nextIndex];
+      
+      // 1. Текущее фото улетает вправо (z-index: 5 — под всем)
+      currentSlide.classList.remove('active', 'next', 'next-2', 'hidden');
       currentSlide.classList.add('fly-out-right');
       
+      // 2. Новое фото мгновенно позиционируем слева за экраном
+      nextSlideEl.style.transition = 'none';
+      nextSlideEl.classList.remove('active', 'next', 'next-2', 'hidden', 'fly-out-left', 'fly-out-right');
+      nextSlideEl.classList.add('slide-in-left');
+      
+      // Форсируем перерисовку
+      void nextSlideEl.offsetWidth;
+      
+      // 3. Плавно перемещаем в центр (z-index: 25 — поверх всего)
+      nextSlideEl.style.transition = '';
+      nextSlideEl.classList.remove('slide-in-left');
+      nextSlideEl.classList.add('active');
+      
+      currentIndex = nextIndex;
+      
       setTimeout(() => {
-        currentIndex = (currentIndex + 1) % slides.length;
         updateStack();
         isAnimating = false;
       }, 600);
     }
 
+    // Предыдущее фото: текущее улетает влево, новое приезжает справа ПОВЕРХ
     function prevSlide() {
       if (isAnimating) return;
       isAnimating = true;
@@ -131,18 +154,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const prevSlideEl = slides[prevIndex];
       const currentSlide = slides[currentIndex];
       
-      prevSlideEl.style.transition = 'none';
-      prevSlideEl.classList.remove('hidden', 'next', 'next-2', 'active');
-      prevSlideEl.classList.add('fly-out-left');
+      // 1. Текущее фото улетает влево (z-index: 5 — под всем)
+      currentSlide.classList.remove('active', 'next', 'next-2', 'hidden');
+      currentSlide.classList.add('fly-out-left');
       
+      // 2. Новое фото мгновенно позиционируем справа за экраном
+      prevSlideEl.style.transition = 'none';
+      prevSlideEl.classList.remove('active', 'next', 'next-2', 'hidden', 'fly-out-left', 'fly-out-right');
+      prevSlideEl.classList.add('slide-in-right');
+      
+      // Форсируем перерисовку
       void prevSlideEl.offsetWidth;
       
+      // 3. Плавно перемещаем в центр (z-index: 25 — поверх всего)
       prevSlideEl.style.transition = '';
-      prevSlideEl.classList.remove('fly-out-left');
+      prevSlideEl.classList.remove('slide-in-right');
       prevSlideEl.classList.add('active');
-      
-      currentSlide.classList.remove('active');
-      currentSlide.classList.add('hidden');
       
       currentIndex = prevIndex;
       
