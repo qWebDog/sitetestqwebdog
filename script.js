@@ -19,8 +19,12 @@ loadStyles();
 // ===== ICAL ССЫЛКА ИЗ ЯНДЕКС.КАЛЕНДАРЯ =====
 const ICAL_URL = 'https://calendar.yandex.ru/export/ics.xml?private_token=8c436274898397b54fd84b20ad7359b52b9f5194&tz_id=Europe/Moscow';
 
-// CORS прокси для обхода ограничений Яндекса
-const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+// Список CORS прокси (если один не работает, пробуем следующий)
+const CORS_PROXIES = [
+  'https://api.allorigins.win/raw?url=',
+  'https://corsproxy.io/?',
+  'https://api.codetabs.com/v1/proxy?quest='
+];
 
 document.addEventListener('DOMContentLoaded', () => {
   const burger = document.getElementById('burger');
@@ -219,7 +223,40 @@ document.addEventListener('DOMContentLoaded', () => {
     startAutoPlay();
   }
 
-  // ===== КАЛЕНДАРЬ FULLCALENDAR С ЯНДЕКС СИНХРОНИЗАЦИЕЙ =====
+  // ===== КАЛЕНДАРЬ: ЗАГРУЗКА ICAL С ПОПРОБОВАНИЕМ НЕСКОЛЬКИХ ПРОКСИ =====
+  async function fetchICalWithFallback() {
+    // Пробуем каждый прокси по очереди
+    for (const proxy of CORS_PROXIES) {
+      try {
+        console.log('Пробуем прокси:', proxy);
+        const response = await fetch(proxy + encodeURIComponent(ICAL_URL));
+        
+        if (!response.ok) {
+          console.warn('Прокси не сработал:', proxy, response.status);
+          continue;
+        }
+        
+        const text = await response.text();
+        
+        // Проверяем, что это действительно iCal данные
+        if (text.includes('BEGIN:VCALENDAR')) {
+          console.log('✅ Успешно загружено через:', proxy);
+          return text;
+        } else {
+          console.warn('Получен не iCal формат от:', proxy);
+          continue;
+        }
+      } catch (error) {
+        console.warn('Ошибка с прокси:', proxy, error.message);
+        continue;
+      }
+    }
+    
+    // Если все прокси не сработали
+    throw new Error('Все прокси не сработали');
+  }
+
+  // ===== КАЛЕНДАРЬ FULLCALENDAR =====
   function initCalendar() {
     const calendarEl = document.getElementById('customCalendar');
     if (!calendarEl || calendarEl.dataset.initialized === 'true') return;
@@ -243,16 +280,10 @@ document.addEventListener('DOMContentLoaded', () => {
       height: isMobile ? 420 : 500,
       events: async function(fetchInfo, successCallback, failureCallback) {
         try {
-          // Используем CORS прокси для загрузки iCal
-          const response = await fetch(CORS_PROXY + encodeURIComponent(ICAL_URL));
+          // Загружаем iCal через прокси с fallback
+          const icsData = await fetchICalWithFallback();
           
-          if (!response.ok) {
-            throw new Error('Ошибка загрузки календаря');
-          }
-          
-          const icsData = await response.text();
-          
-          // Парсим iCal данные
+          // Парсим iCal
           const jcalData = ICAL.parse(icsData);
           const vcalendar = new ICAL.Component(jcalData);
           const vevents = vcalendar.getAllSubcomponents('vevent');
@@ -263,45 +294,47 @@ document.addEventListener('DOMContentLoaded', () => {
             const endDate = event.endDate ? event.endDate.toJSDate() : startDate;
             
             return {
-              title: '',
+              title: '', // Пустой заголовок — ячейка просто закрашивается
               start: startDate,
               end: endDate,
               allDay: event.startDate.isDate,
               backgroundColor: '#7F180D',
               borderColor: '#7F180D',
-              textColor: '#F7F3EE'
+              textColor: '#F7F3EE',
+              display: 'background' // Событие как фоновая заливка
             };
           });
 
-          console.log('Загружено событий из Яндекс.Календаря:', events.length);
+          console.log('✅ Загружено событий из Яндекс:', events.length);
           successCallback(events);
           
         } catch (error) {
-          console.error('Ошибка загрузки календаря:', error);
+          console.error('❌ Ошибка загрузки календаря:', error);
           
-          // Если не удалось загрузить — показываем демо-события
+          // Fallback: демо-события
           const today = new Date();
           const demoEvents = [];
           for (let i = 0; i < 5; i++) {
             const date = new Date(today);
             date.setDate(today.getDate() + Math.floor(Math.random() * 30));
             demoEvents.push({
-              title: 'Занято',
+              title: '',
               start: date,
               allDay: true,
               backgroundColor: '#7F180D',
               borderColor: '#7F180D',
-              textColor: '#F7F3EE'
+              textColor: '#F7F3EE',
+              display: 'background'
             });
           }
           
-          console.log('Используются демо-события:', demoEvents.length);
+          console.log('⚠️ Используются демо-события:', demoEvents.length);
           successCallback(demoEvents);
         }
       },
       eventClick: function(info) {
         if (!isMobile) {
-          alert('Дата занята: ' + info.event.title);
+          alert('Дата занята');
         }
       }
     });
