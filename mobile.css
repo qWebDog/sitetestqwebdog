@@ -767,7 +767,7 @@ h1, h2, h3,
   margin-top: 20px;
 }
 
-/* ===== FULLCALENDAR (МОБИЛЬНАЯ) ===== */
+/* ===== FULLCALENDAR (МОБИЛЬНАЯ - УМЕНЬШЕННЫЕ ЯЧЕЙКИ) ===== */
 #customCalendar {
   font-family: 'Inter', sans-serif;
 }
@@ -811,23 +811,23 @@ h1, h2, h3,
 .fc .fc-col-header-cell-cushion {
   color: var(--gold);
   font-weight: 600;
-  padding: 6px 2px;
+  padding: 3px 1px;
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 0.5px;
 }
 
 .fc .fc-daygrid-day-number {
   color: var(--text);
   font-weight: 500;
-  padding: 3px 4px;
-  font-size: 11px;
+  padding: 2px 2px;
+  font-size: 10px;
 }
 
 .fc .fc-event {
   border-radius: 3px;
-  padding: 1px 3px;
-  font-size: 9px;
+  padding: 1px 2px;
+  font-size: 8px;
   font-weight: 500;
   border: none;
 }
@@ -841,8 +841,13 @@ h1, h2, h3,
   overflow: hidden;
 }
 
+/* Уменьшенные ячейки дат в 2 раза */
 .fc .fc-daygrid-day-frame {
-  min-height: 40px;
+  min-height: 20px; /* Было 40px */
+}
+
+.fc .fc-daygrid-day {
+  height: 20px; /* Было 40px */
 }
 
 /* ===== НЕОНОВОЕ СВЕЧЕНИЕ ===== */
