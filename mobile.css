@@ -845,6 +845,18 @@ h1, h2, h3,
 .fc .fc-daygrid-day-frame {
   min-height: 36px;
 }
+/* Закрашиваем дни с событиями полностью */
+.fc .fc-daygrid-day:has(.fc-event) {
+  background-color: #7F180D !important;
+}
+
+.fc .fc-daygrid-day:has(.fc-event) .fc-daygrid-day-number {
+  color: #F7F3EE !important;
+}
+
+.fc .fc-daygrid-day:has(.fc-event) .fc-event {
+  display: none;
+}
 
 /* ===== НЕОНОВОЕ СВЕЧЕНИЕ ===== */
 @keyframes neonPulse {
