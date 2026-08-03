@@ -668,15 +668,28 @@ h1, h2, h3,
 }
 
 .gallery__slide.fly-out-right {
-  z-index: 20;
+  z-index: 5;
   transform: translate(120%, 60px) rotate(20deg);
   opacity: 0;
 }
 
 .gallery__slide.fly-out-left {
-  z-index: 20;
+  z-index: 5;
   transform: translate(-120%, 60px) rotate(-20deg);
   opacity: 0;
+}
+
+/* Новое фото появляется ПОВЕРХ текущего */
+.gallery__slide.slide-in-right {
+  z-index: 25;
+  transform: translate(100%, 0) rotate(0deg);
+  opacity: 1;
+}
+
+.gallery__slide.slide-in-left {
+  z-index: 25;
+  transform: translate(-100%, 0) rotate(0deg);
+  opacity: 1;
 }
 
 .gallery__arrow {
