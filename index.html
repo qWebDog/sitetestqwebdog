@@ -238,7 +238,11 @@
       </div>
 
       <div class="calendar__frame">
-        <div id="customCalendar"></div>
+        <div class="calendar__loader" id="calendarLoader">
+          <div class="calendar__loader-spinner"></div>
+          <p class="calendar__loader-text">Загрузка календаря...</p>
+        </div>
+        <div id="customCalendar" style="display: none;"></div>
         <div class="calendar__legend">
           <div class="calendar__legend-item">
             <span class="calendar__legend-dot calendar__legend-dot--booked"></span>
