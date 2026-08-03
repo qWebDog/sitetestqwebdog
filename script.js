@@ -441,6 +441,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initCalendar();
 
+  // ===== ФОРМА ЗАЯВКИ =====
+  const requestForm = document.getElementById('requestForm');
+  
+  if (requestForm) {
+    requestForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(requestForm);
+      const data = Object.fromEntries(formData);
+      
+      // Здесь можно добавить отправку на сервер
+      console.log('Данные формы:', data);
+      
+      // Временное решение — показываем сообщение
+      alert('Спасибо за заявку! Мы свяжемся с вами в течение 30 минут.');
+      requestForm.reset();
+    });
+  }
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && menu && menu.classList.contains('active')) {
       closeMenu();
