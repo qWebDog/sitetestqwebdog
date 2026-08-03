@@ -793,19 +793,19 @@ h1, h2, h3,
 .fc .fc-toolbar {
   flex-direction: column !important;
   gap: 6px;
-  margin-bottom: 8px !important;
+  margin-bottom: 6px !important;
 }
 
 .fc .fc-toolbar-title {
-  font-size: 15px !important;
+  font-size: 14px !important;
   color: var(--text);
   font-weight: 600;
 }
 
 .fc .fc-button-primary {
-  border-radius: 6px;
-  padding: 4px 10px;
-  font-size: 11px;
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 10px;
   font-weight: 500;
   text-transform: none;
   box-shadow: none;
@@ -814,17 +814,17 @@ h1, h2, h3,
 .fc .fc-col-header-cell-cushion {
   color: var(--gold);
   font-weight: 600;
-  padding: 5px 2px;
+  padding: 3px 1px;
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 0.5px;
 }
 
 .fc .fc-daygrid-day-number {
   color: var(--text);
   font-weight: 500;
-  padding: 2px 3px;
-  font-size: 11px;
+  padding: 1px 2px;
+  font-size: 10px;
 }
 
 .fc .fc-day-today {
@@ -836,12 +836,13 @@ h1, h2, h3,
 }
 
 .fc .fc-scrollgrid {
-  border-radius: 6px;
+  border-radius: 4px;
   overflow: hidden;
 }
 
+/* Ячейки уменьшены в 2 раза: 40px → 20px */
 .fc .fc-daygrid-day-frame {
-  min-height: 30px;
+  min-height: 20px;
 }
 
 /* ===== ЛОАДЕР КАЛЕНДАРЯ ===== */
