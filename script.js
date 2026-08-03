@@ -16,7 +16,11 @@ function loadStyles() {
 
 loadStyles();
 
+// ===== ICAL ССЫЛКА ИЗ ЯНДЕКС.КАЛЕНДАРЯ =====
 const ICAL_URL = 'https://calendar.yandex.ru/export/ics.xml?private_token=8c436274898397b54fd84b20ad7359b52b9f5194&tz_id=Europe/Moscow';
+
+// CORS прокси для обхода ограничений Яндекса
+const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
 
 document.addEventListener('DOMContentLoaded', () => {
   const burger = document.getElementById('burger');
@@ -131,7 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const prevSlideEl = slides[prevIndex];
       const currentSlide = slides[currentIndex];
       
-      // Сдвигаем все слайды на один уровень глубже (кроме текущего и предыдущего)
       slides.forEach((slide, index) => {
         if (index === currentIndex || index === prevIndex) return;
         
@@ -149,11 +152,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
       
-      // Текущее фото опускается на второй уровень (next)
       currentSlide.classList.remove('active');
       currentSlide.classList.add('next');
       
-      // Предыдущее фото поднимается из глубины стопки (hidden → active)
       prevSlideEl.classList.remove('hidden');
       prevSlideEl.classList.add('active');
       
@@ -218,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
     startAutoPlay();
   }
 
-  // ===== КАЛЕНДАРЬ FULLCALENDAR =====
+  // ===== КАЛЕНДАРЬ FULLCALENDAR С ЯНДЕКС СИНХРОНИЗАЦИЕЙ =====
   function initCalendar() {
     const calendarEl = document.getElementById('customCalendar');
     if (!calendarEl || calendarEl.dataset.initialized === 'true') return;
@@ -239,12 +240,49 @@ document.addEventListener('DOMContentLoaded', () => {
         week: 'Неделя'
       },
       firstDay: 1,
-      height: isMobile ? 250 : 450, // Уменьшено с 'auto' до 250px для мобильных
-      events: function(fetchInfo, successCallback, failureCallback) {
-        if (!ICAL_URL) {
+      height: isMobile ? 'auto' : 500,
+      events: async function(fetchInfo, successCallback, failureCallback) {
+        try {
+          // Используем CORS прокси для загрузки iCal
+          const response = await fetch(CORS_PROXY + encodeURIComponent(ICAL_URL));
+          
+          if (!response.ok) {
+            throw new Error('Ошибка загрузки календаря');
+          }
+          
+          const icsData = await response.text();
+          
+          // Парсим iCal данные
+          const jcalData = ICAL.parse(icsData);
+          const vcalendar = new ICAL.Component(jcalData);
+          const vevents = vcalendar.getAllSubcomponents('vevent');
+
+          const events = vevents.map(vevent => {
+            const event = new ICAL.Event(vevent);
+            const startDate = event.startDate.toJSDate();
+            const endDate = event.endDate ? event.endDate.toJSDate() : startDate;
+            
+            return {
+              title: event.summary || 'Занято',
+              start: startDate,
+              end: endDate,
+              allDay: event.startDate.isDate,
+              backgroundColor: '#7F180D',
+              borderColor: '#7F180D',
+              textColor: '#F7F3EE'
+            };
+          });
+
+          console.log('Загружено событий из Яндекс.Календаря:', events.length);
+          successCallback(events);
+          
+        } catch (error) {
+          console.error('Ошибка загрузки календаря:', error);
+          
+          // Если не удалось загрузить — показываем демо-события
           const today = new Date();
           const demoEvents = [];
-          for (let i = 0; i < 8; i++) {
+          for (let i = 0; i < 5; i++) {
             const date = new Date(today);
             date.setDate(today.getDate() + Math.floor(Math.random() * 30));
             demoEvents.push({
@@ -256,36 +294,10 @@ document.addEventListener('DOMContentLoaded', () => {
               textColor: '#F7F3EE'
             });
           }
+          
+          console.log('Используются демо-события:', demoEvents.length);
           successCallback(demoEvents);
-          return;
         }
-
-        fetch(ICAL_URL)
-          .then(response => response.text())
-          .then(icsData => {
-            const jcalData = ICAL.parse(icsData);
-            const vcalendar = new ICAL.Component(jcalData);
-            const vevents = vcalendar.getAllSubcomponents('vevent');
-
-            const events = vevents.map(vevent => {
-              const event = new ICAL.Event(vevent);
-              return {
-                title: event.summary || 'Занято',
-                start: event.startDate.toJSDate(),
-                end: event.endDate ? event.endDate.toJSDate() : event.startDate.toJSDate(),
-                allDay: event.startDate.isDate,
-                backgroundColor: '#7F180D',
-                borderColor: '#7F180D',
-                textColor: '#F7F3EE'
-              };
-            });
-
-            successCallback(events);
-          })
-          .catch(error => {
-            console.error('Ошибка загрузки календаря:', error);
-            failureCallback(error);
-          });
       },
       eventClick: function(info) {
         if (!isMobile) {
