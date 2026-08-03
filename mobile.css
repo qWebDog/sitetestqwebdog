@@ -780,6 +780,8 @@ h1, h2, h3,
   --fc-event-bg-color: #7F180D;
   --fc-event-border-color: #7F180D;
   --fc-event-text-color: #F7F3EE;
+  --fc-bg-event-color: #7F180D;
+  --fc-bg-event-opacity: 1;
   --fc-button-bg-color: #20603D;
   --fc-button-border-color: #20603D;
   --fc-button-hover-bg-color: #7F180D;
@@ -825,16 +827,12 @@ h1, h2, h3,
   font-size: 11px;
 }
 
-.fc .fc-event {
-  border-radius: 3px;
-  padding: 1px 2px;
-  font-size: 9px;
-  font-weight: 500;
-  border: none;
-}
-
 .fc .fc-day-today {
   background-color: rgba(212, 162, 76, 0.1) !important;
+}
+
+.fc .fc-bg-event {
+  opacity: 1 !important;
 }
 
 .fc .fc-scrollgrid {
@@ -844,18 +842,6 @@ h1, h2, h3,
 
 .fc .fc-daygrid-day-frame {
   min-height: 36px;
-}
-/* Закрашиваем дни с событиями полностью */
-.fc .fc-daygrid-day:has(.fc-event) {
-  background-color: #7F180D !important;
-}
-
-.fc .fc-daygrid-day:has(.fc-event) .fc-daygrid-day-number {
-  color: #F7F3EE !important;
-}
-
-.fc .fc-daygrid-day:has(.fc-event) .fc-event {
-  display: none;
 }
 
 /* ===== НЕОНОВОЕ СВЕЧЕНИЕ ===== */
