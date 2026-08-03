@@ -93,9 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateStack() {
       slides.forEach((slide, index) => {
-        slide.classList.remove('active', 'next', 'next-2', 'hidden', 
-                              'fly-out-right', 'fly-out-left',
-                              'slide-in-right', 'slide-in-left');
+        slide.classList.remove('active', 'next', 'next-2', 'hidden', 'fly-out-right', 'fly-out-left');
         
         let diff = (index - currentIndex + slides.length) % slides.length;
         
@@ -111,41 +109,21 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Следующее фото: текущее улетает вправо, новое приезжает слева ПОВЕРХ
     function nextSlide() {
       if (isAnimating) return;
       isAnimating = true;
       
       const currentSlide = slides[currentIndex];
-      const nextIndex = (currentIndex + 1) % slides.length;
-      const nextSlideEl = slides[nextIndex];
-      
-      // 1. Текущее фото улетает вправо (z-index: 5 — под всем)
-      currentSlide.classList.remove('active', 'next', 'next-2', 'hidden');
       currentSlide.classList.add('fly-out-right');
       
-      // 2. Новое фото мгновенно позиционируем слева за экраном
-      nextSlideEl.style.transition = 'none';
-      nextSlideEl.classList.remove('active', 'next', 'next-2', 'hidden', 'fly-out-left', 'fly-out-right');
-      nextSlideEl.classList.add('slide-in-left');
-      
-      // Форсируем перерисовку
-      void nextSlideEl.offsetWidth;
-      
-      // 3. Плавно перемещаем в центр (z-index: 25 — поверх всего)
-      nextSlideEl.style.transition = '';
-      nextSlideEl.classList.remove('slide-in-left');
-      nextSlideEl.classList.add('active');
-      
-      currentIndex = nextIndex;
-      
       setTimeout(() => {
+        currentIndex = (currentIndex + 1) % slides.length;
         updateStack();
         isAnimating = false;
       }, 600);
     }
 
-        function prevSlide() {
+    function prevSlide() {
       if (isAnimating) return;
       isAnimating = true;
       
@@ -186,6 +164,45 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 600);
     }
 
+    function startAutoPlay() {
+      stopAutoPlay();
+      autoPlayInterval = setInterval(nextSlide, AUTO_PLAY_DELAY);
+    }
+
+    function stopAutoPlay() {
+      if (autoPlayInterval) {
+        clearInterval(autoPlayInterval);
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        startAutoPlay();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        startAutoPlay();
+      });
+    }
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    galleryCarousel.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAutoPlay();
+    }, { passive: true });
+
+    galleryCarousel.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+      startAutoPlay();
+    }, { passive: true });
+
     function handleSwipe() {
       const diff = touchStartX - touchEndX;
       if (Math.abs(diff) < 50) return;
@@ -222,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
         week: 'Неделя'
       },
       firstDay: 1,
-      height: isMobile ? 'auto' : 450,
+      height: isMobile ? 250 : 450, // Уменьшено с 'auto' до 250px для мобильных
       events: function(fetchInfo, successCallback, failureCallback) {
         if (!ICAL_URL) {
           const today = new Date();
