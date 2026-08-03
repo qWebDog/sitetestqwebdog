@@ -65,7 +65,7 @@ async function fetchICal() {
   
   try {
     const response = await fetch(proxyUrl, {
-      signal: AbortSignal.timeout(10000) // 10 секунд
+      signal: AbortSignal.timeout(10000)
     });
     
     if (!response.ok) {
@@ -139,7 +139,6 @@ function preloadCalendarData() {
   return calendarDataPromise;
 }
 
-// Начинаем предзагрузку сразу
 preloadCalendarData();
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -218,6 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateStack() {
       slides.forEach((slide, index) => {
         slide.classList.remove('active', 'next', 'next-2', 'hidden', 'fly-out-right', 'fly-out-left');
+        slide.style.transition = '';
         
         let diff = (index - currentIndex + slides.length) % slides.length;
         
@@ -233,6 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // Свайп влево — 600мс, улет вправо
     function nextSlide() {
       if (isAnimating) return;
       isAnimating = true;
@@ -247,6 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 600);
     }
 
+    // Свайп вправо — 350мс, ускоренная анимация
     function prevSlide() {
       if (isAnimating) return;
       isAnimating = true;
@@ -255,6 +257,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const prevSlideEl = slides[prevIndex];
       const currentSlide = slides[currentIndex];
       
+      // Ускоряем transition для обратного свайпа
+      prevSlideEl.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.35s ease';
+      currentSlide.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.35s ease';
+      
+      // Сдвигаем все слайды на один уровень глубже (кроме текущего и предыдущего)
       slides.forEach((slide, index) => {
         if (index === currentIndex || index === prevIndex) return;
         
@@ -272,17 +279,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
       
+      // Текущее фото опускается на второй уровень (next)
       currentSlide.classList.remove('active');
       currentSlide.classList.add('next');
       
+      // Предыдущее фото поднимается из глубины стопки (hidden → active)
       prevSlideEl.classList.remove('hidden');
       prevSlideEl.classList.add('active');
       
       currentIndex = prevIndex;
       
       setTimeout(() => {
+        // Возвращаем стандартный transition
+        prevSlideEl.style.transition = '';
+        currentSlide.style.transition = '';
+        updateStack();
         isAnimating = false;
-      }, 600);
+      }, 350);
     }
 
     function startAutoPlay() {
@@ -383,7 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
             successCallback(result.events);
           } else if (result.error) {
             console.warn('⚠️ Ошибка загрузки — календарь пуст');
-            successCallback([]); // ПУСТОЙ КАЛЕНДАРЬ (без демо!)
+            successCallback([]);
           } else {
             successCallback([]);
           }
@@ -394,7 +407,7 @@ document.addEventListener('DOMContentLoaded', () => {
           
         } catch (error) {
           console.error('Ошибка:', error);
-          successCallback([]); // ПУСТОЙ КАЛЕНДАРЬ
+          successCallback([]);
         } finally {
           hideLoader();
         }
@@ -410,7 +423,6 @@ document.addEventListener('DOMContentLoaded', () => {
     customCalendar.dataset.initialized = 'true';
   }
 
-  // Фоновое обновление
   function backgroundRefresh(calendarInstance) {
     console.log('🔄 Фоновое обновление...');
     
