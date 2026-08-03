@@ -25,7 +25,7 @@ html {
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--accent);
+  background: #E3D5C1;
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
