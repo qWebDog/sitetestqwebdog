@@ -19,12 +19,128 @@ loadStyles();
 // ===== ICAL ССЫЛКА ИЗ ЯНДЕКС.КАЛЕНДАРЯ =====
 const ICAL_URL = 'https://calendar.yandex.ru/export/ics.xml?private_token=8c436274898397b54fd84b20ad7359b52b9f5194&tz_id=Europe/Moscow';
 
-// Список CORS прокси (если один не работает, пробуем следующий)
-const CORS_PROXIES = [
-  'https://api.allorigins.win/raw?url=',
-  'https://corsproxy.io/?',
-  'https://api.codetabs.com/v1/proxy?quest='
-];
+// ===== ВАШ CLOUDFLARE WORKERS PROXY =====
+// ЗАМЕНИТЕ НА СВОЙ URL!
+const CLOUDFLARE_PROXY = 'https://todublin-calendar-proxy.YOUR-USERNAME.workers.dev';
+
+// ===== КЭШИРОВАНИЕ =====
+const CACHE_KEY = 'todublin_calendar_cache';
+const CACHE_DURATION = 60 * 60 * 1000; // 1 час
+
+function getCache() {
+  try {
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (!cached) return null;
+    
+    const { data, timestamp } = JSON.parse(cached);
+    const age = Date.now() - timestamp;
+    
+    if (age < CACHE_DURATION) {
+      console.log('✅ Данные из кэша (возраст:', Math.round(age / 1000), 'сек)');
+      return data;
+    }
+    
+    console.log('⚠️ Кэш устарел');
+    return null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function setCache(data) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({
+      data: data,
+      timestamp: Date.now()
+    }));
+    console.log('💾 Данные сохранены в кэш');
+  } catch (e) {
+    console.warn('Не удалось сохранить в кэш:', e);
+  }
+}
+
+// ===== ЗАГРУЗКА ICAL ЧЕРЕЗ CLOUDFLARE =====
+async function fetchICal() {
+  const proxyUrl = CLOUDFLARE_PROXY + '?url=' + encodeURIComponent(ICAL_URL);
+  
+  try {
+    const response = await fetch(proxyUrl, {
+      signal: AbortSignal.timeout(10000) // 10 секунд
+    });
+    
+    if (!response.ok) {
+      throw new Error('HTTP ' + response.status);
+    }
+    
+    const text = await response.text();
+    
+    if (text.includes('BEGIN:VCALENDAR')) {
+      console.log('✅ Успешно загружено через Cloudflare Workers');
+      return text;
+    } else {
+      throw new Error('Неверный формат iCal');
+    }
+  } catch (error) {
+    console.error('❌ Ошибка загрузки:', error);
+    throw error;
+  }
+}
+
+// ===== ПАРСИНГ ICAL =====
+function parseICalEvents(icsData) {
+  try {
+    const jcalData = ICAL.parse(icsData);
+    const vcalendar = new ICAL.Component(jcalData);
+    const vevents = vcalendar.getAllSubcomponents('vevent');
+
+    return vevents.map(vevent => {
+      const event = new ICAL.Event(vevent);
+      const startDate = event.startDate.toJSDate();
+      const endDate = event.endDate ? event.endDate.toJSDate() : startDate;
+      
+      return {
+        title: '',
+        start: startDate,
+        end: endDate,
+        allDay: event.startDate.isDate,
+        backgroundColor: '#7F180D',
+        borderColor: '#7F180D',
+        textColor: '#F7F3EE',
+        display: 'background'
+      };
+    });
+  } catch (error) {
+    console.error('Ошибка парсинга iCal:', error);
+    return [];
+  }
+}
+
+// ===== ПРЕДЗАГРУЗКА ДАННЫХ =====
+let calendarDataPromise = null;
+
+function preloadCalendarData() {
+  calendarDataPromise = (async () => {
+    const cached = getCache();
+    if (cached) {
+      return { events: cached, fromCache: true };
+    }
+    
+    try {
+      const icsData = await fetchICal();
+      const events = parseICalEvents(icsData);
+      setCache(events);
+      return { events, fromCache: false };
+    } catch (error) {
+      console.error('Ошибка загрузки:', error);
+      return { events: [], fromCache: false, error: true };
+    }
+  })();
+  
+  return calendarDataPromise;
+}
+
+// Начинаем предзагрузку сразу
+preloadCalendarData();
 
 document.addEventListener('DOMContentLoaded', () => {
   const burger = document.getElementById('burger');
@@ -223,47 +339,26 @@ document.addEventListener('DOMContentLoaded', () => {
     startAutoPlay();
   }
 
-  // ===== КАЛЕНДАРЬ: ЗАГРУЗКА ICAL С ПОПРОБОВАНИЕМ НЕСКОЛЬКИХ ПРОКСИ =====
-  async function fetchICalWithFallback() {
-    // Пробуем каждый прокси по очереди
-    for (const proxy of CORS_PROXIES) {
-      try {
-        console.log('Пробуем прокси:', proxy);
-        const response = await fetch(proxy + encodeURIComponent(ICAL_URL));
-        
-        if (!response.ok) {
-          console.warn('Прокси не сработал:', proxy, response.status);
-          continue;
-        }
-        
-        const text = await response.text();
-        
-        // Проверяем, что это действительно iCal данные
-        if (text.includes('BEGIN:VCALENDAR')) {
-          console.log('✅ Успешно загружено через:', proxy);
-          return text;
-        } else {
-          console.warn('Получен не iCal формат от:', proxy);
-          continue;
-        }
-      } catch (error) {
-        console.warn('Ошибка с прокси:', proxy, error.message);
-        continue;
-      }
-    }
-    
-    // Если все прокси не сработали
-    throw new Error('Все прокси не сработали');
+  // ===== КАЛЕНДАРЬ FULLCALENDAR =====
+  const calendarLoader = document.getElementById('calendarLoader');
+  const customCalendar = document.getElementById('customCalendar');
+  
+  function showLoader() {
+    if (calendarLoader) calendarLoader.style.display = 'flex';
+    if (customCalendar) customCalendar.style.display = 'none';
+  }
+  
+  function hideLoader() {
+    if (calendarLoader) calendarLoader.style.display = 'none';
+    if (customCalendar) customCalendar.style.display = 'block';
   }
 
-  // ===== КАЛЕНДАРЬ FULLCALENDAR =====
   function initCalendar() {
-    const calendarEl = document.getElementById('customCalendar');
-    if (!calendarEl || calendarEl.dataset.initialized === 'true') return;
+    if (!customCalendar || customCalendar.dataset.initialized === 'true') return;
 
     const isMobile = isMobileDevice();
 
-    const calendar = new FullCalendar.Calendar(calendarEl, {
+    const calendar = new FullCalendar.Calendar(customCalendar, {
       initialView: 'dayGridMonth',
       locale: 'ru',
       headerToolbar: {
@@ -280,56 +375,28 @@ document.addEventListener('DOMContentLoaded', () => {
       height: isMobile ? 420 : 500,
       events: async function(fetchInfo, successCallback, failureCallback) {
         try {
-          // Загружаем iCal через прокси с fallback
-          const icsData = await fetchICalWithFallback();
+          const result = await calendarDataPromise;
           
-          // Парсим iCal
-          const jcalData = ICAL.parse(icsData);
-          const vcalendar = new ICAL.Component(jcalData);
-          const vevents = vcalendar.getAllSubcomponents('vevent');
-
-          const events = vevents.map(vevent => {
-            const event = new ICAL.Event(vevent);
-            const startDate = event.startDate.toJSDate();
-            const endDate = event.endDate ? event.endDate.toJSDate() : startDate;
-            
-            return {
-              title: '', // Пустой заголовок — ячейка просто закрашивается
-              start: startDate,
-              end: endDate,
-              allDay: event.startDate.isDate,
-              backgroundColor: '#7F180D',
-              borderColor: '#7F180D',
-              textColor: '#F7F3EE',
-              display: 'background' // Событие как фоновая заливка
-            };
-          });
-
-          console.log('✅ Загружено событий из Яндекс:', events.length);
-          successCallback(events);
-          
-        } catch (error) {
-          console.error('❌ Ошибка загрузки календаря:', error);
-          
-          // Fallback: демо-события
-          const today = new Date();
-          const demoEvents = [];
-          for (let i = 0; i < 5; i++) {
-            const date = new Date(today);
-            date.setDate(today.getDate() + Math.floor(Math.random() * 30));
-            demoEvents.push({
-              title: '',
-              start: date,
-              allDay: true,
-              backgroundColor: '#7F180D',
-              borderColor: '#7F180D',
-              textColor: '#F7F3EE',
-              display: 'background'
-            });
+          if (result.events.length > 0) {
+            console.log('✅ Событий:', result.events.length, 
+                       result.fromCache ? '(кэш)' : '(сеть)');
+            successCallback(result.events);
+          } else if (result.error) {
+            console.warn('⚠️ Ошибка загрузки — календарь пуст');
+            successCallback([]); // ПУСТОЙ КАЛЕНДАРЬ (без демо!)
+          } else {
+            successCallback([]);
           }
           
-          console.log('⚠️ Используются демо-события:', demoEvents.length);
-          successCallback(demoEvents);
+          if (result.fromCache) {
+            backgroundRefresh(calendar);
+          }
+          
+        } catch (error) {
+          console.error('Ошибка:', error);
+          successCallback([]); // ПУСТОЙ КАЛЕНДАРЬ
+        } finally {
+          hideLoader();
         }
       },
       eventClick: function(info) {
@@ -340,7 +407,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     calendar.render();
-    calendarEl.dataset.initialized = 'true';
+    customCalendar.dataset.initialized = 'true';
+  }
+
+  // Фоновое обновление
+  function backgroundRefresh(calendarInstance) {
+    console.log('🔄 Фоновое обновление...');
+    
+    fetchICal().then(icsData => {
+      const freshEvents = parseICalEvents(icsData);
+      setCache(freshEvents);
+      
+      calendarInstance.removeAllEvents();
+      calendarInstance.addEventSource(freshEvents);
+      
+      console.log('✅ Обновлён в фоне');
+    }).catch(error => {
+      console.warn('⚠️ Фоновое обновление не удалось:', error);
+    });
   }
 
   initCalendar();
