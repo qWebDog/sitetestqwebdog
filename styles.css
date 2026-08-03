@@ -7,6 +7,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+  overflow-x: hidden;
 }
 
 :root {
@@ -578,14 +579,12 @@ h1, h2, h3,
   background: var(--primary);
   padding: 60px 0;
   color: var(--light);
-  overflow: hidden; /* Предотвращает горизонтальный скролл */
 }
 
 .gallery__container {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 40px;
-  overflow: hidden;
 }
 
 .gallery__frame {
@@ -594,7 +593,6 @@ h1, h2, h3,
   border-radius: 0;
   box-shadow: none;
   position: relative;
-  overflow: hidden;
 }
 
 .gallery__frame::before {
@@ -608,14 +606,12 @@ h1, h2, h3,
   height: 480px;
   margin: 0 auto;
   perspective: 1000px;
-  overflow: hidden; /* КРИТИЧНО: скрывает вылетающие слайды */
 }
 
 .gallery__track {
   position: relative;
   width: 100%;
   height: 100%;
-  overflow: hidden;
 }
 
 .gallery__slide {
@@ -627,7 +623,8 @@ h1, h2, h3,
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              opacity 0.6s ease;
   transform-origin: center bottom;
 }
 
@@ -669,32 +666,45 @@ h1, h2, h3,
 
 .gallery__slide.next {
   z-index: 9;
-  transform: translate(12px, 12px) rotate(3deg);
+  transform: translate(15px, 15px) rotate(4deg);
   opacity: 1;
 }
 
 .gallery__slide.next-2 {
   z-index: 8;
-  transform: translate(24px, 24px) rotate(-2deg);
+  transform: translate(30px, 30px) rotate(-3deg);
   opacity: 1;
 }
 
 .gallery__slide.hidden {
   z-index: 7;
-  transform: translate(36px, 36px) rotate(1deg);
+  transform: translate(45px, 45px) rotate(2deg);
   opacity: 1;
 }
 
 .gallery__slide.fly-out-right {
-  z-index: 20;
-  transform: translate(120%, 60px) rotate(18deg);
+  z-index: 5;
+  transform: translate(150%, 80px) rotate(20deg);
   opacity: 0;
 }
 
 .gallery__slide.fly-out-left {
-  z-index: 20;
-  transform: translate(-120%, 60px) rotate(-18deg);
+  z-index: 5;
+  transform: translate(-150%, 80px) rotate(-20deg);
   opacity: 0;
+}
+
+/* Новое фото появляется ПОВЕРХ текущего */
+.gallery__slide.slide-in-right {
+  z-index: 25;
+  transform: translate(100%, 0) rotate(0deg);
+  opacity: 1;
+}
+
+.gallery__slide.slide-in-left {
+  z-index: 25;
+  transform: translate(-100%, 0) rotate(0deg);
+  opacity: 1;
 }
 
 .gallery__arrow {
