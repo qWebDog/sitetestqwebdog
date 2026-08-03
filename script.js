@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const endDate = event.endDate ? event.endDate.toJSDate() : startDate;
             
             return {
-              title: event.summary || 'Занято',
+              title: '',
               start: startDate,
               end: endDate,
               allDay: event.startDate.isDate,
