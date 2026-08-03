@@ -908,6 +908,36 @@ h1, h2, h3,
   min-height: 50px;
 }
 
+/* ===== ЛОАДЕР КАЛЕНДАРЯ ===== */
+.calendar__loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 16px;
+}
+
+.calendar__loader-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(212, 162, 76, 0.2);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.calendar__loader-text {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 /* ===== НЕОНОВОЕ СВЕЧЕНИЕ ===== */
 @keyframes neonPulse {
   0%, 100% {
