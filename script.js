@@ -145,8 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 600);
     }
 
-    // Предыдущее фото: текущее улетает влево, новое приезжает справа ПОВЕРХ
-    function prevSlide() {
+        function prevSlide() {
       if (isAnimating) return;
       isAnimating = true;
       
@@ -154,69 +153,38 @@ document.addEventListener('DOMContentLoaded', () => {
       const prevSlideEl = slides[prevIndex];
       const currentSlide = slides[currentIndex];
       
-      // 1. Текущее фото улетает влево (z-index: 5 — под всем)
-      currentSlide.classList.remove('active', 'next', 'next-2', 'hidden');
-      currentSlide.classList.add('fly-out-left');
+      // Сдвигаем все слайды на один уровень глубже (кроме текущего и предыдущего)
+      slides.forEach((slide, index) => {
+        if (index === currentIndex || index === prevIndex) return;
+        
+        let diff = (index - currentIndex + slides.length) % slides.length;
+        
+        if (diff === 1) {
+          slide.classList.remove('next');
+          slide.classList.add('next-2');
+        } else if (diff === 2) {
+          slide.classList.remove('next-2');
+          slide.classList.add('hidden');
+        } else if (diff >= 3) {
+          slide.classList.remove('active', 'next', 'next-2');
+          slide.classList.add('hidden');
+        }
+      });
       
-      // 2. Новое фото мгновенно позиционируем справа за экраном
-      prevSlideEl.style.transition = 'none';
-      prevSlideEl.classList.remove('active', 'next', 'next-2', 'hidden', 'fly-out-left', 'fly-out-right');
-      prevSlideEl.classList.add('slide-in-right');
+      // Текущее фото опускается на второй уровень (next)
+      currentSlide.classList.remove('active');
+      currentSlide.classList.add('next');
       
-      // Форсируем перерисовку
-      void prevSlideEl.offsetWidth;
-      
-      // 3. Плавно перемещаем в центр (z-index: 25 — поверх всего)
-      prevSlideEl.style.transition = '';
-      prevSlideEl.classList.remove('slide-in-right');
+      // Предыдущее фото поднимается из глубины стопки (hidden → active)
+      prevSlideEl.classList.remove('hidden');
       prevSlideEl.classList.add('active');
       
       currentIndex = prevIndex;
       
       setTimeout(() => {
-        updateStack();
         isAnimating = false;
       }, 600);
     }
-
-    function startAutoPlay() {
-      stopAutoPlay();
-      autoPlayInterval = setInterval(nextSlide, AUTO_PLAY_DELAY);
-    }
-
-    function stopAutoPlay() {
-      if (autoPlayInterval) {
-        clearInterval(autoPlayInterval);
-      }
-    }
-
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        prevSlide();
-        startAutoPlay();
-      });
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        nextSlide();
-        startAutoPlay();
-      });
-    }
-
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    galleryCarousel.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-      stopAutoPlay();
-    }, { passive: true });
-
-    galleryCarousel.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
-      startAutoPlay();
-    }, { passive: true });
 
     function handleSwipe() {
       const diff = touchStartX - touchEndX;
