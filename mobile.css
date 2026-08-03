@@ -696,7 +696,7 @@ h1, h2, h3,
 
 .calendar__header {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .calendar__label {
@@ -726,7 +726,7 @@ h1, h2, h3,
 .calendar__frame {
   background: #fff;
   border-radius: 10px;
-  padding: 12px;
+  padding: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -734,8 +734,8 @@ h1, h2, h3,
   display: flex;
   justify-content: center;
   gap: 16px;
-  margin-top: 16px;
-  padding-top: 12px;
+  margin-top: 12px;
+  padding-top: 10px;
   border-top: 1px solid #e0e0e0;
 }
 
@@ -764,7 +764,7 @@ h1, h2, h3,
 
 .calendar__cta {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 16px;
 }
 
 /* ===== FULLCALENDAR (МОБИЛЬНАЯ) ===== */
@@ -790,18 +790,19 @@ h1, h2, h3,
 
 .fc .fc-toolbar {
   flex-direction: column !important;
-  gap: 8px;
+  gap: 6px;
+  margin-bottom: 8px !important;
 }
 
 .fc .fc-toolbar-title {
-  font-size: 16px !important;
+  font-size: 15px !important;
   color: var(--text);
   font-weight: 600;
 }
 
 .fc .fc-button-primary {
   border-radius: 6px;
-  padding: 5px 10px;
+  padding: 4px 10px;
   font-size: 11px;
   font-weight: 500;
   text-transform: none;
@@ -811,7 +812,7 @@ h1, h2, h3,
 .fc .fc-col-header-cell-cushion {
   color: var(--gold);
   font-weight: 600;
-  padding: 6px 2px;
+  padding: 5px 2px;
   text-transform: uppercase;
   font-size: 10px;
   letter-spacing: 0.5px;
@@ -820,13 +821,13 @@ h1, h2, h3,
 .fc .fc-daygrid-day-number {
   color: var(--text);
   font-weight: 500;
-  padding: 3px 4px;
+  padding: 2px 3px;
   font-size: 11px;
 }
 
 .fc .fc-event {
   border-radius: 3px;
-  padding: 1px 3px;
+  padding: 1px 2px;
   font-size: 9px;
   font-weight: 500;
   border: none;
@@ -837,12 +838,12 @@ h1, h2, h3,
 }
 
 .fc .fc-scrollgrid {
-  border-radius: 4px;
+  border-radius: 6px;
   overflow: hidden;
 }
 
 .fc .fc-daygrid-day-frame {
-  min-height: 40px;
+  min-height: 36px;
 }
 
 /* ===== НЕОНОВОЕ СВЕЧЕНИЕ ===== */
