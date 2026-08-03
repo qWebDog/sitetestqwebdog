@@ -561,251 +561,126 @@ h1, h2, h3,
   opacity: 0.9;
 }
 
-/* ===== КАЛЕНДАРЬ (МОБИЛЬНАЯ - КОМПАКТНАЯ) ===== */
-.calendar {
-  background: var(--accent);
-  padding: 30px 0;
+/* ===== ГАЛЕРЕЯ (СТОПКА POLAROID - МОБИЛЬНАЯ) ===== */
+.gallery {
+  background: var(--primary);
+  padding: 40px 0;
   color: var(--light);
 }
 
-.calendar__container {
-  padding: 0 12px;
+.gallery__container {
+  padding: 0 20px;
 }
 
-.calendar__header {
-  text-align: center;
-  margin-bottom: 16px;
-}
-
-.calendar__label {
-  display: inline-block;
-  color: var(--gold);
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 8px;
-  animation: neonPulse 2.5s ease-in-out infinite;
-}
-
-.calendar__title {
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 1.15;
-  margin-bottom: 8px;
-}
-
-.calendar__subtitle {
-  font-size: 13px;
-  opacity: 0.9;
-  line-height: 1.4;
-}
-
-.calendar__frame {
-  background: #fff;
-  border-radius: 8px;
-  padding: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.calendar__legend {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 10px;
-  padding-top: 8px;
-  border-top: 1px solid #e0e0e0;
-}
-
-.calendar__legend-item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 11px;
-  color: var(--text);
-}
-
-.calendar__legend-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-}
-
-.calendar__legend-dot--booked {
-  background: var(--primary);
-}
-
-.calendar__legend-dot--available {
-  background: #fff;
-  border: 2px solid #e0e0e0;
-}
-
-.calendar__cta {
-  text-align: center;
-  margin-top: 16px;
-}
-
-/* ===== КАЛЕНДАРЬ (МОБИЛЬНАЯ - КОМПАКТНАЯ) ===== */
-.calendar {
-  background: var(--accent);
-  padding: 30px 0;
-  color: var(--light);
-}
-
-.calendar__container {
-  padding: 0 12px;
-}
-
-.calendar__header {
-  text-align: center;
-  margin-bottom: 16px;
-}
-
-.calendar__label {
-  display: inline-block;
-  color: var(--gold);
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 8px;
-  animation: neonPulse 2.5s ease-in-out infinite;
-}
-
-.calendar__title {
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 1.15;
-  margin-bottom: 8px;
-}
-
-.calendar__subtitle {
-  font-size: 13px;
-  opacity: 0.9;
-  line-height: 1.4;
-}
-
-.calendar__frame {
-  background: #fff;
-  border-radius: 8px;
-  padding: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.calendar__legend {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 10px;
-  padding-top: 8px;
-  border-top: 1px solid #e0e0e0;
-}
-
-.calendar__legend-item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 11px;
-  color: var(--text);
-}
-
-.calendar__legend-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-}
-
-.calendar__legend-dot--booked {
-  background: var(--primary);
-}
-
-.calendar__legend-dot--available {
-  background: #fff;
-  border: 2px solid #e0e0e0;
-}
-
-.calendar__cta {
-  text-align: center;
-  margin-top: 16px;
-}
-
-/* ===== FULLCALENDAR (МОБИЛЬНАЯ - КОМПАКТНАЯ) ===== */
-#customCalendar {
-  font-family: 'Inter', sans-serif;
-}
-
-.fc {
-  --fc-border-color: #e0e0e0;
-  --fc-page-bg-color: #fff;
-  --fc-neutral-bg-color: #f5f5f5;
-  --fc-today-bg-color: rgba(212, 162, 76, 0.1);
-  --fc-event-bg-color: #7F180D;
-  --fc-event-border-color: #7F180D;
-  --fc-event-text-color: #F7F3EE;
-  --fc-button-bg-color: #20603D;
-  --fc-button-border-color: #20603D;
-  --fc-button-hover-bg-color: #7F180D;
-  --fc-button-hover-border-color: #7F180D;
-  --fc-button-active-bg-color: #7F180D;
-  --fc-button-active-border-color: #7F180D;
-}
-
-.fc .fc-toolbar {
-  flex-direction: column !important;
-  gap: 6px;
-  margin-bottom: 8px !important;
-}
-
-.fc .fc-toolbar-title {
-  font-size: 14px !important;
-  color: var(--text);
-  font-weight: 600;
-}
-
-.fc .fc-button-primary {
-  border-radius: 4px;
-  padding: 3px 8px;
-  font-size: 10px;
-  font-weight: 500;
-  text-transform: none;
+.gallery__frame {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
   box-shadow: none;
+  position: relative;
 }
 
-.fc .fc-col-header-cell-cushion {
-  color: var(--gold);
-  font-weight: 600;
-  padding: 4px 1px;
-  text-transform: uppercase;
-  font-size: 9px;
-  letter-spacing: 0.5px;
+.gallery__frame::before {
+  display: none;
 }
 
-.fc .fc-daygrid-day-number {
-  color: var(--text);
+.gallery__carousel {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  height: 420px;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+.gallery__track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.gallery__slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              opacity 0.6s ease;
+  transform-origin: center bottom;
+}
+
+.gallery__polaroid {
+  background: #fff;
+  padding: 12px 12px 45px 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  max-width: 280px;
+  position: relative;
+}
+
+.gallery__polaroid img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: sepia(15%) contrast(1.05);
+}
+
+.gallery__caption {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  font-size: 22px;
   font-weight: 500;
-  padding: 2px 3px;
-  font-size: 10px;
+  color: #2a2a2a;
+  margin: 0;
+  padding: 0 12px;
 }
 
-.fc .fc-event {
-  border-radius: 2px;
-  padding: 1px 2px;
-  font-size: 8px;
-  font-weight: 500;
-  border: none;
+.gallery__slide.active {
+  z-index: 10;
+  transform: translate(0, 0) rotate(0deg);
+  opacity: 1;
 }
 
-.fc .fc-day-today {
-  background-color: rgba(212, 162, 76, 0.1) !important;
+.gallery__slide.next {
+  z-index: 9;
+  transform: translate(12px, 12px) rotate(4deg);
+  opacity: 1;
 }
 
-.fc .fc-scrollgrid {
-  border-radius: 4px;
-  overflow: hidden;
+.gallery__slide.next-2 {
+  z-index: 8;
+  transform: translate(24px, 24px) rotate(-3deg);
+  opacity: 1;
 }
 
-.fc .fc-daygrid-day-frame {
-  min-height: 28px; /* Уменьшено с 40px */
+.gallery__slide.hidden {
+  z-index: 7;
+  transform: translate(36px, 36px) rotate(2deg);
+  opacity: 1;
+}
+
+.gallery__slide.fly-out-right {
+  z-index: 20;
+  transform: translate(120%, 60px) rotate(20deg);
+  opacity: 0;
+}
+
+.gallery__slide.fly-out-left {
+  z-index: 20;
+  transform: translate(-120%, 60px) rotate(-20deg);
+  opacity: 0;
+}
+
+.gallery__arrow {
+  display: none;
 }
 
 /* ===== КАЛЕНДАРЬ (МОБИЛЬНАЯ) ===== */
