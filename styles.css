@@ -586,7 +586,6 @@ h1, h2, h3,
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 40px;
-  overflow: hidden;
 }
 
 .gallery__frame {
@@ -595,28 +594,28 @@ h1, h2, h3,
   border-radius: 0;
   box-shadow: none;
   position: relative;
-  overflow: hidden;
+  overflow: visible; /* Убрано hidden, чтобы задние фото были видны */
 }
 
 .gallery__frame::before {
   display: none;
 }
 
+/* Увеличенная галерея на десктопе */
 .gallery__carousel {
   position: relative;
   width: 100%;
-  max-width: 400px;
-  height: 480px;
+  max-width: 600px; /* Было 400px */
+  height: 650px;    /* Было 480px */
   margin: 0 auto;
   perspective: 1000px;
-  overflow: hidden;
+  overflow: visible; /* Убрано hidden, чтобы задние фото были видны */
 }
 
 .gallery__track {
   position: relative;
   width: 100%;
   height: 100%;
-  overflow: hidden;
 }
 
 .gallery__slide {
@@ -633,12 +632,13 @@ h1, h2, h3,
   transform-origin: center bottom;
 }
 
+/* Увеличенный Polaroid */
 .gallery__polaroid {
   background: #fff;
-  padding: 16px 16px 50px 16px;
+  padding: 20px 20px 60px 20px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
   width: 100%;
-  max-width: 340px;
+  max-width: 500px; /* Было 340px */
   position: relative;
 }
 
@@ -649,18 +649,19 @@ h1, h2, h3,
   filter: sepia(15%) contrast(1.05);
 }
 
+/* Увеличенная подпись */
 .gallery__caption {
   position: absolute;
-  bottom: 14px;
+  bottom: 16px;
   left: 0;
   right: 0;
   text-align: center;
   font-family: 'Caveat', cursive;
-  font-size: 26px;
+  font-size: 32px; /* Было 26px */
   font-weight: 500;
   color: #2a2a2a;
   margin: 0;
-  padding: 0 16px;
+  padding: 0 20px;
 }
 
 .gallery__slide.active {
@@ -671,19 +672,19 @@ h1, h2, h3,
 
 .gallery__slide.next {
   z-index: 9;
-  transform: translate(12px, 12px) rotate(3deg);
+  transform: translate(20px, 20px) rotate(3deg);
   opacity: 1;
 }
 
 .gallery__slide.next-2 {
   z-index: 8;
-  transform: translate(24px, 24px) rotate(-2deg);
+  transform: translate(40px, 40px) rotate(-2deg);
   opacity: 1;
 }
 
 .gallery__slide.hidden {
   z-index: 7;
-  transform: translate(36px, 36px) rotate(1deg);
+  transform: translate(60px, 60px) rotate(1deg);
   opacity: 1;
 }
 
@@ -726,11 +727,11 @@ h1, h2, h3,
 }
 
 .gallery__arrow--prev {
-  left: -20px;
+  left: -40px; /* Было -20px, отодвинуто из-за увеличения */
 }
 
 .gallery__arrow--next {
-  right: -20px;
+  right: -40px; /* Было -20px */
 }
 
 /* ===== КАЛЕНДАРЬ (ДЕСКТОП) ===== */
