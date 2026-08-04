@@ -1238,6 +1238,10 @@ h1, h2, h3,
 @keyframes neonPulse {
   0%, 100% {
     text-shadow:
+      -1px -1px 0 var(--primary),
+      1px -1px 0 var(--primary),
+      -1px 1px 0 var(--primary),
+      1px 1px 0 var(--primary),
       0 0 4px var(--gold),
       0 0 8px var(--gold),
       0 0 16px rgba(212, 162, 76, 0.6),
@@ -1245,6 +1249,10 @@ h1, h2, h3,
   }
   50% {
     text-shadow:
+      -1px -1px 0 var(--primary),
+      1px -1px 0 var(--primary),
+      -1px 1px 0 var(--primary),
+      1px 1px 0 var(--primary),
       0 0 6px var(--gold),
       0 0 12px var(--gold),
       0 0 22px rgba(212, 162, 76, 0.8),
@@ -1255,12 +1263,20 @@ h1, h2, h3,
 @keyframes neonPulseNav {
   0%, 100% {
     text-shadow:
+      -1px -1px 0 var(--primary),
+      1px -1px 0 var(--primary),
+      -1px 1px 0 var(--primary),
+      1px 1px 0 var(--primary),
       0 0 3px var(--gold),
       0 0 6px rgba(212, 162, 76, 0.4),
       0 0 12px rgba(212, 162, 76, 0.2);
   }
   50% {
     text-shadow:
+      -1px -1px 0 var(--primary),
+      1px -1px 0 var(--primary),
+      -1px 1px 0 var(--primary),
+      1px 1px 0 var(--primary),
       0 0 5px var(--gold),
       0 0 10px rgba(212, 162, 76, 0.6),
       0 0 18px rgba(212, 162, 76, 0.3);
