@@ -256,7 +256,7 @@ h1, h2, h3,
 
 .intro__label {
   display: inline-block;
-  color: var(--gold);
+  color: var(--primary);
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -305,8 +305,8 @@ h1, h2, h3,
 
 .intro__main-badge {
   display: inline-block;
-  background: var(--primary);
-  color: var(--light);
+  background: rgba(212, 162, 76, 0.2);
+  color: var(--gold);
   padding: 5px 12px;
   border-radius: 50px;
   font-size: 11px;
@@ -314,7 +314,7 @@ h1, h2, h3,
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 14px;
-  border: 1px solid var(--primary);
+  border: 1px solid rgba(212, 162, 76, 0.3);
 }
 
 .intro__main-title {
@@ -343,6 +343,14 @@ h1, h2, h3,
   font-weight: 500;
   color: var(--text);
   padding-left: 4px;
+}
+
+.intro__main-visual {
+  height: 220px;
+  background: var(--primary);
+  border-radius: 18px;
+  position: relative;
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
 }
 
 .intro__grid {
@@ -417,7 +425,7 @@ h1, h2, h3,
 
 .process__label {
   display: inline-block;
-  color: var(--gold);
+  color: var(--primary);
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -586,22 +594,21 @@ h1, h2, h3,
   border-radius: 0;
   box-shadow: none;
   position: relative;
-  overflow: visible; /* Убрано hidden, чтобы задние фото были видны */
+  overflow: visible;
 }
 
 .gallery__frame::before {
   display: none;
 }
 
-/* Увеличенная галерея на десктопе */
 .gallery__carousel {
   position: relative;
   width: 100%;
-  max-width: 600px; /* Было 400px */
-  height: 650px;    /* Было 480px */
+  max-width: 600px;
+  height: 650px;
   margin: 0 auto;
   perspective: 1000px;
-  overflow: visible; /* Убрано hidden, чтобы задние фото были видны */
+  overflow: visible;
 }
 
 .gallery__track {
@@ -624,13 +631,12 @@ h1, h2, h3,
   transform-origin: center bottom;
 }
 
-/* Увеличенный Polaroid */
 .gallery__polaroid {
   background: #fff;
   padding: 20px 20px 60px 20px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
   width: 100%;
-  max-width: 500px; /* Было 340px */
+  max-width: 500px;
   position: relative;
 }
 
@@ -641,7 +647,6 @@ h1, h2, h3,
   filter: sepia(15%) contrast(1.05);
 }
 
-/* Увеличенная подпись */
 .gallery__caption {
   position: absolute;
   bottom: 16px;
@@ -649,7 +654,7 @@ h1, h2, h3,
   right: 0;
   text-align: center;
   font-family: 'Caveat', cursive;
-  font-size: 32px; /* Было 26px */
+  font-size: 32px;
   font-weight: 500;
   color: #2a2a2a;
   margin: 0;
@@ -719,11 +724,11 @@ h1, h2, h3,
 }
 
 .gallery__arrow--prev {
-  left: -40px; /* Было -20px, отодвинуто из-за увеличения */
+  left: -40px;
 }
 
 .gallery__arrow--next {
-  right: -40px; /* Было -20px */
+  right: -40px;
 }
 
 /* ===== КАЛЕНДАРЬ (ДЕСКТОП) ===== */
@@ -747,20 +752,13 @@ h1, h2, h3,
 
 .calendar__label {
   display: inline-block;
-  color: var(--gold);
+  color: var(--primary);
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 12px;
   animation: neonPulse 2.5s ease-in-out infinite;
-}
-
-.calendar__title {
-  font-size: 44px;
-  font-weight: 400;
-  line-height: 1.1;
-  margin-bottom: 16px;
 }
 
 .calendar__subtitle {
@@ -937,20 +935,13 @@ h1, h2, h3,
 
 .request__label {
   display: inline-block;
-  color: var(--gold);
+  color: var(--primary);
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 12px;
   animation: neonPulse 2.5s ease-in-out infinite;
-}
-
-.request__title {
-  font-size: 44px;
-  font-weight: 400;
-  line-height: 1.1;
-  margin-bottom: 16px;
 }
 
 .request__subtitle {
@@ -1095,20 +1086,13 @@ h1, h2, h3,
 
 .contacts__label {
   display: inline-block;
-  color: var(--gold);
+  color: var(--primary);
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 12px;
   animation: neonPulse 2.5s ease-in-out infinite;
-}
-
-.contacts__title {
-  font-size: 44px;
-  font-weight: 400;
-  line-height: 1.1;
-  margin-bottom: 16px;
 }
 
 .contacts__subtitle {
@@ -1287,6 +1271,7 @@ h1, h2, h3,
   color: var(--gold);
 }
 
+/* ===== НЕОНОВОЕ СВЕЧЕНИЕ ===== */
 @keyframes neonPulse {
   0%, 100% {
     text-shadow:
