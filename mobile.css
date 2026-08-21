@@ -315,7 +315,7 @@ h1, h2, h3,
 
 .intro__label {
   display: inline-block;
-  color: var(--gold);
+  color: var(--primary);
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
@@ -396,6 +396,10 @@ h1, h2, h3,
   color: var(--light);
 }
 
+.intro__main-visual {
+  display: none;
+}
+
 .intro__grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -454,7 +458,7 @@ h1, h2, h3,
 
 .process__label {
   display: inline-block;
-  color: var(--gold);
+  color: var(--primary);
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
@@ -570,7 +574,6 @@ h1, h2, h3,
 
 .gallery__container {
   padding: 0 20px;
-  /* Убран overflow: hidden — задние фото теперь видны */
 }
 
 .gallery__frame {
@@ -579,7 +582,7 @@ h1, h2, h3,
   border-radius: 0;
   box-shadow: none;
   position: relative;
-  overflow: visible; /* Было hidden — теперь задние фото видны */
+  overflow: visible;
 }
 
 .gallery__frame::before {
@@ -593,14 +596,13 @@ h1, h2, h3,
   height: 420px;
   margin: 0 auto;
   perspective: 1000px;
-  overflow: visible; /* Было hidden — теперь задние фото видны */
+  overflow: visible;
 }
 
 .gallery__track {
   position: relative;
   width: 100%;
   height: 100%;
-  /* Убран overflow: hidden */
 }
 
 .gallery__slide {
@@ -705,20 +707,13 @@ h1, h2, h3,
 
 .calendar__label {
   display: inline-block;
-  color: var(--gold);
+  color: var(--primary);
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 10px;
   animation: neonPulse 2.5s ease-in-out infinite;
-}
-
-.calendar__title {
-  font-size: 28px;
-  font-weight: 400;
-  line-height: 1.15;
-  margin-bottom: 10px;
 }
 
 .calendar__subtitle {
@@ -734,7 +729,6 @@ h1, h2, h3,
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* ЛОАДЕР КАЛЕНДАРЯ */
 .calendar__loader {
   display: flex;
   flex-direction: column;
@@ -801,7 +795,6 @@ h1, h2, h3,
   margin-top: 16px;
 }
 
-/* FULLCALENDAR (МОБИЛЬНАЯ) */
 #customCalendar {
   font-family: 'Inter', sans-serif;
 }
@@ -896,20 +889,13 @@ h1, h2, h3,
 
 .request__label {
   display: inline-block;
-  color: var(--gold);
+  color: var(--primary);
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 10px;
   animation: neonPulse 2.5s ease-in-out infinite;
-}
-
-.request__title {
-  font-size: 28px;
-  font-weight: 400;
-  line-height: 1.15;
-  margin-bottom: 10px;
 }
 
 .request__subtitle {
@@ -1051,20 +1037,13 @@ h1, h2, h3,
 
 .contacts__label {
   display: inline-block;
-  color: var(--gold);
+  color: var(--primary);
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 10px;
   animation: neonPulse 2.5s ease-in-out infinite;
-}
-
-.contacts__title {
-  font-size: 28px;
-  font-weight: 400;
-  line-height: 1.15;
-  margin-bottom: 10px;
 }
 
 .contacts__subtitle {
@@ -1238,10 +1217,6 @@ h1, h2, h3,
 @keyframes neonPulse {
   0%, 100% {
     text-shadow:
-      -1px -1px 0 var(--primary),
-      1px -1px 0 var(--primary),
-      -1px 1px 0 var(--primary),
-      1px 1px 0 var(--primary),
       0 0 4px var(--gold),
       0 0 8px var(--gold),
       0 0 16px rgba(212, 162, 76, 0.6),
@@ -1249,10 +1224,6 @@ h1, h2, h3,
   }
   50% {
     text-shadow:
-      -1px -1px 0 var(--primary),
-      1px -1px 0 var(--primary),
-      -1px 1px 0 var(--primary),
-      1px 1px 0 var(--primary),
       0 0 6px var(--gold),
       0 0 12px var(--gold),
       0 0 22px rgba(212, 162, 76, 0.8),
@@ -1263,20 +1234,12 @@ h1, h2, h3,
 @keyframes neonPulseNav {
   0%, 100% {
     text-shadow:
-      -1px -1px 0 var(--primary),
-      1px -1px 0 var(--primary),
-      -1px 1px 0 var(--primary),
-      1px 1px 0 var(--primary),
       0 0 3px var(--gold),
       0 0 6px rgba(212, 162, 76, 0.4),
       0 0 12px rgba(212, 162, 76, 0.2);
   }
   50% {
     text-shadow:
-      -1px -1px 0 var(--primary),
-      1px -1px 0 var(--primary),
-      -1px 1px 0 var(--primary),
-      1px 1px 0 var(--primary),
       0 0 5px var(--gold),
       0 0 10px rgba(212, 162, 76, 0.6),
       0 0 18px rgba(212, 162, 76, 0.3);
