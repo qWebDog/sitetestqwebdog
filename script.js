@@ -485,7 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initCalendar();
 
-   // ===== ФОРМА ЗАЯВКИ =====
+    // ===== ФОРМА ЗАЯВКИ =====
   const requestForm = document.getElementById('requestForm');
   const submitBtn = document.getElementById('submitBtn');
   const messageField = document.getElementById('message');
@@ -508,7 +508,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Аккордеон "Дополнительно"
   if (servicesToggle && servicesList) {
-    servicesToggle.addEventListener('click', () => {
+    servicesToggle.addEventListener('click', (e) => {
+      e.preventDefault();
       servicesToggle.classList.toggle('active');
       servicesList.classList.toggle('active');
     });
@@ -519,29 +520,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const allChips = document.querySelectorAll('.chip');
     
     allChips.forEach(chip => {
+      // Используем touchstart для мобильных
+      chip.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        handleChipClick(chip);
+      }, { passive: false });
+      
+      // И click для десктопа
       chip.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        
-        // Если чип заблокирован - ничего не делаем
-        if (chip.classList.contains('chip--disabled')) {
-          return;
-        }
-        
-        // Переключаем активное состояние
-        chip.classList.toggle('active');
-        
-        // Синхронизируем со скрытым чекбоксом
-        const value = chip.dataset.value;
-        const hiddenInput = document.querySelector(`input[name="services"][value="${value}"]`);
-        if (hiddenInput) {
-          hiddenInput.checked = chip.classList.contains('active');
-        }
-        
-        // Проверяем зависимость гриль → повар
-        updateChefAvailability();
+        handleChipClick(chip);
       });
     });
+  }
+
+  function handleChipClick(chip) {
+    // Если чип заблокирован - ничего не делаем
+    if (chip.classList.contains('chip--disabled')) {
+      return;
+    }
+    
+    // Переключаем активное состояние
+    chip.classList.toggle('active');
+    
+    // Синхронизируем со скрытым чекбоксом
+    const value = chip.dataset.value;
+    const hiddenInput = document.querySelector(`input[name="services"][value="${value}"]`);
+    if (hiddenInput) {
+      hiddenInput.checked = chip.classList.contains('active');
+    }
+    
+    // Проверяем зависимость гриль → повар
+    updateChefAvailability();
   }
 
   // Зависимость "Нужен повар" от "Нужен гриль"
