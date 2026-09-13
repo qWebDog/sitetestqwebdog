@@ -1298,29 +1298,32 @@ h1, h2, h3,
   min-height: 48px;
 }
 
-/* ===== ЧЕКБОКСЫ УСЛУГ ===== */
-.request__services-grid {
-  grid-template-columns: 1fr 1fr;
+/* ===== ЧЕКБОКСЫ УСЛУГ (МОБИЛЬНЫЕ) ===== */
+.services-toggle {
+  padding: 12px 16px;
+}
+
+.services-toggle__text {
+  font-size: 14px;
+}
+
+.service-item {
+  padding: 12px 16px;
   gap: 10px;
 }
 
-.service-card {
-  padding: 12px;
-  gap: 8px;
-}
-
-.service-card__icon {
-  font-size: 20px;
-}
-
-.service-card__text {
-  font-size: 12px;
-}
-
-.service-card__check {
+.service-item__check {
   width: 20px;
   height: 20px;
-  font-size: 11px;
+}
+
+.service-item__check::after {
+  width: 5px;
+  height: 9px;
+}
+
+.service-item__text {
+  font-size: 13px;
 }
 
 /* ===== АНИМАЦИИ ===== */
