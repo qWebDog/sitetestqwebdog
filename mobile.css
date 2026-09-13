@@ -1256,6 +1256,73 @@ h1, h2, h3,
   height: 22px;
 }
 
+/* ===== TOAST УВЕДОМЛЕНИЯ ===== */
+.toast-container {
+  top: 80px;
+  right: 16px;
+  left: 16px;
+  align-items: stretch;
+}
+
+.toast {
+  min-width: 0;
+  max-width: 100%;
+  padding: 14px 16px;
+}
+
+.toast__title { font-size: 14px; }
+.toast__message { font-size: 12px; }
+.toast__icon {
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+}
+
+/* ===== ВАЛИДАЦИЯ ===== */
+.request__form-error {
+  font-size: 11px;
+}
+
+.request__form-hint {
+  float: none;
+  display: block;
+  margin-top: 4px;
+  font-size: 10px;
+}
+
+.request__form-counter {
+  font-size: 11px;
+}
+
+.request__form-submit {
+  min-height: 48px;
+}
+
+/* ===== ЧЕКБОКСЫ УСЛУГ ===== */
+.request__services-grid {
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.service-card {
+  padding: 12px;
+  gap: 8px;
+}
+
+.service-card__icon {
+  font-size: 20px;
+}
+
+.service-card__text {
+  font-size: 12px;
+}
+
+.service-card__check {
+  width: 20px;
+  height: 20px;
+  font-size: 11px;
+}
+
 /* ===== АНИМАЦИИ ===== */
 @keyframes neonPulse {
   0%, 100% {
