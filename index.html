@@ -334,48 +334,47 @@
           <button type="button" class="services-toggle" id="servicesToggle">
             <span class="services-toggle__text">Дополнительно</span>
             <span class="services-toggle__arrow">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                 <polyline points="6 9 12 15 18 9"/>
               </svg>
             </span>
           </button>
           
           <div class="services-list" id="servicesList">
-            <label class="service-item">
-              <input type="checkbox" name="services" value="grill" class="service-item__input" id="serviceGrill">
-              <span class="service-item__check"></span>
-              <span class="service-item__text">Нужен гриль</span>
-            </label>
-
-            <label class="service-item">
-              <input type="checkbox" name="services" value="chef" class="service-item__input" id="serviceChef">
-              <span class="service-item__check"></span>
-              <span class="service-item__text">Нужен повар</span>
-            </label>
-
-            <label class="service-item">
-              <input type="checkbox" name="services" value="generator" class="service-item__input">
-              <span class="service-item__check"></span>
-              <span class="service-item__text">Генератор 7-8 кВт</span>
-            </label>
-
-            <label class="service-item">
-              <input type="checkbox" name="services" value="garlands" class="service-item__input">
-              <span class="service-item__check"></span>
-              <span class="service-item__text">Нужны гирлянды</span>
-            </label>
-
-            <label class="service-item">
-              <input type="checkbox" name="services" value="barrel_tables" class="service-item__input">
-              <span class="service-item__check"></span>
-              <span class="service-item__text">Столы в виде бочек</span>
-            </label>
-
-            <label class="service-item">
-              <input type="checkbox" name="services" value="photo_zone" class="service-item__input">
-              <span class="service-item__check"></span>
-              <span class="service-item__text">Фотостенд / фотозона</span>
-            </label>
+            <div class="services-chips">
+              <div class="chip" data-value="grill" id="chipGrill">
+                <span class="chip__text">Нужен гриль</span>
+              </div>
+        
+              <div class="chip chip--disabled" data-value="chef" id="chipChef">
+                <span class="chip__text">Нужен повар</span>
+                <span class="chip__hint">Доступно при выборе гриля</span>
+              </div>
+        
+              <div class="chip" data-value="generator">
+                <span class="chip__text">Генератор 7-8 кВт</span>
+              </div>
+        
+              <div class="chip" data-value="garlands">
+                <span class="chip__text">Нужны гирлянды</span>
+              </div>
+        
+              <div class="chip" data-value="barrel_tables">
+                <span class="chip__text">Столы в виде бочек</span>
+              </div>
+        
+              <div class="chip" data-value="photo_zone">
+                <span class="chip__text">Фотостенд / фотозона</span>
+              </div>
+            </div>
+            
+            <!-- Скрытые чекбоксы для отправки формы -->
+            <input type="checkbox" name="services" value="grill" class="service-item__input" id="serviceGrill" style="display:none">
+            <input type="checkbox" name="services" value="chef" class="service-item__input" id="serviceChef" style="display:none">
+            <input type="checkbox" name="services" value="generator" class="service-item__input" style="display:none">
+            <input type="checkbox" name="services" value="garlands" class="service-item__input" style="display:none">
+            <input type="checkbox" name="services" value="barrel_tables" class="service-item__input" style="display:none">
+            <input type="checkbox" name="services" value="photo_zone" class="service-item__input" style="display:none">
           </div>
         </div>
 
