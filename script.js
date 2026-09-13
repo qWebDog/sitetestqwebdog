@@ -16,35 +16,25 @@ function loadStyles() {
 
 loadStyles();
 
-// ===== ICAL ССЫЛКА ИЗ ЯНДЕКС.КАЛЕНДАРЯ =====
 const ICAL_URL = 'https://calendar.yandex.ru/export/ics.xml?private_token=8c436274898397b54fd84b20ad7359b52b9f5194&tz_id=Europe/Moscow';
+const CLOUDFLARE_PROXY = 'https://todublin-calendar-proxy.YOUR-USERNAME.workers.dev';
 
-// ===== ВАШ CLOUDFLARE WORKERS PROXY =====
-// ЗАМЕНИТЕ НА СВОЙ URL!
-const CLOUDFLARE_PROXY = 'https://round-cell-ba3ctodublin-calendar-proxy.qwebdog.workers.dev';
-
-// ===== КЭШИРОВАНИЕ =====
 const CACHE_KEY = 'todublin_calendar_cache';
-const CACHE_DURATION = 60 * 60 * 1000; // 1 час
+const CACHE_DURATION = 60 * 60 * 1000;
 
 function getCache() {
   try {
     const cached = localStorage.getItem(CACHE_KEY);
     if (!cached) return null;
-    
     const { data, timestamp } = JSON.parse(cached);
     const age = Date.now() - timestamp;
-    
     if (age < CACHE_DURATION) {
       console.log('✅ Данные из кэша (возраст:', Math.round(age / 1000), 'сек)');
       return data;
     }
-    
     console.log('⚠️ Кэш устарел');
     return null;
-  } catch (e) {
-    return null;
-  }
+  } catch (e) { return null; }
 }
 
 function setCache(data) {
@@ -59,21 +49,14 @@ function setCache(data) {
   }
 }
 
-// ===== ЗАГРУЗКА ICAL ЧЕРЕЗ CLOUDFLARE =====
 async function fetchICal() {
   const proxyUrl = CLOUDFLARE_PROXY + '?url=' + encodeURIComponent(ICAL_URL);
-  
   try {
     const response = await fetch(proxyUrl, {
       signal: AbortSignal.timeout(10000)
     });
-    
-    if (!response.ok) {
-      throw new Error('HTTP ' + response.status);
-    }
-    
+    if (!response.ok) throw new Error('HTTP ' + response.status);
     const text = await response.text();
-    
     if (text.includes('BEGIN:VCALENDAR')) {
       console.log('✅ Успешно загружено через Cloudflare Workers');
       return text;
@@ -86,18 +69,15 @@ async function fetchICal() {
   }
 }
 
-// ===== ПАРСИНГ ICAL =====
 function parseICalEvents(icsData) {
   try {
     const jcalData = ICAL.parse(icsData);
     const vcalendar = new ICAL.Component(jcalData);
     const vevents = vcalendar.getAllSubcomponents('vevent');
-
     return vevents.map(vevent => {
       const event = new ICAL.Event(vevent);
       const startDate = event.startDate.toJSDate();
       const endDate = event.endDate ? event.endDate.toJSDate() : startDate;
-      
       return {
         title: '',
         start: startDate,
@@ -115,16 +95,12 @@ function parseICalEvents(icsData) {
   }
 }
 
-// ===== ПРЕДЗАГРУЗКА ДАННЫХ =====
 let calendarDataPromise = null;
 
 function preloadCalendarData() {
   calendarDataPromise = (async () => {
     const cached = getCache();
-    if (cached) {
-      return { events: cached, fromCache: true };
-    }
-    
+    if (cached) return { events: cached, fromCache: true };
     try {
       const icsData = await fetchICal();
       const events = parseICalEvents(icsData);
@@ -135,11 +111,21 @@ function preloadCalendarData() {
       return { events: [], fromCache: false, error: true };
     }
   })();
-  
   return calendarDataPromise;
 }
 
 preloadCalendarData();
+
+// ===== ПРЕЛОАДЕР =====
+window.addEventListener('load', () => {
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    setTimeout(() => {
+      preloader.classList.add('hidden');
+      setTimeout(() => preloader.remove(), 500);
+    }, 300);
+  }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   const burger = document.getElementById('burger');
@@ -158,13 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = '';
   }
 
-  if (burger && menu) {
-    burger.addEventListener('click', openMenu);
-  }
-
-  if (close && menu) {
-    close.addEventListener('click', closeMenu);
-  }
+  if (burger && menu) burger.addEventListener('click', openMenu);
+  if (close && menu) close.addEventListener('click', closeMenu);
 
   if (menu) {
     menu.querySelectorAll('a[href^="#"]').forEach(link => {
@@ -176,10 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (target) {
             closeMenu();
             setTimeout(() => {
-              target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-              });
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 300);
           }
         } else {
@@ -193,14 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (logo) {
     logo.addEventListener('click', (e) => {
       e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
-  // ===== ГАЛЕРЕЯ: ЭФФЕКТ СТОПКИ POLAROID =====
+  // ===== ГАЛЕРЕЯ =====
   const galleryTrack = document.getElementById('galleryTrack');
   const galleryCarousel = document.getElementById('galleryCarousel');
   
@@ -218,29 +193,19 @@ document.addEventListener('DOMContentLoaded', () => {
       slides.forEach((slide, index) => {
         slide.classList.remove('active', 'next', 'next-2', 'hidden', 'fly-out-right', 'fly-out-left');
         slide.style.transition = '';
-        
         let diff = (index - currentIndex + slides.length) % slides.length;
-        
-        if (diff === 0) {
-          slide.classList.add('active');
-        } else if (diff === 1) {
-          slide.classList.add('next');
-        } else if (diff === 2) {
-          slide.classList.add('next-2');
-        } else {
-          slide.classList.add('hidden');
-        }
+        if (diff === 0) slide.classList.add('active');
+        else if (diff === 1) slide.classList.add('next');
+        else if (diff === 2) slide.classList.add('next-2');
+        else slide.classList.add('hidden');
       });
     }
 
-    // Свайп влево — 600мс, улет вправо
     function nextSlide() {
       if (isAnimating) return;
       isAnimating = true;
-      
       const currentSlide = slides[currentIndex];
       currentSlide.classList.add('fly-out-right');
-      
       setTimeout(() => {
         currentIndex = (currentIndex + 1) % slides.length;
         updateStack();
@@ -248,49 +213,31 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 600);
     }
 
-    // Свайп вправо — 350мс, ускоренная анимация
     function prevSlide() {
       if (isAnimating) return;
       isAnimating = true;
-      
       const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
       const prevSlideEl = slides[prevIndex];
       const currentSlide = slides[currentIndex];
       
-      // Ускоряем transition для обратного свайпа
       prevSlideEl.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.35s ease';
       currentSlide.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.35s ease';
       
-      // Сдвигаем все слайды на один уровень глубже (кроме текущего и предыдущего)
       slides.forEach((slide, index) => {
         if (index === currentIndex || index === prevIndex) return;
-        
         let diff = (index - currentIndex + slides.length) % slides.length;
-        
-        if (diff === 1) {
-          slide.classList.remove('next');
-          slide.classList.add('next-2');
-        } else if (diff === 2) {
-          slide.classList.remove('next-2');
-          slide.classList.add('hidden');
-        } else if (diff >= 3) {
-          slide.classList.remove('active', 'next', 'next-2');
-          slide.classList.add('hidden');
-        }
+        if (diff === 1) { slide.classList.remove('next'); slide.classList.add('next-2'); }
+        else if (diff === 2) { slide.classList.remove('next-2'); slide.classList.add('hidden'); }
+        else if (diff >= 3) { slide.classList.remove('active', 'next', 'next-2'); slide.classList.add('hidden'); }
       });
       
-      // Текущее фото опускается на второй уровень (next)
       currentSlide.classList.remove('active');
       currentSlide.classList.add('next');
-      
-      // Предыдущее фото поднимается из глубины стопки (hidden → active)
       prevSlideEl.classList.remove('hidden');
       prevSlideEl.classList.add('active');
-      
       currentIndex = prevIndex;
       
       setTimeout(() => {
-        // Возвращаем стандартный transition
         prevSlideEl.style.transition = '';
         currentSlide.style.transition = '';
         updateStack();
@@ -304,24 +251,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function stopAutoPlay() {
-      if (autoPlayInterval) {
-        clearInterval(autoPlayInterval);
-      }
+      if (autoPlayInterval) clearInterval(autoPlayInterval);
     }
 
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        prevSlide();
-        startAutoPlay();
-      });
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        nextSlide();
-        startAutoPlay();
-      });
-    }
+    if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); startAutoPlay(); });
+    if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); startAutoPlay(); });
 
     let touchStartX = 0;
     let touchEndX = 0;
@@ -340,26 +274,61 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleSwipe() {
       const diff = touchStartX - touchEndX;
       if (Math.abs(diff) < 50) return;
-
-      if (diff > 0) {
-        nextSlide();
-      } else {
-        prevSlide();
-      }
+      if (diff > 0) nextSlide();
+      else prevSlide();
     }
 
     updateStack();
     startAutoPlay();
   }
 
-  // ===== КАЛЕНДАРЬ FULLCALENDAR =====
+  // ===== МОДАЛКА УВЕЛИЧЕНИЯ ФОТО =====
+  const zoomModal = document.getElementById('zoomModal');
+  const zoomModalImage = document.getElementById('zoomModalImage');
+  const zoomModalClose = document.getElementById('zoomModalClose');
+  const zoomModalOverlay = document.getElementById('zoomModalOverlay');
+
+  function openZoomModal(src, alt) {
+    if (!zoomModal || !zoomModalImage) return;
+    zoomModalImage.src = src;
+    zoomModalImage.alt = alt || '';
+    zoomModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeZoomModal() {
+    if (!zoomModal) return;
+    zoomModal.classList.remove('active');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      if (zoomModalImage) zoomModalImage.src = '';
+    }, 300);
+  }
+
+  // Клик по фото в галерее
+  document.querySelectorAll('.gallery__zoomable').forEach(img => {
+    img.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openZoomModal(img.src, img.alt);
+    });
+  });
+
+  if (zoomModalClose) zoomModalClose.addEventListener('click', closeZoomModal);
+  if (zoomModalOverlay) zoomModalOverlay.addEventListener('click', closeZoomModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (zoomModal && zoomModal.classList.contains('active')) {
+        closeZoomModal();
+      } else if (menu && menu.classList.contains('active')) {
+        closeMenu();
+      }
+    }
+  });
+
+  // ===== КАЛЕНДАРЬ =====
   const calendarLoader = document.getElementById('calendarLoader');
   const customCalendar = document.getElementById('customCalendar');
-  
-  function showLoader() {
-    if (calendarLoader) calendarLoader.style.display = 'flex';
-    if (customCalendar) customCalendar.style.display = 'none';
-  }
   
   function hideLoader() {
     if (calendarLoader) calendarLoader.style.display = 'none';
@@ -368,7 +337,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function initCalendar() {
     if (!customCalendar || customCalendar.dataset.initialized === 'true') return;
-
     const isMobile = isMobileDevice();
 
     const calendar = new FullCalendar.Calendar(customCalendar, {
@@ -379,20 +347,14 @@ document.addEventListener('DOMContentLoaded', () => {
         center: 'title',
         right: isMobile ? '' : 'today dayGridMonth,timeGridWeek'
       },
-      buttonText: {
-        today: 'Сегодня',
-        month: 'Месяц',
-        week: 'Неделя'
-      },
+      buttonText: { today: 'Сегодня', month: 'Месяц', week: 'Неделя' },
       firstDay: 1,
       height: isMobile ? 'auto' : 500,
       events: async function(fetchInfo, successCallback, failureCallback) {
         try {
           const result = await calendarDataPromise;
-          
           if (result.events.length > 0) {
-            console.log('✅ Событий:', result.events.length, 
-                       result.fromCache ? '(кэш)' : '(сеть)');
+            console.log('✅ Событий:', result.events.length, result.fromCache ? '(кэш)' : '(сеть)');
             successCallback(result.events);
           } else if (result.error) {
             console.warn('⚠️ Ошибка загрузки — календарь пуст');
@@ -400,11 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             successCallback([]);
           }
-          
-          if (result.fromCache) {
-            backgroundRefresh(calendar);
-          }
-          
+          if (result.fromCache) backgroundRefresh(calendar);
         } catch (error) {
           console.error('Ошибка:', error);
           successCallback([]);
@@ -413,9 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       },
       eventClick: function(info) {
-        if (!isMobile) {
-          alert('Дата занята');
-        }
+        if (!isMobile) alert('Дата занята');
       }
     });
 
@@ -425,14 +381,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function backgroundRefresh(calendarInstance) {
     console.log('🔄 Фоновое обновление...');
-    
     fetchICal().then(icsData => {
       const freshEvents = parseICalEvents(icsData);
       setCache(freshEvents);
-      
       calendarInstance.removeAllEvents();
       calendarInstance.addEventSource(freshEvents);
-      
       console.log('✅ Обновлён в фоне');
     }).catch(error => {
       console.warn('⚠️ Фоновое обновление не удалось:', error);
@@ -443,28 +396,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ===== ФОРМА ЗАЯВКИ =====
   const requestForm = document.getElementById('requestForm');
-  
   if (requestForm) {
     requestForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
       const formData = new FormData(requestForm);
       const data = Object.fromEntries(formData);
-      
-      // Здесь можно добавить отправку на сервер
       console.log('Данные формы:', data);
-      
-      // Временное решение — показываем сообщение
       alert('Спасибо за заявку! Мы свяжемся с вами в течение 30 минут.');
       requestForm.reset();
     });
   }
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && menu && menu.classList.contains('active')) {
-      closeMenu();
+  // ===== КНОПКА "НАВЕРХ" =====
+  const scrollTopBtn = document.getElementById('scrollTop');
+  
+  function handleScrollTopVisibility() {
+    if (!scrollTopBtn) return;
+    if (window.scrollY > 500) {
+      scrollTopBtn.classList.add('visible');
+    } else {
+      scrollTopBtn.classList.remove('visible');
     }
-  });
+  }
+
+  window.addEventListener('scroll', handleScrollTopVisibility, { passive: true });
+  handleScrollTopVisibility();
+
+  if (scrollTopBtn) {
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 });
 
 let lastIsMobile = isMobileDevice();
@@ -479,8 +441,6 @@ window.addEventListener('resize', () => {
       menu.classList.remove('active');
       document.body.style.overflow = '';
     }
-    if (burger) {
-      burger.classList.remove('active');
-    }
+    if (burger) burger.classList.remove('active');
   }
 });
