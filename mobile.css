@@ -1052,21 +1052,23 @@ h1, h2, h3,
 
 .services-chips {
   padding: 12px 16px;
-  gap: 8px;
+  gap: 10px;
+  flex-direction: column;
 }
 
 .chip {
-  padding: 9px 14px;
-  min-width: 100px;
-  flex: 1 1 calc(50% - 8px);
+  padding: 12px 16px;
+  min-width: 100%;
+  width: 100%;
+  flex: 1 1 100%;
 }
 
 .chip__text {
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .chip__hint {
-  font-size: 9px;
+  font-size: 10px;
 }
 
 /* ===== TOAST УВЕДОМЛЕНИЯ (МОБИЛЬНЫЕ) ===== */
