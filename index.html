@@ -331,48 +331,50 @@
 
         <!-- ===== ЧЕКБОКСЫ УСЛУГ ===== -->
         <div class="request__services">
-          <label class="request__form-label request__services-title">Дополнительно</label>
-          <div class="request__services-grid">
-            <label class="service-card">
-              <input type="checkbox" name="services" value="grill" class="service-card__input">
-              <span class="service-card__icon">🔥</span>
-              <span class="service-card__text">Нужен гриль</span>
-              <span class="service-card__check">✓</span>
+          <button type="button" class="services-toggle" id="servicesToggle">
+            <span class="services-toggle__text">Дополнительно</span>
+            <span class="services-toggle__arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </span>
+          </button>
+          
+          <div class="services-list" id="servicesList">
+            <label class="service-item">
+              <input type="checkbox" name="services" value="grill" class="service-item__input" id="serviceGrill">
+              <span class="service-item__check"></span>
+              <span class="service-item__text">Нужен гриль</span>
             </label>
 
-            <label class="service-card">
-              <input type="checkbox" name="services" value="chef" class="service-card__input">
-              <span class="service-card__icon">👨‍🍳</span>
-              <span class="service-card__text">Нужен повар</span>
-              <span class="service-card__check">✓</span>
+            <label class="service-item">
+              <input type="checkbox" name="services" value="chef" class="service-item__input" id="serviceChef">
+              <span class="service-item__check"></span>
+              <span class="service-item__text">Нужен повар</span>
             </label>
 
-            <label class="service-card">
-              <input type="checkbox" name="services" value="generator" class="service-card__input">
-              <span class="service-card__icon">⚡</span>
-              <span class="service-card__text">Генератор 7-8 кВт</span>
-              <span class="service-card__check">✓</span>
+            <label class="service-item">
+              <input type="checkbox" name="services" value="generator" class="service-item__input">
+              <span class="service-item__check"></span>
+              <span class="service-item__text">Генератор 7-8 кВт</span>
             </label>
 
-            <label class="service-card">
-              <input type="checkbox" name="services" value="garlands" class="service-card__input">
-              <span class="service-card__icon">💡</span>
-              <span class="service-card__text">Нужны гирлянды</span>
-              <span class="service-card__check">✓</span>
+            <label class="service-item">
+              <input type="checkbox" name="services" value="garlands" class="service-item__input">
+              <span class="service-item__check"></span>
+              <span class="service-item__text">Нужны гирлянды</span>
             </label>
 
-            <label class="service-card">
-              <input type="checkbox" name="services" value="barrel_tables" class="service-card__input">
-              <span class="service-card__icon">🍺</span>
-              <span class="service-card__text">Столы в виде бочек</span>
-              <span class="service-card__check">✓</span>
+            <label class="service-item">
+              <input type="checkbox" name="services" value="barrel_tables" class="service-item__input">
+              <span class="service-item__check"></span>
+              <span class="service-item__text">Столы в виде бочек</span>
             </label>
 
-            <label class="service-card">
-              <input type="checkbox" name="services" value="photo_zone" class="service-card__input">
-              <span class="service-card__icon">📸</span>
-              <span class="service-card__text">Фотостенд / фотозона</span>
-              <span class="service-card__check">✓</span>
+            <label class="service-item">
+              <input type="checkbox" name="services" value="photo_zone" class="service-item__input">
+              <span class="service-item__check"></span>
+              <span class="service-item__text">Фотостенд / фотозона</span>
             </label>
           </div>
         </div>
