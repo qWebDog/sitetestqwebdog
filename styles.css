@@ -1363,6 +1363,283 @@ h1, h2, h3,
   height: 24px;
 }
 
+/* ===== TOAST УВЕДОМЛЕНИЯ ===== */
+.toast-container {
+  position: fixed;
+  top: 100px;
+  right: 30px;
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.toast {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 300px;
+  max-width: 420px;
+  border-left: 4px solid var(--gold);
+  animation: toastIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  pointer-events: auto;
+}
+
+.toast--success { border-left-color: var(--accent); }
+.toast--error { border-left-color: var(--primary); }
+.toast--info { border-left-color: var(--gold); }
+
+.toast.hiding {
+  animation: toastOut 0.3s ease forwards;
+}
+
+@keyframes toastIn {
+  from { transform: translateX(120%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes toastOut {
+  to { transform: translateX(120%); opacity: 0; }
+}
+
+.toast__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(212, 162, 76, 0.15);
+  color: var(--gold);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.toast--success .toast__icon {
+  background: rgba(32, 96, 61, 0.15);
+  color: var(--accent);
+}
+
+.toast--error .toast__icon {
+  background: rgba(127, 24, 13, 0.15);
+  color: var(--primary);
+}
+
+.toast__content { flex: 1; }
+
+.toast__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.toast__message {
+  font-size: 13px;
+  color: var(--text);
+  opacity: 0.75;
+  line-height: 1.4;
+}
+
+.toast__close {
+  background: transparent;
+  border: none;
+  color: var(--text);
+  opacity: 0.4;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px;
+  transition: opacity 0.2s;
+}
+
+.toast__close:hover { opacity: 1; }
+
+/* ===== ВАЛИДАЦИЯ ФОРМЫ ===== */
+.request__form-error {
+  display: block;
+  font-size: 12px;
+  color: var(--primary);
+  margin-top: 4px;
+  min-height: 16px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: all 0.2s;
+}
+
+.request__form-error.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.request__form-input.invalid,
+.request__form-textarea.invalid {
+  border-color: var(--primary);
+  background: rgba(127, 24, 13, 0.05);
+}
+
+.request__form-input.valid,
+.request__form-textarea.valid {
+  border-color: var(--accent);
+}
+
+.request__form-input.highlighted {
+  animation: highlightPulse 2s ease;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212, 162, 76, 0.3);
+}
+
+@keyframes highlightPulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(212, 162, 76, 0.3); }
+  50% { box-shadow: 0 0 0 6px rgba(212, 162, 76, 0.5); }
+}
+
+.request__form-hint {
+  float: right;
+  font-size: 11px;
+  color: var(--gold);
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.request__form-counter {
+  float: right;
+  font-size: 12px;
+  color: var(--text);
+  opacity: 0.5;
+  font-weight: 400;
+}
+
+/* ===== СПИННЕР КНОПКИ ===== */
+.request__form-submit {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+}
+
+.request__form-submit.loading .request__btn-text {
+  opacity: 0.6;
+}
+
+.request__btn-spinner {
+  display: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(247, 243, 238, 0.3);
+  border-top-color: var(--light);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.request__form-submit.loading .request__btn-spinner {
+  display: block;
+}
+
+.request__form-submit.loading {
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* ===== ЧЕКБОКСЫ УСЛУГ ===== */
+.request__services {
+  margin-bottom: 24px;
+}
+
+.request__services-title {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.request__services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.service-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(212, 162, 76, 0.3);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.service-card:hover {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.service-card__input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.service-card__icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.service-card__text {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.service-card__check {
+  width: 22px;
+  height: 22px;
+  border: 2px solid rgba(212, 162, 76, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: transparent;
+  background: rgba(255, 255, 255, 0.7);
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.service-card__input:checked ~ .service-card__icon {
+  transform: scale(1.15);
+}
+
+.service-card__input:checked ~ .service-card__check {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--primary);
+}
+
+.service-card__input:checked ~ .service-card__text {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.service-card:has(.service-card__input:checked) {
+  background: rgba(212, 162, 76, 0.15);
+  border-color: var(--gold);
+}
+
 /* ===== АНИМАЦИИ ===== */
 @keyframes neonPulse {
   0%, 100% {
