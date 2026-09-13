@@ -1,8 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 html {
   scroll-behavior: smooth;
@@ -31,9 +27,7 @@ body {
   overflow-x: hidden;
 }
 
-body.modal-open {
-  overflow: hidden;
-}
+body.modal-open { overflow: hidden; }
 
 h1, h2, h3,
 .intro__title,
@@ -53,6 +47,47 @@ h1, h2, h3,
 .process__title,
 .process__step-title {
   color: var(--gold);
+}
+
+/* ===== ПРЕЛОАДЕР ===== */
+.preloader {
+  position: fixed;
+  inset: 0;
+  background: #E3D5C1;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.preloader__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.preloader__logo {
+  font-family: 'Rye', cursive;
+  font-size: 32px;
+  color: var(--gold);
+  letter-spacing: 2px;
+  animation: neonPulse 2.5s ease-in-out infinite;
+}
+
+.preloader__spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(212, 162, 76, 0.2);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
 }
 
 /* ===== НАВИГАЦИЯ ===== */
@@ -108,9 +143,7 @@ h1, h2, h3,
   transition: all 0.3s ease;
 }
 
-.nav__burger.active {
-  display: none;
-}
+.nav__burger.active { display: none; }
 
 .nav__menu {
   position: fixed;
@@ -130,13 +163,8 @@ h1, h2, h3,
   z-index: 150;
 }
 
-.nav__menu.active {
-  transform: translateY(0);
-}
-
-.nav__menu-top {
-  text-align: center;
-}
+.nav__menu.active { transform: translateY(0); }
+.nav__menu-top { text-align: center; }
 
 .nav__menu-logo {
   font-family: 'Rye', cursive;
@@ -199,9 +227,7 @@ h1, h2, h3,
   transition: opacity 0.2s;
 }
 
-.nav__close:hover {
-  opacity: 1;
-}
+.nav__close:hover { opacity: 1; }
 
 /* ===== HERO ===== */
 .hero {
@@ -211,10 +237,7 @@ h1, h2, h3,
   position: relative;
 }
 
-.hero__container {
-  position: relative;
-  z-index: 2;
-}
+.hero__container { position: relative; z-index: 2; }
 
 .hero__content {
   display: flex;
@@ -287,9 +310,7 @@ h1, h2, h3,
   box-shadow: 0 8px 20px rgba(32, 96, 61, 0.4);
 }
 
-.btn--primary:active {
-  transform: translateY(1px);
-}
+.btn--primary:active { transform: translateY(1px); }
 
 .btn--ghost {
   color: var(--text);
@@ -297,21 +318,15 @@ h1, h2, h3,
   background: transparent;
 }
 
-/* ===== ЧТО МЫ ДЕЛАЕМ (INTRO) ===== */
+/* ===== INTRO ===== */
 .intro {
   background: #E3D5C1;
   padding: 32px 0;
   color: var(--text);
 }
 
-.intro__container {
-  padding: 0 20px;
-}
-
-.intro__header {
-  text-align: center;
-  margin-bottom: 20px;
-}
+.intro__container { padding: 0 20px; }
+.intro__header { text-align: center; margin-bottom: 20px; }
 
 .intro__label {
   display: inline-block;
@@ -343,14 +358,8 @@ h1, h2, h3,
   color: var(--light);
 }
 
-.intro__main::before {
-  display: none;
-}
-
-.intro__main-content {
-  position: relative;
-  z-index: 2;
-}
+.intro__main::before { display: none; }
+.intro__main-content { position: relative; z-index: 2; }
 
 .intro__main-badge {
   display: inline-block;
@@ -396,15 +405,8 @@ h1, h2, h3,
   color: var(--light);
 }
 
-.intro__main-visual {
-  display: none;
-}
-
-.intro__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
+.intro__main-visual { display: none; }
+.intro__grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
 
 .intro__card {
   background:
@@ -440,21 +442,15 @@ h1, h2, h3,
   opacity: 0.9;
 }
 
-/* ===== КАК ЭТО РАБОТАЕТ ===== */
+/* ===== PROCESS ===== */
 .process {
   background: #E3D5C1;
   padding: 32px 0;
   color: var(--text);
 }
 
-.process__container {
-  padding: 0 20px;
-}
-
-.process__header {
-  text-align: center;
-  margin-bottom: 24px;
-}
+.process__container { padding: 0 20px; }
+.process__header { text-align: center; margin-bottom: 24px; }
 
 .process__label {
   display: inline-block;
@@ -516,13 +512,8 @@ h1, h2, h3,
 }
 
 .process__step::before,
-.process__step::after {
-  display: none;
-}
-
-.process__step-number {
-  display: none;
-}
+.process__step::after { display: none; }
+.process__step-number { display: none; }
 
 .process__step--final {
   background:
@@ -538,14 +529,8 @@ h1, h2, h3,
     0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
-.process__step--final .process__step-title {
-  color: var(--gold);
-}
-
-.process__step--final .process__step-text {
-  color: var(--chalk);
-  opacity: 0.9;
-}
+.process__step--final .process__step-title { color: var(--gold); }
+.process__step--final .process__step-text { color: var(--chalk); opacity: 0.9; }
 
 .process__step-title {
   font-size: 17px;
@@ -564,7 +549,7 @@ h1, h2, h3,
   opacity: 0.9;
 }
 
-/* ===== ГАЛЕРЕЯ (СТОПКА POLAROID - МОБИЛЬНАЯ) ===== */
+/* ===== ГАЛЕРЕЯ ===== */
 .gallery {
   background: #E3D5C1;
   padding: 40px 0;
@@ -572,9 +557,7 @@ h1, h2, h3,
   overflow: hidden;
 }
 
-.gallery__container {
-  padding: 0 20px;
-}
+.gallery__container { padding: 0 20px; }
 
 .gallery__frame {
   background: transparent;
@@ -585,9 +568,7 @@ h1, h2, h3,
   overflow: visible;
 }
 
-.gallery__frame::before {
-  display: none;
-}
+.gallery__frame::before { display: none; }
 
 .gallery__carousel {
   position: relative;
@@ -633,6 +614,7 @@ h1, h2, h3,
   height: auto;
   display: block;
   filter: sepia(15%) contrast(1.05);
+  cursor: zoom-in;
 }
 
 .gallery__caption {
@@ -685,25 +667,89 @@ h1, h2, h3,
   opacity: 0;
 }
 
-.gallery__arrow {
+.gallery__arrow { display: none; }
+
+/* ===== МОДАЛКА УВЕЛИЧЕНИЯ ФОТО ===== */
+.zoom-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
   display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
-/* ===== КАЛЕНДАРЬ (МОБИЛЬНАЯ) ===== */
+.zoom-modal.active {
+  display: flex;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.zoom-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+.zoom-modal__content {
+  position: relative;
+  max-width: 95vw;
+  max-height: 90vh;
+  z-index: 1;
+  animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.zoom-modal__image {
+  max-width: 100%;
+  max-height: 90vh;
+  display: block;
+  border-radius: 6px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.zoom-modal__close {
+  position: absolute;
+  top: -45px;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  color: var(--gold);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.zoom-modal__close:hover {
+  background: var(--gold);
+  color: var(--primary);
+}
+
+/* ===== КАЛЕНДАРЬ ===== */
 .calendar {
   background: #E3D5C1;
   padding: 40px 0;
   color: var(--text);
 }
 
-.calendar__container {
-  padding: 0 16px;
-}
-
-.calendar__header {
-  text-align: center;
-  margin-bottom: 20px;
-}
+.calendar__container { padding: 0 16px; }
+.calendar__header { text-align: center; margin-bottom: 20px; }
 
 .calendar__label {
   display: inline-block;
@@ -781,23 +827,12 @@ h1, h2, h3,
   border-radius: 3px;
 }
 
-.calendar__legend-dot--booked {
-  background: var(--primary);
-}
+.calendar__legend-dot--booked { background: var(--primary); }
+.calendar__legend-dot--available { background: #fff; border: 2px solid #e0e0e0; }
 
-.calendar__legend-dot--available {
-  background: #fff;
-  border: 2px solid #e0e0e0;
-}
+.calendar__cta { text-align: center; margin-top: 16px; }
 
-.calendar__cta {
-  text-align: center;
-  margin-top: 16px;
-}
-
-#customCalendar {
-  font-family: 'Inter', sans-serif;
-}
+#customCalendar { font-family: 'Inter', sans-serif; }
 
 .fc {
   --fc-border-color: #e0e0e0;
@@ -854,38 +889,20 @@ h1, h2, h3,
   font-size: 10px;
 }
 
-.fc .fc-day-today {
-  background-color: rgba(212, 162, 76, 0.1) !important;
-}
+.fc .fc-day-today { background-color: rgba(212, 162, 76, 0.1) !important; }
+.fc .fc-bg-event { opacity: 1 !important; }
+.fc .fc-scrollgrid { border-radius: 4px; overflow: hidden; }
+.fc .fc-daygrid-day-frame { min-height: 20px; }
 
-.fc .fc-bg-event {
-  opacity: 1 !important;
-}
-
-.fc .fc-scrollgrid {
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.fc .fc-daygrid-day-frame {
-  min-height: 20px;
-}
-
-/* ===== ФОРМА ЗАЯВКИ (МОБИЛЬНАЯ) ===== */
+/* ===== ФОРМА ЗАЯВКИ ===== */
 .request {
   background: #E3D5C1;
   padding: 40px 0;
   color: var(--text);
 }
 
-.request__container {
-  padding: 0 20px;
-}
-
-.request__header {
-  text-align: center;
-  margin-bottom: 24px;
-}
+.request__container { padding: 0 20px; }
+.request__header { text-align: center; margin-bottom: 24px; }
 
 .request__label {
   display: inline-block;
@@ -918,15 +935,8 @@ h1, h2, h3,
   margin-bottom: 16px;
 }
 
-.request__form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.request__form-group--full {
-  margin-bottom: 20px;
-}
+.request__form-group { display: flex; flex-direction: column; gap: 6px; }
+.request__form-group--full { margin-bottom: 20px; }
 
 .request__form-label {
   font-size: 13px;
@@ -958,10 +968,7 @@ h1, h2, h3,
   color: rgba(26, 26, 26, 0.5);
 }
 
-.request__form-textarea {
-  resize: vertical;
-  min-height: 80px;
-}
+.request__form-textarea { resize: vertical; min-height: 80px; }
 
 .request__form-checkbox {
   display: flex;
@@ -970,9 +977,7 @@ h1, h2, h3,
   margin-bottom: 20px;
 }
 
-.request__form-checkbox-input {
-  display: none;
-}
+.request__form-checkbox-input { display: none; }
 
 .request__form-checkbox-label {
   display: flex;
@@ -1019,21 +1024,15 @@ h1, h2, h3,
   font-size: 15px;
 }
 
-/* ===== КОНТАКТЫ (МОБИЛЬНАЯ) ===== */
+/* ===== КОНТАКТЫ (3 КАРТОЧКИ) ===== */
 .contacts {
   background: #E3D5C1;
   padding: 40px 0;
   color: var(--text);
 }
 
-.contacts__container {
-  padding: 0 20px;
-}
-
-.contacts__header {
-  text-align: center;
-  margin-bottom: 24px;
-}
+.contacts__container { padding: 0 20px; }
+.contacts__header { text-align: center; margin-bottom: 24px; }
 
 .contacts__label {
   display: inline-block;
@@ -1052,10 +1051,17 @@ h1, h2, h3,
   line-height: 1.5;
 }
 
+/* На мобильном: 2 колонки, третья карточка центрируется */
 .contacts__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
+  justify-items: center;
+}
+
+.contacts__card:last-child {
+  grid-column: 1 / -1;
+  max-width: calc(50% - 6px);
 }
 
 .contacts__card {
@@ -1067,6 +1073,7 @@ h1, h2, h3,
   text-decoration: none;
   color: var(--text);
   transition: all 0.3s;
+  width: 100%;
 }
 
 .contacts__card:active {
@@ -1075,8 +1082,21 @@ h1, h2, h3,
 }
 
 .contacts__card-icon {
-  font-size: 32px;
-  margin-bottom: 10px;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 12px;
+  background: rgba(127, 24, 13, 0.1);
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+}
+
+.contacts__card-icon svg {
+  width: 22px;
+  height: 22px;
 }
 
 .contacts__card-title {
@@ -1092,20 +1112,16 @@ h1, h2, h3,
   margin-bottom: 8px;
 }
 
-.contacts__card-action {
-  display: none;
-}
+.contacts__card-action { display: none; }
 
-/* ===== ФУТЕР (МОБИЛЬНАЯ) ===== */
+/* ===== ФУТЕР ===== */
 .footer {
   background: #1a1a1a;
   padding: 40px 0 24px;
   color: var(--light);
 }
 
-.footer__container {
-  padding: 0 20px;
-}
+.footer__container { padding: 0 20px; }
 
 .footer__grid {
   display: grid;
@@ -1114,11 +1130,7 @@ h1, h2, h3,
   margin-bottom: 32px;
 }
 
-.footer__column {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+.footer__column { display: flex; flex-direction: column; gap: 12px; }
 
 .footer__logo {
   font-family: 'Rye', cursive;
@@ -1129,11 +1141,7 @@ h1, h2, h3,
   letter-spacing: 1px;
 }
 
-.footer__text {
-  font-size: 13px;
-  line-height: 1.6;
-  opacity: 0.8;
-}
+.footer__text { font-size: 13px; line-height: 1.6; opacity: 0.8; }
 
 .footer__column-title {
   font-size: 15px;
@@ -1157,15 +1165,9 @@ h1, h2, h3,
   transition: opacity 0.2s;
 }
 
-.footer__links a:hover {
-  opacity: 1;
-  color: var(--gold);
-}
+.footer__links a:hover { opacity: 1; color: var(--gold); }
 
-.footer__social {
-  display: flex;
-  gap: 10px;
-}
+.footer__social { display: flex; gap: 10px; }
 
 .footer__social-link {
   width: 36px;
@@ -1208,12 +1210,48 @@ h1, h2, h3,
   transition: opacity 0.2s;
 }
 
-.footer__privacy:hover {
-  opacity: 1;
+.footer__privacy:hover { opacity: 1; color: var(--gold); }
+
+/* ===== КНОПКА "НАВЕРХ" ===== */
+.scroll-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 46px;
+  height: 46px;
+  background: var(--primary);
   color: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 90;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-/* ===== НЕОНОВОЕ СВЕЧЕНИЕ ===== */
+.scroll-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-top:hover {
+  background: var(--gold);
+  color: var(--primary);
+}
+
+.scroll-top svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* ===== АНИМАЦИИ ===== */
 @keyframes neonPulse {
   0%, 100% {
     text-shadow:
