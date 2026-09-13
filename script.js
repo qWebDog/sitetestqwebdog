@@ -490,12 +490,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initCalendar();
 
-  // ===== ФОРМА ЗАЯВКИ =====
+    // ===== ФОРМА ЗАЯВКИ =====
   const requestForm = document.getElementById('requestForm');
   const submitBtn = document.getElementById('submitBtn');
   const messageField = document.getElementById('message');
   const messageCount = document.getElementById('messageCount');
   const phoneInput = document.getElementById('phone');
+  const servicesToggle = document.getElementById('servicesToggle');
+  const servicesList = document.getElementById('servicesList');
+  const serviceGrill = document.getElementById('serviceGrill');
+  const serviceChef = document.getElementById('serviceChef');
 
   // Маска телефона
   setupPhoneMask(phoneInput);
@@ -505,6 +509,45 @@ document.addEventListener('DOMContentLoaded', () => {
     messageField.addEventListener('input', () => {
       messageCount.textContent = messageField.value.length;
     });
+  }
+
+  // Аккордеон "Дополнительно"
+  if (servicesToggle && servicesList) {
+    servicesToggle.addEventListener('click', () => {
+      servicesToggle.classList.toggle('active');
+      servicesList.classList.toggle('active');
+    });
+  }
+
+  // Зависимость "Нужен повар" от "Нужен гриль"
+  function updateChefAvailability() {
+    if (!serviceGrill || !serviceChef) return;
+    
+    const chefItem = serviceChef.closest('.service-item');
+    
+    if (serviceGrill.checked) {
+      // Гриль выбран — повар доступен
+      chefItem.classList.remove('disabled');
+      serviceChef.disabled = false;
+    } else {
+      // Гриль не выбран — повар недоступен
+      chefItem.classList.add('disabled');
+      serviceChef.disabled = true;
+      serviceChef.checked = false;
+      
+      // Добавляем подсказку, если её нет
+      if (!chefItem.querySelector('.service-item__hint')) {
+        const hint = document.createElement('span');
+        hint.className = 'service-item__hint';
+        hint.textContent = 'Доступно при выборе гриля';
+        chefItem.querySelector('.service-item__text').appendChild(hint);
+      }
+    }
+  }
+
+  if (serviceGrill) {
+    serviceGrill.addEventListener('change', updateChefAvailability);
+    updateChefAvailability(); // Инициализация при загрузке
   }
 
   // Валидация в реальном времени
@@ -545,7 +588,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .map(cb => cb.value);
       data.services = services;
 
-      // Имитация отправки (замените на реальную отправку позже)
+      // Имитация отправки 
       submitBtn.classList.add('loading');
       submitBtn.disabled = true;
 
@@ -557,6 +600,10 @@ document.addEventListener('DOMContentLoaded', () => {
         requestForm.reset();
         if (messageCount) messageCount.textContent = '0';
         requestForm.querySelectorAll('.valid, .invalid').forEach(el => el.classList.remove('valid', 'invalid'));
+        
+        // Сбрасываем состояние чекбоксов
+        updateChefAvailability();
+        
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
       }, 1500);
