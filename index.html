@@ -282,24 +282,34 @@
         </p>
       </div>
 
-      <form class="request__form" id="requestForm">
+      <form class="request__form" id="requestForm" novalidate>
         <div class="request__form-grid">
           <div class="request__form-group">
             <label class="request__form-label" for="name">Ваше имя *</label>
-            <input type="text" id="name" name="name" class="request__form-input" required placeholder="Иван Иванов">
+            <input type="text" id="name" name="name" class="request__form-input" required placeholder="Иван Иванов" minlength="2" maxlength="50">
+            <span class="request__form-error" data-error-for="name"></span>
           </div>
+
           <div class="request__form-group">
             <label class="request__form-label" for="phone">Телефон *</label>
-            <input type="tel" id="phone" name="phone" class="request__form-input" required placeholder="+7 (999) 123-45-67">
+            <input type="tel" id="phone" name="phone" class="request__form-input" required placeholder="+7 (___) ___-__-__">
+            <span class="request__form-error" data-error-for="phone"></span>
           </div>
+
           <div class="request__form-group">
             <label class="request__form-label" for="email">Email</label>
             <input type="email" id="email" name="email" class="request__form-input" placeholder="example@mail.ru">
+            <span class="request__form-error" data-error-for="email"></span>
           </div>
+
           <div class="request__form-group">
-            <label class="request__form-label" for="date">Дата мероприятия</label>
+            <label class="request__form-label" for="date">
+              Дата мероприятия
+              <span class="request__form-hint" id="dateHint">Можно выбрать в календаре ↑</span>
+            </label>
             <input type="date" id="date" name="date" class="request__form-input">
           </div>
+
           <div class="request__form-group">
             <label class="request__form-label" for="eventType">Тип мероприятия</label>
             <select id="eventType" name="eventType" class="request__form-input">
@@ -308,18 +318,71 @@
               <option value="corporate">Корпоратив</option>
               <option value="wedding">Свадьба</option>
               <option value="festival">Фестиваль</option>
+              <option value="private">Частная вечеринка</option>
               <option value="other">Другое</option>
             </select>
           </div>
+
           <div class="request__form-group">
             <label class="request__form-label" for="guests">Количество гостей</label>
-            <input type="number" id="guests" name="guests" class="request__form-input" min="1" placeholder="50">
+            <input type="number" id="guests" name="guests" class="request__form-input" min="1" max="10000" placeholder="50">
+          </div>
+        </div>
+
+        <!-- ===== ЧЕКБОКСЫ УСЛУГ ===== -->
+        <div class="request__services">
+          <label class="request__form-label request__services-title">Дополнительно</label>
+          <div class="request__services-grid">
+            <label class="service-card">
+              <input type="checkbox" name="services" value="grill" class="service-card__input">
+              <span class="service-card__icon">🔥</span>
+              <span class="service-card__text">Нужен гриль</span>
+              <span class="service-card__check">✓</span>
+            </label>
+
+            <label class="service-card">
+              <input type="checkbox" name="services" value="chef" class="service-card__input">
+              <span class="service-card__icon">👨‍🍳</span>
+              <span class="service-card__text">Нужен повар</span>
+              <span class="service-card__check">✓</span>
+            </label>
+
+            <label class="service-card">
+              <input type="checkbox" name="services" value="generator" class="service-card__input">
+              <span class="service-card__icon">⚡</span>
+              <span class="service-card__text">Генератор 7-8 кВт</span>
+              <span class="service-card__check">✓</span>
+            </label>
+
+            <label class="service-card">
+              <input type="checkbox" name="services" value="garlands" class="service-card__input">
+              <span class="service-card__icon">💡</span>
+              <span class="service-card__text">Нужны гирлянды</span>
+              <span class="service-card__check">✓</span>
+            </label>
+
+            <label class="service-card">
+              <input type="checkbox" name="services" value="barrel_tables" class="service-card__input">
+              <span class="service-card__icon">🍺</span>
+              <span class="service-card__text">Столы в виде бочек</span>
+              <span class="service-card__check">✓</span>
+            </label>
+
+            <label class="service-card">
+              <input type="checkbox" name="services" value="photo_zone" class="service-card__input">
+              <span class="service-card__icon">📸</span>
+              <span class="service-card__text">Фотостенд / фотозона</span>
+              <span class="service-card__check">✓</span>
+            </label>
           </div>
         </div>
 
         <div class="request__form-group request__form-group--full">
-          <label class="request__form-label" for="message">Комментарий</label>
-          <textarea id="message" name="message" class="request__form-textarea" rows="4" placeholder="Расскажите о вашем мероприятии..."></textarea>
+          <label class="request__form-label" for="message">
+            Комментарий
+            <span class="request__form-counter"><span id="messageCount">0</span>/500</span>
+          </label>
+          <textarea id="message" name="message" class="request__form-textarea" rows="4" maxlength="500" placeholder="Расскажите о вашем мероприятии..."></textarea>
         </div>
 
         <div class="request__form-checkbox">
@@ -330,10 +393,16 @@
           </label>
         </div>
 
-        <button type="submit" class="btn btn--primary request__form-submit">Отправить заявку</button>
+        <button type="submit" class="btn btn--primary request__form-submit" id="submitBtn">
+          <span class="request__btn-text">Отправить заявку</span>
+          <span class="request__btn-spinner" aria-hidden="true"></span>
+        </button>
       </form>
     </div>
   </section>
+
+  <!-- ===== TOAST УВЕДОМЛЕНИЯ ===== -->
+  <div class="toast-container" id="toastContainer"></div>
 
   <!-- ===== КОНТАКТЫ ===== -->
   <section class="contacts" id="contacts">
