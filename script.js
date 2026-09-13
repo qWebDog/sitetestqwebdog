@@ -485,7 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initCalendar();
 
-    // ===== ФОРМА ЗАЯВКИ =====
+  // ===== ФОРМА ЗАЯВКИ =====
   const requestForm = document.getElementById('requestForm');
   const submitBtn = document.getElementById('submitBtn');
   const messageField = document.getElementById('message');
@@ -508,8 +508,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Аккордеон "Дополнительно"
   if (servicesToggle && servicesList) {
-    servicesToggle.addEventListener('click', (e) => {
+    // Для мобильных — touch events
+    servicesToggle.addEventListener('touchstart', () => {
+      // Просто для предотвращения задержки на мобильных
+    }, { passive: true });
+
+    servicesToggle.addEventListener('touchend', (e) => {
       e.preventDefault();
+      servicesToggle.classList.toggle('active');
+      servicesList.classList.toggle('active');
+    });
+
+    // Для десктопа — click
+    servicesToggle.addEventListener('click', () => {
       servicesToggle.classList.toggle('active');
       servicesList.classList.toggle('active');
     });
