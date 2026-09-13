@@ -8,16 +8,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cormorant+Infant:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Rye&display=swap" rel="stylesheet">
   
-  <!-- FullCalendar -->
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/main.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
-  
-  <!-- iCal Parser -->
   <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
   
   <link rel="stylesheet" href="styles.css" id="main-style">
 </head>
 <body>
+
+  <!-- ===== ПРЕЛОАДЕР ===== -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__content">
+      <div class="preloader__logo">To Dublin</div>
+      <div class="preloader__spinner"></div>
+    </div>
+  </div>
 
   <!-- ===== НАВИГАЦИЯ ===== -->
   <header class="nav">
@@ -106,7 +111,6 @@
             Знают своё дело, работают быстро, поддерживают атмосферу.
           </p>
         </div>
-
         <div class="intro__card">
           <h3 class="intro__card-title">Напитки и меню</h3>
           <p class="intro__card-text">
@@ -114,7 +118,6 @@
             Подбираем ассортимент под формат и гостей.
           </p>
         </div>
-
         <div class="intro__card">
           <h3 class="intro__card-title">Декор и оформление</h3>
           <p class="intro__card-text">
@@ -122,7 +125,6 @@
             Превращаем любую площадку в кусочек Дублина.
           </p>
         </div>
-
         <div class="intro__card">
           <h3 class="intro__card-title">Логистика и монтаж</h3>
           <p class="intro__card-text">
@@ -130,7 +132,6 @@
             Вам не нужно ни о чём беспокоиться.
           </p>
         </div>
-
         <div class="intro__card">
           <h3 class="intro__card-title">Организация под ключ</h3>
           <p class="intro__card-text">
@@ -191,31 +192,31 @@
           <div class="gallery__track" id="galleryTrack">
             <div class="gallery__slide">
               <div class="gallery__polaroid">
-                <img src="image/gallery/photo1.jpg" alt="Мероприятие 1">
+                <img src="image/gallery/photo1.jpg" alt="Мероприятие 1" class="gallery__zoomable">
                 <p class="gallery__caption">Праздник на свежем воздухе</p>
               </div>
             </div>
             <div class="gallery__slide">
               <div class="gallery__polaroid">
-                <img src="image/gallery/photo2.jpg" alt="Мероприятие 2">
+                <img src="image/gallery/photo2.jpg" alt="Мероприятие 2" class="gallery__zoomable">
                 <p class="gallery__caption">Корпоратив в стиле паба</p>
               </div>
             </div>
             <div class="gallery__slide">
               <div class="gallery__polaroid">
-                <img src="image/gallery/photo3.jpg" alt="Мероприятие 3">
+                <img src="image/gallery/photo3.jpg" alt="Мероприятие 3" class="gallery__zoomable">
                 <p class="gallery__caption">Вечер с друзьями</p>
               </div>
             </div>
             <div class="gallery__slide">
               <div class="gallery__polaroid">
-                <img src="image/gallery/photo4.jpg" alt="Мероприятие 4">
+                <img src="image/gallery/photo4.jpg" alt="Мероприятие 4" class="gallery__zoomable">
                 <p class="gallery__caption">Фестиваль на природе</p>
               </div>
             </div>
             <div class="gallery__slide">
               <div class="gallery__polaroid">
-                <img src="image/gallery/photo5.jpg" alt="Мероприятие 5">
+                <img src="image/gallery/photo5.jpg" alt="Мероприятие 5" class="gallery__zoomable">
                 <p class="gallery__caption">День рождения</p>
               </div>
             </div>
@@ -226,6 +227,15 @@
       </div>
     </div>
   </section>
+
+  <!-- ===== МОДАЛКА УВЕЛИЧЕНИЯ ФОТО ===== -->
+  <div class="zoom-modal" id="zoomModal">
+    <div class="zoom-modal__overlay" id="zoomModalOverlay"></div>
+    <div class="zoom-modal__content">
+      <button class="zoom-modal__close" id="zoomModalClose" aria-label="Закрыть">✕</button>
+      <img src="" alt="" class="zoom-modal__image" id="zoomModalImage">
+    </div>
+  </div>
 
   <!-- ===== КАЛЕНДАРЬ ===== -->
   <section class="calendar" id="calendar">
@@ -278,22 +288,18 @@
             <label class="request__form-label" for="name">Ваше имя *</label>
             <input type="text" id="name" name="name" class="request__form-input" required placeholder="Иван Иванов">
           </div>
-
           <div class="request__form-group">
             <label class="request__form-label" for="phone">Телефон *</label>
             <input type="tel" id="phone" name="phone" class="request__form-input" required placeholder="+7 (999) 123-45-67">
           </div>
-
           <div class="request__form-group">
             <label class="request__form-label" for="email">Email</label>
             <input type="email" id="email" name="email" class="request__form-input" placeholder="example@mail.ru">
           </div>
-
           <div class="request__form-group">
             <label class="request__form-label" for="date">Дата мероприятия</label>
             <input type="date" id="date" name="date" class="request__form-input">
           </div>
-
           <div class="request__form-group">
             <label class="request__form-label" for="eventType">Тип мероприятия</label>
             <select id="eventType" name="eventType" class="request__form-input">
@@ -305,7 +311,6 @@
               <option value="other">Другое</option>
             </select>
           </div>
-
           <div class="request__form-group">
             <label class="request__form-label" for="guests">Количество гостей</label>
             <input type="number" id="guests" name="guests" class="request__form-input" min="1" placeholder="50">
@@ -330,7 +335,7 @@
     </div>
   </section>
 
-  <!-- ===== КОНТАКТЫ ===== -->
+  <!-- ===== КОНТАКТЫ (3 КАРТОЧКИ) ===== -->
   <section class="contacts" id="contacts">
     <div class="contacts__container">
       <div class="contacts__header">
@@ -343,28 +348,34 @@
 
       <div class="contacts__grid">
         <a href="tel:+79991234567" class="contacts__card">
-          <div class="contacts__card-icon">📞</div>
+          <div class="contacts__card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
           <h3 class="contacts__card-title">Телефон</h3>
           <p class="contacts__card-text">+7 (999) 123-45-67</p>
           <span class="contacts__card-action">Позвонить →</span>
         </a>
 
-        <a href="https://wa.me/79991234567" target="_blank" class="contacts__card">
-          <div class="contacts__card-icon">💬</div>
-          <h3 class="contacts__card-title">WhatsApp</h3>
-          <p class="contacts__card-text">Быстрый ответ</p>
-          <span class="contacts__card-action">Написать →</span>
-        </a>
-
         <a href="https://t.me/todublin" target="_blank" class="contacts__card">
-          <div class="contacts__card-icon">✈️</div>
+          <div class="contacts__card-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+            </svg>
+          </div>
           <h3 class="contacts__card-title">Telegram</h3>
           <p class="contacts__card-text">@todublin</p>
           <span class="contacts__card-action">Написать →</span>
         </a>
 
         <a href="mailto:info@todublin.ru" class="contacts__card">
-          <div class="contacts__card-icon">📧</div>
+          <div class="contacts__card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
           <h3 class="contacts__card-title">Email</h3>
           <p class="contacts__card-text">info@todublin.ru</p>
           <span class="contacts__card-action">Написать →</span>
@@ -400,7 +411,6 @@
           <ul class="footer__links">
             <li><a href="tel:+79991234567">+7 (999) 123-45-67</a></li>
             <li><a href="mailto:info@todublin.ru">info@todublin.ru</a></li>
-            <li><a href="https://wa.me/79991234567" target="_blank">WhatsApp</a></li>
             <li><a href="https://t.me/todublin" target="_blank">Telegram</a></li>
           </ul>
         </div>
@@ -421,6 +431,13 @@
       </div>
     </div>
   </footer>
+
+  <!-- ===== КНОПКА "НАВЕРХ" ===== -->
+  <button class="scroll-top" id="scrollTop" aria-label="Наверх">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
 
   <script src="script.js"></script>
 </body>
