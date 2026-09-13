@@ -1050,23 +1050,23 @@ h1, h2, h3,
   font-size: 14px;
 }
 
-.service-item {
+.services-chips {
   padding: 12px 16px;
-  gap: 10px;
+  gap: 8px;
 }
 
-.service-item__check {
-  width: 20px;
-  height: 20px;
+.chip {
+  padding: 9px 14px;
+  min-width: 100px;
+  flex: 1 1 calc(50% - 8px);
 }
 
-.service-item__check::after {
-  width: 5px;
-  height: 9px;
+.chip__text {
+  font-size: 12px;
 }
 
-.service-item__text {
-  font-size: 13px;
+.chip__hint {
+  font-size: 9px;
 }
 
 /* ===== TOAST УВЕДОМЛЕНИЯ (МОБИЛЬНЫЕ) ===== */
