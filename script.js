@@ -17,7 +17,7 @@ function loadStyles() {
 loadStyles();
 
 const ICAL_URL = 'https://calendar.yandex.ru/export/ics.xml?private_token=8c436274898397b54fd84b20ad7359b52b9f5194&tz_id=Europe/Moscow';
-const CLOUDFLARE_PROXY = 'https://todublin-calendar-proxy.YOUR-USERNAME.workers.dev';
+const CLOUDFLARE_PROXY = 'round-cell-ba3ctodublin-calendar-proxy.qwebdog.workers.dev';
 
 const CACHE_KEY = 'todublin_calendar_cache';
 const CACHE_DURATION = 60 * 60 * 1000;
