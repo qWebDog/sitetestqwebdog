@@ -516,10 +516,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Логика чипов (мультивыбор)
   function initChips() {
-    const chips = document.querySelectorAll('.chip:not(.chip--disabled)');
+    const allChips = document.querySelectorAll('.chip');
     
-    chips.forEach(chip => {
-      chip.addEventListener('click', () => {
+    allChips.forEach(chip => {
+      chip.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Если чип заблокирован - ничего не делаем
+        if (chip.classList.contains('chip--disabled')) {
+          return;
+        }
+        
+        // Переключаем активное состояние
         chip.classList.toggle('active');
         
         // Синхронизируем со скрытым чекбоксом
@@ -544,7 +553,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isGrillActive) {
       chipChef.classList.remove('chip--disabled');
       
-      // Убираем подсказку, если есть
+      // Убираем подсказку
       const hint = chipChef.querySelector('.chip__hint');
       if (hint) hint.style.display = 'none';
     } else {
