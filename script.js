@@ -16,7 +16,7 @@ function loadStyles() {
 
 loadStyles();
 
-const ICAL_URL = 'https://calendar.yandex.ru/export/ics.xml?private_token=8c436274898397b54fd84b20ad7359b52b9f5194&tz_id=Europe/Moscow';
+const ICAL_URL = 'https://round-cell-ba3ctodublin-calendar-proxy.qwebdog.workers.dev/';
 const CLOUDFLARE_PROXY = 'https://todublin-calendar-proxy.YOUR-USERNAME.workers.dev';
 
 const CACHE_KEY = 'todublin_calendar_cache';
@@ -438,15 +438,12 @@ document.addEventListener('DOMContentLoaded', () => {
           hideLoader();
         }
       },
-      // Клик по занятой дате
       eventClick: function(info) {
         if (!isMobile) {
           showToast('error', 'Дата занята', 'Выберите другую дату');
         }
       },
-      // Клик по любой дате (включая свободные)
       dateClick: function(info) {
-        // Проверяем, есть ли событие в этот день
         const clickedDate = info.dateStr;
         const hasEvent = calendarInstance.getEvents().some(event => {
           const eventDate = event.start.toISOString().split('T')[0];
@@ -458,13 +455,11 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
-        // Дата свободна — подставляем в форму
         if (dateInput) {
           dateInput.value = clickedDate;
           dateInput.classList.add('highlighted');
           setTimeout(() => dateInput.classList.remove('highlighted'), 2000);
           
-          // Скроллим к форме
           const requestSection = document.getElementById('request');
           if (requestSection) {
             requestSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -490,7 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initCalendar();
 
-    // ===== ФОРМА ЗАЯВКИ =====
+  // ===== ФОРМА ЗАЯВКИ =====
   const requestForm = document.getElementById('requestForm');
   const submitBtn = document.getElementById('submitBtn');
   const messageField = document.getElementById('message');
@@ -526,11 +521,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const chefItem = serviceChef.closest('.service-item');
     
     if (serviceGrill.checked) {
-      // Гриль выбран — повар доступен
       chefItem.classList.remove('disabled');
       serviceChef.disabled = false;
+      
+      // Убираем подсказку, если есть
+      const hint = chefItem.querySelector('.service-item__hint');
+      if (hint) hint.remove();
     } else {
-      // Гриль не выбран — повар недоступен
       chefItem.classList.add('disabled');
       serviceChef.disabled = true;
       serviceChef.checked = false;
@@ -547,7 +544,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (serviceGrill) {
     serviceGrill.addEventListener('change', updateChefAvailability);
-    updateChefAvailability(); // Инициализация при загрузке
+    updateChefAvailability();
   }
 
   // Валидация в реальном времени
@@ -562,7 +559,6 @@ document.addEventListener('DOMContentLoaded', () => {
     requestForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Валидация всех полей
       let isValid = true;
       requestForm.querySelectorAll('[name="name"], [name="phone"], [name="email"]').forEach(input => {
         if (!validateField(input)) isValid = false;
@@ -579,29 +575,24 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Собираем данные
       const formData = new FormData(requestForm);
       const data = Object.fromEntries(formData);
       
-      // Собираем выбранные услуги
       const services = Array.from(requestForm.querySelectorAll('input[name="services"]:checked'))
         .map(cb => cb.value);
       data.services = services;
 
-      // Имитация отправки 
       submitBtn.classList.add('loading');
       submitBtn.disabled = true;
 
       console.log('Данные заявки:', data);
 
-      // Имитация задержки сети
       setTimeout(() => {
         showToast('success', 'Заявка отправлена!', 'Мы свяжемся с вами в течение 30 минут');
         requestForm.reset();
         if (messageCount) messageCount.textContent = '0';
         requestForm.querySelectorAll('.valid, .invalid').forEach(el => el.classList.remove('valid', 'invalid'));
         
-        // Сбрасываем состояние чекбоксов
         updateChefAvailability();
         
         submitBtn.classList.remove('loading');
