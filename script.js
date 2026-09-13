@@ -485,7 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initCalendar();
 
-  // ===== ФОРМА ЗАЯВКИ =====
+   // ===== ФОРМА ЗАЯВКИ =====
   const requestForm = document.getElementById('requestForm');
   const submitBtn = document.getElementById('submitBtn');
   const messageField = document.getElementById('message');
@@ -493,8 +493,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const phoneInput = document.getElementById('phone');
   const servicesToggle = document.getElementById('servicesToggle');
   const servicesList = document.getElementById('servicesList');
-  const serviceGrill = document.getElementById('serviceGrill');
-  const serviceChef = document.getElementById('serviceChef');
+  const chipGrill = document.getElementById('chipGrill');
+  const chipChef = document.getElementById('chipChef');
 
   // Маска телефона
   setupPhoneMask(phoneInput);
@@ -514,38 +514,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Логика чипов (мультивыбор)
+  function initChips() {
+    const chips = document.querySelectorAll('.chip:not(.chip--disabled)');
+    
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chip.classList.toggle('active');
+        
+        // Синхронизируем со скрытым чекбоксом
+        const value = chip.dataset.value;
+        const hiddenInput = document.querySelector(`input[name="services"][value="${value}"]`);
+        if (hiddenInput) {
+          hiddenInput.checked = chip.classList.contains('active');
+        }
+        
+        // Проверяем зависимость гриль → повар
+        updateChefAvailability();
+      });
+    });
+  }
+
   // Зависимость "Нужен повар" от "Нужен гриль"
   function updateChefAvailability() {
-    if (!serviceGrill || !serviceChef) return;
+    if (!chipGrill || !chipChef) return;
     
-    const chefItem = serviceChef.closest('.service-item');
+    const isGrillActive = chipGrill.classList.contains('active');
     
-    if (serviceGrill.checked) {
-      chefItem.classList.remove('disabled');
-      serviceChef.disabled = false;
+    if (isGrillActive) {
+      chipChef.classList.remove('chip--disabled');
       
       // Убираем подсказку, если есть
-      const hint = chefItem.querySelector('.service-item__hint');
-      if (hint) hint.remove();
+      const hint = chipChef.querySelector('.chip__hint');
+      if (hint) hint.style.display = 'none';
     } else {
-      chefItem.classList.add('disabled');
-      serviceChef.disabled = true;
-      serviceChef.checked = false;
+      chipChef.classList.add('chip--disabled');
+      chipChef.classList.remove('active');
       
-      // Добавляем подсказку, если её нет
-      if (!chefItem.querySelector('.service-item__hint')) {
-        const hint = document.createElement('span');
-        hint.className = 'service-item__hint';
-        hint.textContent = 'Доступно при выборе гриля';
-        chefItem.querySelector('.service-item__text').appendChild(hint);
-      }
+      // Снимаем чекбокс
+      const chefInput = document.getElementById('serviceChef');
+      if (chefInput) chefInput.checked = false;
+      
+      // Показываем подсказку
+      const hint = chipChef.querySelector('.chip__hint');
+      if (hint) hint.style.display = 'block';
     }
   }
 
-  if (serviceGrill) {
-    serviceGrill.addEventListener('change', updateChefAvailability);
-    updateChefAvailability();
-  }
+  initChips();
+  updateChefAvailability();
 
   // Валидация в реальном времени
   if (requestForm) {
@@ -593,6 +610,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (messageCount) messageCount.textContent = '0';
         requestForm.querySelectorAll('.valid, .invalid').forEach(el => el.classList.remove('valid', 'invalid'));
         
+        // Сбрасываем чипы
+        document.querySelectorAll('.chip.active').forEach(chip => chip.classList.remove('active'));
         updateChefAvailability();
         
         submitBtn.classList.remove('loading');
