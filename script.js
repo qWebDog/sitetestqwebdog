@@ -485,7 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initCalendar();
 
-  // ===== ФОРМА ЗАЯВКИ =====
+    // ===== ФОРМА ЗАЯВКИ =====
   const requestForm = document.getElementById('requestForm');
   const submitBtn = document.getElementById('submitBtn');
   const messageField = document.getElementById('message');
@@ -495,6 +495,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const servicesList = document.getElementById('servicesList');
   const chipGrill = document.getElementById('chipGrill');
   const chipChef = document.getElementById('chipChef');
+
+  // ⭐ URL вашего Google Apps Script (замените на свой!)
+  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxIrs8YytFSQlnz-1uBj97fCuneGc9K5zYKp3jz7duHlGVpa1ePAnHo0x-sT2OUTijjAw/exec';
 
   // Маска телефона
   setupPhoneMask(phoneInput);
@@ -508,36 +511,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Аккордеон "Дополнительно"
   if (servicesToggle && servicesList) {
-    // Для мобильных — touch events
-    servicesToggle.addEventListener('touchstart', () => {
-      // Просто для предотвращения задержки на мобильных
-    }, { passive: true });
-
+    servicesToggle.addEventListener('touchstart', () => {}, { passive: true });
     servicesToggle.addEventListener('touchend', (e) => {
       e.preventDefault();
       servicesToggle.classList.toggle('active');
       servicesList.classList.toggle('active');
     });
-
-    // Для десктопа — click
     servicesToggle.addEventListener('click', () => {
       servicesToggle.classList.toggle('active');
       servicesList.classList.toggle('active');
     });
   }
 
-  // Логика чипов (мультивыбор)
+  // Логика чипов
   function initChips() {
     const allChips = document.querySelectorAll('.chip');
-    
     allChips.forEach(chip => {
-      // Используем touchstart для мобильных
       chip.addEventListener('touchend', (e) => {
         e.preventDefault();
         handleChipClick(chip);
       }, { passive: false });
-      
-      // И click для десктопа
       chip.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -547,46 +540,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function handleChipClick(chip) {
-    // Если чип заблокирован - ничего не делаем
-    if (chip.classList.contains('chip--disabled')) {
-      return;
-    }
-    
-    // Переключаем активное состояние
+    if (chip.classList.contains('chip--disabled')) return;
     chip.classList.toggle('active');
-    
-    // Синхронизируем со скрытым чекбоксом
     const value = chip.dataset.value;
     const hiddenInput = document.querySelector(`input[name="services"][value="${value}"]`);
-    if (hiddenInput) {
-      hiddenInput.checked = chip.classList.contains('active');
-    }
-    
-    // Проверяем зависимость гриль → повар
+    if (hiddenInput) hiddenInput.checked = chip.classList.contains('active');
     updateChefAvailability();
   }
 
-  // Зависимость "Нужен повар" от "Нужен гриль"
   function updateChefAvailability() {
     if (!chipGrill || !chipChef) return;
-    
     const isGrillActive = chipGrill.classList.contains('active');
-    
     if (isGrillActive) {
       chipChef.classList.remove('chip--disabled');
-      
-      // Убираем подсказку
       const hint = chipChef.querySelector('.chip__hint');
       if (hint) hint.style.display = 'none';
     } else {
       chipChef.classList.add('chip--disabled');
       chipChef.classList.remove('active');
-      
-      // Снимаем чекбокс
       const chefInput = document.getElementById('serviceChef');
       if (chefInput) chefInput.checked = false;
-      
-      // Показываем подсказку
       const hint = chipChef.querySelector('.chip__hint');
       if (hint) hint.style.display = 'block';
     }
@@ -595,7 +568,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initChips();
   updateChefAvailability();
 
-  // Валидация в реальном времени
+  // Валидация
   if (requestForm) {
     requestForm.querySelectorAll('.request__form-input, .request__form-textarea').forEach(input => {
       input.addEventListener('blur', () => validateField(input));
@@ -623,31 +596,38 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      // Собираем данные
       const formData = new FormData(requestForm);
       const data = Object.fromEntries(formData);
-      
       const services = Array.from(requestForm.querySelectorAll('input[name="services"]:checked'))
         .map(cb => cb.value);
       data.services = services;
 
+      // Отправка
       submitBtn.classList.add('loading');
       submitBtn.disabled = true;
 
-      console.log('Данные заявки:', data);
+      try {
+        await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
 
-      setTimeout(() => {
         showToast('success', 'Заявка отправлена!', 'Мы свяжемся с вами в течение 30 минут');
         requestForm.reset();
         if (messageCount) messageCount.textContent = '0';
         requestForm.querySelectorAll('.valid, .invalid').forEach(el => el.classList.remove('valid', 'invalid'));
-        
-        // Сбрасываем чипы
         document.querySelectorAll('.chip.active').forEach(chip => chip.classList.remove('active'));
         updateChefAvailability();
-        
+      } catch (error) {
+        console.error('Ошибка отправки:', error);
+        showToast('error', 'Ошибка отправки', 'Попробуйте ещё раз или позвоните нам');
+      } finally {
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
-      }, 1500);
+      }
     });
   }
 
