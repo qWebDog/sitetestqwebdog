@@ -485,39 +485,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initCalendar();
 
-     // ===== ФОРМА ЗАЯВКИ =====
+       // ===== ФОРМА ЗАЯВКИ =====
   const requestForm = document.getElementById('requestForm');
   const submitBtn = document.getElementById('submitBtn');
   const phoneInput = document.getElementById('phone');
-  const dateInput = document.getElementById('date');
+  // dateInput уже объявлен выше в блоке календаря, не объявляем его снова!
   const requestStatus = document.getElementById('requestStatus');
   const statusIcon = document.getElementById('statusIcon');
   const statusText = document.getElementById('statusText');
 
   // ⭐ URL вашего Google Apps Script (замените на свой!)
-  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbycgqJH4fa9iAZPdngoJyQRH34TF_7Kd8oKjC5cYXlSiBCSJzCCAObPceTuKc85vCtE1Q/exec';
+  const FORM_ENDPOINT = 'https://script.google.com/macros/s/ВАШ_ID_СКРИПТА/exec';
 
   // Маска телефона
   setupPhoneMask(phoneInput);
 
-  // Маска даты (ДД.ММ.ГГГГ)
+  // Маска даты (ДД.ММ.ГГГГ) - используем уже объявленный dateInput
   if (dateInput) {
     dateInput.addEventListener('input', (e) => {
       let value = e.target.value.replace(/\D/g, '');
-      
-      if (value.length >= 2) {
-        value = value.slice(0, 2) + '.' + value.slice(2);
-      }
-      if (value.length >= 5) {
-        value = value.slice(0, 5) + '.' + value.slice(5, 9);
-      }
-      
+      if (value.length >= 2) value = value.slice(0, 2) + '.' + value.slice(2);
+      if (value.length >= 5) value = value.slice(0, 5) + '.' + value.slice(5, 9);
       e.target.value = value;
     });
-
-    dateInput.addEventListener('blur', () => {
-      validateField(dateInput);
-    });
+    dateInput.addEventListener('blur', () => validateField(dateInput));
   }
 
   // Валидация
@@ -549,7 +540,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const inputDate = new Date(year, month - 1, day);
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      
       if (inputDate < today) return 'Дата не может быть в прошлом';
       
       return '';
@@ -584,7 +574,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Валидация в реальном времени
   if (requestForm) {
     requestForm.querySelectorAll('.request__form-input').forEach(input => {
       input.addEventListener('blur', () => validateField(input));
@@ -596,7 +585,6 @@ document.addEventListener('DOMContentLoaded', () => {
     requestForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Валидация всех полей
       let isValid = true;
       requestForm.querySelectorAll('[name="name"], [name="phone"], [name="date"]').forEach(input => {
         if (!validateField(input)) isValid = false;
@@ -623,12 +611,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Блокируем форму
       requestForm.classList.add('sending');
       submitBtn.disabled = true;
       submitBtn.classList.add('loading');
 
-      // Собираем данные
       const formData = new FormData(requestForm);
       const data = Object.fromEntries(formData);
 
@@ -644,10 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
         requestForm.reset();
         requestForm.querySelectorAll('.valid, .invalid').forEach(el => el.classList.remove('valid', 'invalid'));
         
-        // Скрываем статус через 5 секунд
-        setTimeout(() => {
-          hideStatus();
-        }, 5000);
+        setTimeout(() => { hideStatus(); }, 5000);
       } catch (error) {
         console.error('Ошибка отправки:', error);
         showStatus('error', 'Ошибка отправки', 'Попробуйте ещё раз или позвоните нам');
@@ -661,15 +644,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showStatus(type, title, message) {
     if (!requestStatus) return;
-    
     requestStatus.className = 'request__status active request__status--' + type;
-    
-    if (type === 'success') {
-      statusIcon.innerHTML = '✓';
-    } else {
-      statusIcon.innerHTML = '✕';
-    }
-    
+    statusIcon.innerHTML = type === 'success' ? '✓' : '✕';
     statusText.innerHTML = `<strong>${title}</strong><br>${message}`;
   }
 
