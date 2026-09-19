@@ -208,61 +208,23 @@ function preloadCalendarData() {
 preloadCalendarData();
 
 // ===== ПРЕЛОАДЕР =====
-window.addEventListener('load', () => {
+function hidePreloader() {
   const preloader = document.getElementById('preloader');
-  if (preloader) {
+  if (preloader && !preloader.classList.contains('hidden')) {
+    preloader.classList.add('hidden');
     setTimeout(() => {
-      preloader.classList.add('hidden');
-      setTimeout(() => preloader.remove(), 500);
-    }, 300);
+      if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+    }, 500);
   }
+}
+
+// Скрываем при полной загрузке страницы
+window.addEventListener('load', () => {
+  setTimeout(hidePreloader, 300);
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const burger = document.getElementById('burger');
-  const menu = document.getElementById('menu');
-  const close = document.getElementById('close');
-
-  function openMenu() {
-    menu.classList.add('active');
-    burger.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeMenu() {
-    menu.classList.remove('active');
-    burger.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  if (burger && menu) burger.addEventListener('click', openMenu);
-  if (close && menu) close.addEventListener('click', closeMenu);
-
-  if (menu) {
-    menu.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', (e) => {
-        const href = link.getAttribute('href');
-        if (href && href !== '#') {
-          e.preventDefault();
-          const target = document.querySelector(href);
-          if (target) {
-            closeMenu();
-            setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
-          }
-        } else {
-          closeMenu();
-        }
-      });
-    });
-  }
-
-  const logo = document.querySelector('.nav__logo');
-  if (logo) {
-    logo.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
+// Экстренный таймер: если load не сработал, скроем через 2.5 секунды принудительно
+setTimeout(hidePreloader, 2500);
 
   // ===== ГАЛЕРЕЯ =====
   const galleryTrack = document.getElementById('galleryTrack');
