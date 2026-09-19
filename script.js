@@ -485,92 +485,108 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initCalendar();
 
-    // ===== ФОРМА ЗАЯВКИ =====
+     // ===== ФОРМА ЗАЯВКИ =====
   const requestForm = document.getElementById('requestForm');
   const submitBtn = document.getElementById('submitBtn');
-  const messageField = document.getElementById('message');
-  const messageCount = document.getElementById('messageCount');
   const phoneInput = document.getElementById('phone');
-  const servicesToggle = document.getElementById('servicesToggle');
-  const servicesList = document.getElementById('servicesList');
-  const chipGrill = document.getElementById('chipGrill');
-  const chipChef = document.getElementById('chipChef');
+  const dateInput = document.getElementById('date');
+  const requestStatus = document.getElementById('requestStatus');
+  const statusIcon = document.getElementById('statusIcon');
+  const statusText = document.getElementById('statusText');
 
   // ⭐ URL вашего Google Apps Script (замените на свой!)
-  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwS_tHjjSPEqOKO2aeWJMnfhQQEVMZyFerLEHbYyLSTeLd7lbG3pWfSO3gsoyV7g-FCuQ/exec';
+  const FORM_ENDPOINT = 'https://script.google.com/macros/s/ВАШ_ID_СКРИПТА/exec';
 
   // Маска телефона
   setupPhoneMask(phoneInput);
 
-  // Счётчик символов
-  if (messageField && messageCount) {
-    messageField.addEventListener('input', () => {
-      messageCount.textContent = messageField.value.length;
+  // Маска даты (ДД.ММ.ГГГГ)
+  if (dateInput) {
+    dateInput.addEventListener('input', (e) => {
+      let value = e.target.value.replace(/\D/g, '');
+      
+      if (value.length >= 2) {
+        value = value.slice(0, 2) + '.' + value.slice(2);
+      }
+      if (value.length >= 5) {
+        value = value.slice(0, 5) + '.' + value.slice(5, 9);
+      }
+      
+      e.target.value = value;
+    });
+
+    dateInput.addEventListener('blur', () => {
+      validateField(dateInput);
     });
   }
 
-  // Аккордеон "Дополнительно"
-  if (servicesToggle && servicesList) {
-    servicesToggle.addEventListener('touchstart', () => {}, { passive: true });
-    servicesToggle.addEventListener('touchend', (e) => {
-      e.preventDefault();
-      servicesToggle.classList.toggle('active');
-      servicesList.classList.toggle('active');
-    });
-    servicesToggle.addEventListener('click', () => {
-      servicesToggle.classList.toggle('active');
-      servicesList.classList.toggle('active');
-    });
-  }
+  // Валидация
+  const validators = {
+    name: (v) => {
+      if (!v.trim()) return 'Введите имя';
+      if (v.trim().length < 2) return 'Имя слишком короткое';
+      return '';
+    },
+    phone: (v) => {
+      const digits = v.replace(/\D/g, '');
+      if (!digits) return 'Введите телефон';
+      if (digits.length < 11) return 'Введите полный номер';
+      return '';
+    },
+    date: (v) => {
+      if (!v.trim()) return 'Введите дату';
+      const match = v.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+      if (!match) return 'Формат: ДД.ММ.ГГГГ';
+      
+      const day = parseInt(match[1]);
+      const month = parseInt(match[2]);
+      const year = parseInt(match[3]);
+      
+      if (day < 1 || day > 31) return 'Неверный день';
+      if (month < 1 || month > 12) return 'Неверный месяц';
+      if (year < 2024 || year > 2030) return 'Неверный год';
+      
+      const inputDate = new Date(year, month - 1, day);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      if (inputDate < today) return 'Дата не может быть в прошлом';
+      
+      return '';
+    }
+  };
 
-  // Логика чипов
-  function initChips() {
-    const allChips = document.querySelectorAll('.chip');
-    allChips.forEach(chip => {
-      chip.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        handleChipClick(chip);
-      }, { passive: false });
-      chip.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        handleChipClick(chip);
-      });
-    });
-  }
+  function validateField(input) {
+    const name = input.name;
+    const validator = validators[name];
+    if (!validator) return true;
 
-  function handleChipClick(chip) {
-    if (chip.classList.contains('chip--disabled')) return;
-    chip.classList.toggle('active');
-    const value = chip.dataset.value;
-    const hiddenInput = document.querySelector(`input[name="services"][value="${value}"]`);
-    if (hiddenInput) hiddenInput.checked = chip.classList.contains('active');
-    updateChefAvailability();
-  }
+    const error = validator(input.value);
+    const errorEl = document.querySelector(`[data-error-for="${name}"]`);
 
-  function updateChefAvailability() {
-    if (!chipGrill || !chipChef) return;
-    const isGrillActive = chipGrill.classList.contains('active');
-    if (isGrillActive) {
-      chipChef.classList.remove('chip--disabled');
-      const hint = chipChef.querySelector('.chip__hint');
-      if (hint) hint.style.display = 'none';
+    if (error) {
+      input.classList.add('invalid');
+      input.classList.remove('valid');
+      if (errorEl) {
+        errorEl.textContent = error;
+        errorEl.classList.add('visible');
+      }
+      return false;
     } else {
-      chipChef.classList.add('chip--disabled');
-      chipChef.classList.remove('active');
-      const chefInput = document.getElementById('serviceChef');
-      if (chefInput) chefInput.checked = false;
-      const hint = chipChef.querySelector('.chip__hint');
-      if (hint) hint.style.display = 'block';
+      input.classList.remove('invalid');
+      if (input.value.trim()) input.classList.add('valid');
+      else input.classList.remove('valid');
+      if (errorEl) {
+        errorEl.textContent = '';
+        errorEl.classList.remove('visible');
+      }
+      return true;
     }
   }
 
-  initChips();
-  updateChefAvailability();
-
-  // Валидация
+  // Валидация в реальном времени
   if (requestForm) {
-    requestForm.querySelectorAll('.request__form-input, .request__form-textarea').forEach(input => {
+    requestForm.querySelectorAll('.request__form-input').forEach(input => {
       input.addEventListener('blur', () => validateField(input));
       input.addEventListener('input', () => {
         if (input.classList.contains('invalid')) validateField(input);
@@ -580,32 +596,41 @@ document.addEventListener('DOMContentLoaded', () => {
     requestForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      // Валидация всех полей
       let isValid = true;
-      requestForm.querySelectorAll('[name="name"], [name="phone"], [name="email"]').forEach(input => {
+      requestForm.querySelectorAll('[name="name"], [name="phone"], [name="date"]').forEach(input => {
         if (!validateField(input)) isValid = false;
       });
 
       const privacy = document.getElementById('privacy');
+      const privacyError = document.querySelector('[data-error-for="privacy"]');
+      
       if (!privacy.checked) {
-        showToast('error', 'Нужно согласие', 'Подтвердите обработку персональных данных');
-        return;
+        isValid = false;
+        if (privacyError) {
+          privacyError.textContent = 'Подтвердите согласие';
+          privacyError.classList.add('visible');
+        }
+      } else {
+        if (privacyError) {
+          privacyError.textContent = '';
+          privacyError.classList.remove('visible');
+        }
       }
 
       if (!isValid) {
-        showToast('error', 'Проверьте форму', 'Пожалуйста, исправьте ошибки в полях');
+        showStatus('error', 'Проверьте форму', 'Пожалуйста, исправьте ошибки в полях');
         return;
       }
+
+      // Блокируем форму
+      requestForm.classList.add('sending');
+      submitBtn.disabled = true;
+      submitBtn.classList.add('loading');
 
       // Собираем данные
       const formData = new FormData(requestForm);
       const data = Object.fromEntries(formData);
-      const services = Array.from(requestForm.querySelectorAll('input[name="services"]:checked'))
-        .map(cb => cb.value);
-      data.services = services;
-
-      // Отправка
-      submitBtn.classList.add('loading');
-      submitBtn.disabled = true;
 
       try {
         await fetch(FORM_ENDPOINT, {
@@ -615,22 +640,44 @@ document.addEventListener('DOMContentLoaded', () => {
           body: JSON.stringify(data)
         });
 
-        showToast('success', 'Заявка отправлена!', 'Мы свяжемся с вами в течение 30 минут');
+        showStatus('success', 'Заявка отправлена!', 'Мы свяжемся с вами в течение 30 минут');
         requestForm.reset();
-        if (messageCount) messageCount.textContent = '0';
         requestForm.querySelectorAll('.valid, .invalid').forEach(el => el.classList.remove('valid', 'invalid'));
-        document.querySelectorAll('.chip.active').forEach(chip => chip.classList.remove('active'));
-        updateChefAvailability();
+        
+        // Скрываем статус через 5 секунд
+        setTimeout(() => {
+          hideStatus();
+        }, 5000);
       } catch (error) {
         console.error('Ошибка отправки:', error);
-        showToast('error', 'Ошибка отправки', 'Попробуйте ещё раз или позвоните нам');
+        showStatus('error', 'Ошибка отправки', 'Попробуйте ещё раз или позвоните нам');
       } finally {
-        submitBtn.classList.remove('loading');
+        requestForm.classList.remove('sending');
         submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
       }
     });
   }
 
+  function showStatus(type, title, message) {
+    if (!requestStatus) return;
+    
+    requestStatus.className = 'request__status active request__status--' + type;
+    
+    if (type === 'success') {
+      statusIcon.innerHTML = '✓';
+    } else {
+      statusIcon.innerHTML = '✕';
+    }
+    
+    statusText.innerHTML = `<strong>${title}</strong><br>${message}`;
+  }
+
+  function hideStatus() {
+    if (!requestStatus) return;
+    requestStatus.classList.remove('active');
+  }
+  
   // ===== КНОПКА "НАВЕРХ" =====
   const scrollTopBtn = document.getElementById('scrollTop');
   
