@@ -276,132 +276,71 @@
     <div class="request__container">
       <div class="request__header">
         <span class="request__label">Заявка</span>
-        <h2 class="request__title">Оставить заявку</h2>
+        <h2 class="request__title">Обсудим ваше мероприятие?</h2>
         <p class="request__subtitle">
-          Заполните форму, и мы свяжемся с вами в течение 30 минут.
+          Оставьте номер и мы с вами свяжемся для обсуждения деталей и забронируем дату.
         </p>
       </div>
-
-      <form class="request__form" id="requestForm" novalidate>
-        <div class="request__form-grid">
-          <div class="request__form-group">
-            <label class="request__form-label" for="name">Ваше имя *</label>
-            <input type="text" id="name" name="name" class="request__form-input" required placeholder="Иван Иванов" minlength="2" maxlength="50">
-            <span class="request__form-error" data-error-for="name"></span>
-          </div>
-
-          <div class="request__form-group">
-            <label class="request__form-label" for="phone">Телефон *</label>
-            <input type="tel" id="phone" name="phone" class="request__form-input" required placeholder="+7 (___) ___-__-__">
-            <span class="request__form-error" data-error-for="phone"></span>
-          </div>
-
-          <div class="request__form-group">
-            <label class="request__form-label" for="email">Email</label>
-            <input type="email" id="email" name="email" class="request__form-input" placeholder="example@mail.ru">
-            <span class="request__form-error" data-error-for="email"></span>
-          </div>
-
-          <div class="request__form-group">
-            <label class="request__form-label" for="date">
-              Дата мероприятия
-              <span class="request__form-hint" id="dateHint">Можно выбрать в календаре ↑</span>
-            </label>
-            <input type="date" id="date" name="date" class="request__form-input">
-          </div>
-
-          <div class="request__form-group">
-            <label class="request__form-label" for="eventType">Тип мероприятия</label>
-            <select id="eventType" name="eventType" class="request__form-input">
-              <option value="">Выберите тип</option>
-              <option value="birthday">День рождения</option>
-              <option value="corporate">Корпоратив</option>
-              <option value="wedding">Свадьба</option>
-              <option value="festival">Фестиваль</option>
-              <option value="private">Частная вечеринка</option>
-              <option value="other">Другое</option>
-            </select>
-          </div>
-
-          <div class="request__form-group">
-            <label class="request__form-label" for="guests">Количество гостей</label>
-            <input type="number" id="guests" name="guests" class="request__form-input" min="1" max="10000" placeholder="50">
-          </div>
-        </div>
-
-        <!-- ===== ЧЕКБОКСЫ УСЛУГ ===== -->
-        <div class="request__services">
-          <button type="button" class="services-toggle" id="servicesToggle">
-            <span class="services-toggle__text">Дополнительно</span>
-            <span class="services-toggle__arrow">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                <polyline points="6 9 12 15 18 9"/>
-              </svg>
-            </span>
-          </button>
-          
-          <div class="services-list" id="servicesList">
-            <div class="services-chips">
-              <div class="chip" data-value="grill" id="chipGrill">
-                <span class="chip__text">Нужен гриль</span>
-              </div>
-        
-              <div class="chip chip--disabled" data-value="chef" id="chipChef">
-                <span class="chip__text">Нужен повар</span>
-                <span class="chip__hint">Доступно при выборе гриля</span>
-              </div>
-        
-              <div class="chip" data-value="generator">
-                <span class="chip__text">Генератор 7-8 кВт</span>
-              </div>
-        
-              <div class="chip" data-value="garlands">
-                <span class="chip__text">Нужны гирлянды</span>
-              </div>
-        
-              <div class="chip" data-value="barrel_tables">
-                <span class="chip__text">Столы в виде бочек</span>
-              </div>
-        
-              <div class="chip" data-value="photo_zone">
-                <span class="chip__text">Фотостенд / фотозона</span>
-              </div>
+  
+      <div class="request__form-wrapper">
+        <form class="request__form" id="requestForm" novalidate>
+          <div class="request__form-grid">
+            <div class="request__form-group">
+              <label class="request__form-label" for="name">Ваше имя *</label>
+              <input type="text" id="name" name="name" class="request__form-input" required placeholder="Иван Иванов" minlength="2" maxlength="50">
+              <span class="request__form-error" data-error-for="name"></span>
             </div>
-            
-            <!-- Скрытые чекбоксы для отправки формы -->
-            <input type="checkbox" name="services" value="grill" class="service-item__input" id="serviceGrill" style="display:none">
-            <input type="checkbox" name="services" value="chef" class="service-item__input" id="serviceChef" style="display:none">
-            <input type="checkbox" name="services" value="generator" class="service-item__input" style="display:none">
-            <input type="checkbox" name="services" value="garlands" class="service-item__input" style="display:none">
-            <input type="checkbox" name="services" value="barrel_tables" class="service-item__input" style="display:none">
-            <input type="checkbox" name="services" value="photo_zone" class="service-item__input" style="display:none">
+  
+            <div class="request__form-group">
+              <label class="request__form-label" for="phone">Телефон *</label>
+              <input type="tel" id="phone" name="phone" class="request__form-input" required placeholder="+7 (___) ___-__-__">
+              <span class="request__form-error" data-error-for="phone"></span>
+            </div>
+  
+            <div class="request__form-group">
+              <label class="request__form-label" for="date">Дата мероприятия *</label>
+              <input type="text" id="date" name="date" class="request__form-input" required placeholder="ДД.ММ.ГГГГ" maxlength="10">
+              <span class="request__form-error" data-error-for="date"></span>
+            </div>
+  
+            <div class="request__form-group">
+              <label class="request__form-label" for="eventType">Тип мероприятия</label>
+              <select id="eventType" name="eventType" class="request__form-input">
+                <option value="">Выберите тип</option>
+                <option value="birthday">День рождения</option>
+                <option value="corporate">Корпоратив</option>
+                <option value="wedding">Свадьба</option>
+                <option value="festival">Фестиваль</option>
+                <option value="private">Частная вечеринка</option>
+                <option value="other">Другое</option>
+              </select>
+            </div>
           </div>
+  
+          <div class="request__form-checkbox">
+            <input type="checkbox" id="privacy" name="privacy" class="request__form-checkbox-input" required>
+            <label for="privacy" class="request__form-checkbox-label">
+              <span class="request__form-checkbox-custom"></span>
+              Я согласен на обработку персональных данных
+            </label>
+          </div>
+          <span class="request__form-error request__form-error--inline" data-error-for="privacy"></span>
+  
+          <button type="submit" class="btn btn--primary request__form-submit" id="submitBtn">
+            <span class="request__btn-text">Отправить заявку</span>
+            <span class="request__btn-spinner" aria-hidden="true"></span>
+          </button>
+        </form>
+  
+        <!-- Блок статуса отправки -->
+        <div class="request__status" id="requestStatus">
+          <div class="request__status-icon" id="statusIcon"></div>
+          <div class="request__status-text" id="statusText"></div>
         </div>
-
-        <div class="request__form-group request__form-group--full">
-          <label class="request__form-label" for="message">
-            Комментарий
-            <span class="request__form-counter"><span id="messageCount">0</span>/500</span>
-          </label>
-          <textarea id="message" name="message" class="request__form-textarea" rows="4" maxlength="500" placeholder="Расскажите о вашем мероприятии..."></textarea>
-        </div>
-
-        <div class="request__form-checkbox">
-          <input type="checkbox" id="privacy" name="privacy" class="request__form-checkbox-input" required>
-          <label for="privacy" class="request__form-checkbox-label">
-            <span class="request__form-checkbox-custom"></span>
-            Я согласен на обработку персональных данных
-          </label>
-        </div>
-
-        <button type="submit" class="btn btn--primary request__form-submit" id="submitBtn">
-          <span class="request__btn-text">Отправить заявку</span>
-          <span class="request__btn-spinner" aria-hidden="true"></span>
-        </button>
-      </form>
+      </div>
     </div>
   </section>
-
+  
   <!-- ===== TOAST УВЕДОМЛЕНИЯ ===== -->
   <div class="toast-container" id="toastContainer"></div>
 
