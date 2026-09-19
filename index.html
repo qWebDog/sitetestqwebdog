@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cormorant+Infant:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Rye&display=swap" rel="stylesheet">
   
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/main.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
   
@@ -28,7 +28,6 @@
   <header class="nav">
     <div class="nav__container">
       <a href="#" class="nav__logo">To Dublin</a>
-
       <nav class="nav__menu" id="menu">
         <div class="nav__menu-top">
           <a href="#" class="nav__menu-logo">To Dublin</a>
@@ -45,11 +44,8 @@
           <button class="nav__close" id="close" aria-label="Закрыть меню">✕</button>
         </div>
       </nav>
-
       <button class="nav__burger" id="burger" aria-label="Открыть меню">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
     </div>
   </header>
@@ -79,11 +75,8 @@
     <div class="intro__container">
       <div class="intro__header">
         <span class="intro__label">Что мы делаем</span>
-        <p class="intro__subtitle">
-          Мы закрываем все задачи, связанные с барной частью мероприятия.
-        </p>
+        <p class="intro__subtitle">Мы закрываем все задачи, связанные с барной частью мероприятия.</p>
       </div>
-
       <div class="intro__main">
         <div class="intro__main-content">
           <span class="intro__main-badge">Основная услуга</span>
@@ -102,43 +95,12 @@
         </div>
         <div class="intro__main-visual"></div>
       </div>
-
       <div class="intro__grid">
-        <div class="intro__card">
-          <h3 class="intro__card-title">Бармены и персонал</h3>
-          <p class="intro__card-text">
-            Профессиональные бармены и повара.<br>
-            Знают своё дело, работают быстро, поддерживают атмосферу.
-          </p>
-        </div>
-        <div class="intro__card">
-          <h3 class="intro__card-title">Напитки и меню</h3>
-          <p class="intro__card-text">
-            Пиво, сидр, безалкогольные напитки.<br>
-            Подбираем ассортимент под формат и гостей.
-          </p>
-        </div>
-        <div class="intro__card">
-          <h3 class="intro__card-title">Декор и оформление</h3>
-          <p class="intro__card-text">
-            Бочки, флаги, фотозоны.<br>
-            Превращаем любую площадку в кусочек Дублина.
-          </p>
-        </div>
-        <div class="intro__card">
-          <h3 class="intro__card-title">Логистика и монтаж</h3>
-          <p class="intro__card-text">
-            Доставка, установка, подключение, демонтаж после события.<br>
-            Вам не нужно ни о чём беспокоиться.
-          </p>
-        </div>
-        <div class="intro__card">
-          <h3 class="intro__card-title">Организация под ключ</h3>
-          <p class="intro__card-text">
-            Работаем с event-агентствами, компаниями и частными клиентами.<br>
-            Берём на себя всю барную часть мероприятия.
-          </p>
-        </div>
+        <div class="intro__card"><h3 class="intro__card-title">Бармены и персонал</h3><p class="intro__card-text">Профессиональные бармены и повара. Знают своё дело, работают быстро, поддерживают атмосферу.</p></div>
+        <div class="intro__card"><h3 class="intro__card-title">Напитки и меню</h3><p class="intro__card-text">Пиво, сидр, безалкогольные напитки. Подбираем ассортимент под формат и гостей.</p></div>
+        <div class="intro__card"><h3 class="intro__card-title">Декор и оформление</h3><p class="intro__card-text">Бочки, флаги, фотозоны. Превращаем любую площадку в кусочек Дублина.</p></div>
+        <div class="intro__card"><h3 class="intro__card-title">Логистика и монтаж</h3><p class="intro__card-text">Доставка, установка, подключение, демонтаж после события. Вам не нужно ни о чём беспокоиться.</p></div>
+        <div class="intro__card"><h3 class="intro__card-title">Организация под ключ</h3><p class="intro__card-text">Работаем с event-агентствами, компаниями и частными клиентами. Берём на себя всю барную часть мероприятия.</p></div>
       </div>
     </div>
   </section>
@@ -148,78 +110,29 @@
     <div class="process__container">
       <div class="process__header">
         <span class="process__label">Как это работает</span>
-        <p class="process__subtitle">
-          Мы берём на себя всю организацию —<br>
-          вам остаётся только наслаждаться мероприятием.
-        </p>
+        <p class="process__subtitle">Мы берём на себя всю организацию —<br>вам остаётся только наслаждаться мероприятием.</p>
       </div>
-
       <div class="process__steps">
-        <div class="process__step">
-          <div class="process__step-number">01</div>
-          <h3 class="process__step-title">Приезжаем на площадку</h3>
-          <p class="process__step-text">Фургон доставляется в любую точку: загородный участок, парк или фестивальная площадка.</p>
-        </div>
-        <div class="process__step">
-          <div class="process__step-number">02</div>
-          <h3 class="process__step-title">Раскладываем паб</h3>
-          <p class="process__step-text">За 1–2 часа фургон превращается в полноценный бар: стойка, краны, полки с бокалами, вывеска.</p>
-        </div>
-        <div class="process__step">
-          <div class="process__step-number">03</div>
-          <h3 class="process__step-title">Создаём атмосферу</h3>
-          <p class="process__step-text">Ирландский декор, гирлянды, бочки — всё, что превращает обычное место в настоящий паб.</p>
-        </div>
-        <div class="process__step">
-          <div class="process__step-number">04</div>
-          <h3 class="process__step-title">Подключаем оборудование</h3>
-          <p class="process__step-text">Свет, музыка, холодильники, пивное оборудование — всё настраиваем и тестируем до начала мероприятия.</p>
-        </div>
-        <div class="process__step process__step--final">
-          <div class="process__step-number">05</div>
-          <h3 class="process__step-title">Начинаем мероприятие</h3>
-          <p class="process__step-text">Атмосфера Дублина, гриль и холодное пиво.</p>
-        </div>
+        <div class="process__step"><div class="process__step-number">01</div><h3 class="process__step-title">Приезжаем на площадку</h3><p class="process__step-text">Фургон доставляется в любую точку: загородный участок, парк или фестивальная площадка.</p></div>
+        <div class="process__step"><div class="process__step-number">02</div><h3 class="process__step-title">Раскладываем паб</h3><p class="process__step-text">За 1–2 часа фургон превращается в полноценный бар: стойка, краны, полки с бокалами, вывеска.</p></div>
+        <div class="process__step"><div class="process__step-number">03</div><h3 class="process__step-title">Создаём атмосферу</h3><p class="process__step-text">Ирландский декор, гирлянды, бочки — всё, что превращает обычное место в настоящий паб.</p></div>
+        <div class="process__step"><div class="process__step-number">04</div><h3 class="process__step-title">Подключаем оборудование</h3><p class="process__step-text">Свет, музыка, холодильники, пивное оборудование — всё настраиваем и тестируем до начала мероприятия.</p></div>
+        <div class="process__step process__step--final"><div class="process__step-number">05</div><h3 class="process__step-title">Начинаем мероприятие</h3><p class="process__step-text">Атмосфера Дублина, гриль и холодное пиво.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ===== ГАЛЕРЕЯ (POLAROID) ===== -->
+  <!-- ===== ГАЛЕРЕЯ ===== -->
   <section class="gallery" id="gallery">
     <div class="gallery__container">
       <div class="gallery__frame">
         <div class="gallery__carousel" id="galleryCarousel">
           <div class="gallery__track" id="galleryTrack">
-            <div class="gallery__slide">
-              <div class="gallery__polaroid">
-                <img src="image/gallery/photo1.jpg" alt="Мероприятие 1" class="gallery__zoomable">
-                <p class="gallery__caption">Праздник на свежем воздухе</p>
-              </div>
-            </div>
-            <div class="gallery__slide">
-              <div class="gallery__polaroid">
-                <img src="image/gallery/photo2.jpg" alt="Мероприятие 2" class="gallery__zoomable">
-                <p class="gallery__caption">Корпоратив в стиле паба</p>
-              </div>
-            </div>
-            <div class="gallery__slide">
-              <div class="gallery__polaroid">
-                <img src="image/gallery/photo3.jpg" alt="Мероприятие 3" class="gallery__zoomable">
-                <p class="gallery__caption">Вечер с друзьями</p>
-              </div>
-            </div>
-            <div class="gallery__slide">
-              <div class="gallery__polaroid">
-                <img src="image/gallery/photo4.jpg" alt="Мероприятие 4" class="gallery__zoomable">
-                <p class="gallery__caption">Фестиваль на природе</p>
-              </div>
-            </div>
-            <div class="gallery__slide">
-              <div class="gallery__polaroid">
-                <img src="image/gallery/photo5.jpg" alt="Мероприятие 5" class="gallery__zoomable">
-                <p class="gallery__caption">День рождения</p>
-              </div>
-            </div>
+            <div class="gallery__slide"><div class="gallery__polaroid"><img src="image/gallery/photo1.jpg" alt="Мероприятие 1" class="gallery__zoomable"><p class="gallery__caption">Праздник на свежем воздухе</p></div></div>
+            <div class="gallery__slide"><div class="gallery__polaroid"><img src="image/gallery/photo2.jpg" alt="Мероприятие 2" class="gallery__zoomable"><p class="gallery__caption">Корпоратив в стиле паба</p></div></div>
+            <div class="gallery__slide"><div class="gallery__polaroid"><img src="image/gallery/photo3.jpg" alt="Мероприятие 3" class="gallery__zoomable"><p class="gallery__caption">Вечер с друзьями</p></div></div>
+            <div class="gallery__slide"><div class="gallery__polaroid"><img src="image/gallery/photo4.jpg" alt="Мероприятие 4" class="gallery__zoomable"><p class="gallery__caption">Фестиваль на природе</p></div></div>
+            <div class="gallery__slide"><div class="gallery__polaroid"><img src="image/gallery/photo5.jpg" alt="Мероприятие 5" class="gallery__zoomable"><p class="gallery__caption">День рождения</p></div></div>
           </div>
           <button class="gallery__arrow gallery__arrow--prev" aria-label="Назад">‹</button>
           <button class="gallery__arrow gallery__arrow--next" aria-label="Вперёд">›</button>
@@ -242,11 +155,8 @@
     <div class="calendar__container">
       <div class="calendar__header">
         <span class="calendar__label">Календарь</span>
-        <p class="calendar__subtitle">
-          Проверьте доступные даты для бронирования мобильного паба.
-        </p>
+        <p class="calendar__subtitle">Проверьте доступные даты для бронирования мобильного паба.</p>
       </div>
-
       <div class="calendar__frame">
         <div class="calendar__loader" id="calendarLoader">
           <div class="calendar__loader-spinner"></div>
@@ -254,20 +164,11 @@
         </div>
         <div id="customCalendar" style="display: none;"></div>
         <div class="calendar__legend">
-          <div class="calendar__legend-item">
-            <span class="calendar__legend-dot calendar__legend-dot--booked"></span>
-            <span>Занято</span>
-          </div>
-          <div class="calendar__legend-item">
-            <span class="calendar__legend-dot calendar__legend-dot--available"></span>
-            <span>Свободно</span>
-          </div>
+          <div class="calendar__legend-item"><span class="calendar__legend-dot calendar__legend-dot--booked"></span><span>Занято</span></div>
+          <div class="calendar__legend-item"><span class="calendar__legend-dot calendar__legend-dot--available"></span><span>Свободно</span></div>
         </div>
       </div>
-
-      <div class="calendar__cta">
-        <a href="#request" class="btn btn--primary">Забронировать дату</a>
-      </div>
+      <div class="calendar__cta"><a href="#request" class="btn btn--primary">Забронировать дату</a></div>
     </div>
   </section>
 
@@ -277,11 +178,9 @@
       <div class="request__header">
         <span class="request__label">Заявка</span>
         <h2 class="request__title">Обсудим ваше мероприятие?</h2>
-        <p class="request__subtitle">
-          Оставьте номер и мы с вами свяжемся для обсуждения деталей и забронируем дату.
-        </p>
+        <p class="request__subtitle">Оставьте номер и мы с вами свяжемся для обсуждения деталей и забронируем дату.</p>
       </div>
-  
+
       <div class="request__form-wrapper">
         <form class="request__form" id="requestForm" novalidate>
           <div class="request__form-grid">
@@ -290,19 +189,19 @@
               <input type="text" id="name" name="name" class="request__form-input" required placeholder="Иван Иванов" minlength="2" maxlength="50">
               <span class="request__form-error" data-error-for="name"></span>
             </div>
-  
+
             <div class="request__form-group">
               <label class="request__form-label" for="phone">Телефон *</label>
               <input type="tel" id="phone" name="phone" class="request__form-input" required placeholder="+7 (___) ___-__-__">
               <span class="request__form-error" data-error-for="phone"></span>
             </div>
-  
+
             <div class="request__form-group">
               <label class="request__form-label" for="date">Дата мероприятия *</label>
               <input type="text" id="date" name="date" class="request__form-input" required placeholder="ДД.ММ.ГГГГ" maxlength="10">
               <span class="request__form-error" data-error-for="date"></span>
             </div>
-  
+
             <div class="request__form-group">
               <label class="request__form-label" for="eventType">Тип мероприятия</label>
               <select id="eventType" name="eventType" class="request__form-input">
@@ -316,7 +215,7 @@
               </select>
             </div>
           </div>
-  
+
           <div class="request__form-checkbox">
             <input type="checkbox" id="privacy" name="privacy" class="request__form-checkbox-input" required>
             <label for="privacy" class="request__form-checkbox-label">
@@ -325,13 +224,13 @@
             </label>
           </div>
           <span class="request__form-error request__form-error--inline" data-error-for="privacy"></span>
-  
+
           <button type="submit" class="btn btn--primary request__form-submit" id="submitBtn">
             <span class="request__btn-text">Отправить заявку</span>
             <span class="request__btn-spinner" aria-hidden="true"></span>
           </button>
         </form>
-  
+
         <!-- Блок статуса отправки -->
         <div class="request__status" id="requestStatus">
           <div class="request__status-icon" id="statusIcon"></div>
@@ -340,9 +239,6 @@
       </div>
     </div>
   </section>
-  
-  <!-- ===== TOAST УВЕДОМЛЕНИЯ ===== -->
-  <div class="toast-container" id="toastContainer"></div>
 
   <!-- ===== КОНТАКТЫ ===== -->
   <section class="contacts" id="contacts">
@@ -350,41 +246,23 @@
       <div class="contacts__header">
         <span class="contacts__label">Контакты</span>
         <h2 class="contacts__title">Свяжитесь с нами</h2>
-        <p class="contacts__subtitle">
-          Выберите удобный способ связи
-        </p>
+        <p class="contacts__subtitle">Выберите удобный способ связи</p>
       </div>
-
       <div class="contacts__grid">
         <a href="tel:+79991234567" class="contacts__card">
-          <div class="contacts__card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-            </svg>
-          </div>
+          <div class="contacts__card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
           <h3 class="contacts__card-title">Телефон</h3>
           <p class="contacts__card-text">+7 (999) 123-45-67</p>
           <span class="contacts__card-action">Позвонить →</span>
         </a>
-
         <a href="https://t.me/todublin" target="_blank" class="contacts__card">
-          <div class="contacts__card-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-            </svg>
-          </div>
+          <div class="contacts__card-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></div>
           <h3 class="contacts__card-title">Telegram</h3>
           <p class="contacts__card-text">@todublin</p>
           <span class="contacts__card-action">Написать →</span>
         </a>
-
         <a href="mailto:info@todublin.ru" class="contacts__card">
-          <div class="contacts__card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-              <polyline points="22,6 12,13 2,6"/>
-            </svg>
-          </div>
+          <div class="contacts__card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
           <h3 class="contacts__card-title">Email</h3>
           <p class="contacts__card-text">info@todublin.ru</p>
           <span class="contacts__card-action">Написать →</span>
@@ -399,11 +277,8 @@
       <div class="footer__grid">
         <div class="footer__column">
           <a href="#" class="footer__logo">To Dublin</a>
-          <p class="footer__text">
-            Мобильный ирландский паб для ваших мероприятий. Привозим атмосферу Дублина на вашу площадку.
-          </p>
+          <p class="footer__text">Мобильный ирландский паб для ваших мероприятий. Привозим атмосферу Дублина на вашу площадку.</p>
         </div>
-
         <div class="footer__column">
           <h4 class="footer__column-title">Навигация</h4>
           <ul class="footer__links">
@@ -414,7 +289,6 @@
             <li><a href="#request">Оставить заявку</a></li>
           </ul>
         </div>
-
         <div class="footer__column">
           <h4 class="footer__column-title">Контакты</h4>
           <ul class="footer__links">
@@ -423,29 +297,15 @@
             <li><a href="https://t.me/todublin" target="_blank">Telegram</a></li>
           </ul>
         </div>
-
         <div class="footer__column">
           <h4 class="footer__column-title">Социальные сети</h4>
           <div class="footer__social">
-            <a href="#" class="footer__social-link" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-              </svg>
-            </a>
-            <a href="#" class="footer__social-link" aria-label="VK">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.678.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.253-1.406 2.15-3.574 2.15-3.574.119-.254.322-.491.762-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/>
-              </svg>
-            </a>
-            <a href="#" class="footer__social-link" aria-label="Telegram">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-              </svg>
-            </a>
+            <a href="#" class="footer__social-link" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="VK"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.678.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.253-1.406 2.15-3.574 2.15-3.574.119-.254.322-.491.762-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
           </div>
         </div>
       </div>
-
       <div class="footer__bottom">
         <p class="footer__copyright">© 2024 To Dublin. Все права защищены.</p>
         <a href="#" class="footer__privacy">Политика конфиденциальности</a>
@@ -455,9 +315,7 @@
 
   <!-- ===== КНОПКА "НАВЕРХ" ===== -->
   <button class="scroll-top" id="scrollTop" aria-label="Наверх">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-      <polyline points="18 15 12 9 6 15"/>
-    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
   <script src="script.js"></script>
