@@ -495,7 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const statusText = document.getElementById('statusText');
 
   // ⭐ URL вашего Google Apps Script (замените на свой!)
-  const FORM_ENDPOINT = 'https://script.google.com/macros/s/ВАШ_ID_СКРИПТА/exec';
+  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbycgqJH4fa9iAZPdngoJyQRH34TF_7Kd8oKjC5cYXlSiBCSJzCCAObPceTuKc85vCtE1Q/exec';
 
   // Маска телефона
   setupPhoneMask(phoneInput);
