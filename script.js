@@ -497,7 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const chipChef = document.getElementById('chipChef');
 
   // ⭐ URL вашего Google Apps Script (замените на свой!)
-  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbz2xXV6niKq6R35DYgvPTJEo-C3tV_p6WhJSNRaeNqwEYtT6e7D5IKgmLxBRx9tERNz1Q/exec';
+  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyHdkEh8VZxdqdiz5kJxJfjUms-m6eV2CK76F6gsTv-7jVc7o407hlb3TFqD6Ci8TS0/exec';
 
   // Маска телефона
   setupPhoneMask(phoneInput);
