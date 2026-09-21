@@ -256,6 +256,23 @@ h1, h2, h3, .intro__title, .intro__main-title, .intro__card-title, .process__tit
   border-color: var(--accent);
 }
 
+.request__form-input[type="date"] {
+  padding: 14px 16px;
+  font-size: 15px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.request__form-input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
 .request__form-error {
   display: block;
   font-size: 11px;
