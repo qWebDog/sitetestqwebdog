@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>To Dublin — мобильный ирландский паб на ваше мероприятие</title>
+  <title>Travellers pub — мобильный ирландский паб на ваше мероприятие</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cormorant+Infant:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Rye&display=swap" rel="stylesheet">
@@ -19,18 +19,29 @@
   <!-- ===== ПРЕЛОАДЕР ===== -->
   <div class="preloader" id="preloader">
     <div class="preloader__content">
-      <div class="preloader__logo">To Dublin</div>
+      <div class="preloader__logo">Travellers<br>pub</div>
       <div class="preloader__spinner"></div>
     </div>
   </div>
+  
+  <script>
+    setTimeout(() => {
+      const p = document.getElementById('preloader');
+      if (p) {
+        p.style.opacity = '0';
+        p.style.visibility = 'hidden';
+        setTimeout(() => p.remove(), 500);
+      }
+    }, 800);
+  </script>
 
   <!-- ===== НАВИГАЦИЯ ===== -->
   <header class="nav">
     <div class="nav__container">
-      <a href="#" class="nav__logo">To Dublin</a>
+      <a href="#" class="nav__logo">Travellers<br>pub</a>
       <nav class="nav__menu" id="menu">
         <div class="nav__menu-top">
-          <a href="#" class="nav__menu-logo">To Dublin</a>
+          <a href="#" class="nav__menu-logo">Travellers<br>pub</a>
         </div>
         <div class="nav__menu-center">
           <a href="#intro" class="nav__link">Что мы делаем</a>
@@ -55,7 +66,7 @@
     <div class="hero__container">
       <div class="hero__content">
         <div class="hero__image">
-          <img src="image/pub.jpg" alt="Мобильный паб To Dublin">
+          <img src="image/pub.jpg" alt="Мобильный паб Travellers pub">
         </div>
         <p class="hero__subtitle">
           Привозим атмосферу настоящего ирландского паба на вашу площадку.<br>
@@ -231,7 +242,6 @@
           </button>
         </form>
 
-        <!-- Блок статуса отправки -->
         <div class="request__status" id="requestStatus">
           <div class="request__status-icon" id="statusIcon"></div>
           <div class="request__status-text" id="statusText"></div>
@@ -276,8 +286,8 @@
     <div class="footer__container">
       <div class="footer__grid">
         <div class="footer__column">
-          <a href="#" class="footer__logo">To Dublin</a>
-          <p class="footer__text">Мобильный ирландский паб для ваших мероприятий. Привозим атмосферу Дублина на вашу площадку.</p>
+          <a href="#" class="footer__logo">Travellers<br>pub</a>
+          <p class="footer__text">Travellers pub — мобильный ирландский паб для ваших мероприятий. Привозим атмосферу Дублина на вашу площадку.</p>
         </div>
         <div class="footer__column">
           <h4 class="footer__column-title">Навигация</h4>
@@ -307,7 +317,7 @@
         </div>
       </div>
       <div class="footer__bottom">
-        <p class="footer__copyright">© 2024 To Dublin. Все права защищены.</p>
+        <p class="footer__copyright">© 2024 Travellers pub. Все права защищены.</p>
         <a href="#" class="footer__privacy">Политика конфиденциальности</a>
       </div>
     </div>
