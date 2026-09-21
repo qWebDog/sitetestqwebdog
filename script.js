@@ -76,16 +76,14 @@ const validators = {
   name: (v) => { if (!v.trim()) return 'Введите имя'; if (v.trim().length < 2) return 'Имя слишком короткое'; return ''; },
   phone: (v) => { const digits = v.replace(/\D/g, ''); if (!digits) return 'Введите телефон'; if (digits.length < 11) return 'Введите полный номер'; return ''; },
   date: (v) => {
-    if (!v.trim()) return 'Введите дату';
-    const match = v.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
-    if (!match) return 'Формат: ДД.ММ.ГГГГ';
-    const day = parseInt(match[1]), month = parseInt(match[2]), year = parseInt(match[3]);
-    if (day < 1 || day > 31) return 'Неверный день';
-    if (month < 1 || month > 12) return 'Неверный месяц';
-    if (year < 2024 || year > 2030) return 'Неверный год';
-    const inputDate = new Date(year, month - 1, day);
-    const today = new Date(); today.setHours(0, 0, 0, 0);
+    if (!v) return 'Выберите дату';
+    const inputDate = new Date(v);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
     if (inputDate < today) return 'Дата не может быть в прошлом';
+    const maxDate = new Date();
+    maxDate.setFullYear(maxDate.getFullYear() + 2);
+    if (inputDate > maxDate) return 'Дата слишком далеко';
     return '';
   }
 };
@@ -305,15 +303,17 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
         if (dateInput) {
-          const [y, m, d] = clickedDate.split('-');
-          dateInput.value = `${d}.${m}.${y}`;
+          dateInput.value = clickedDate;
           dateInput.classList.add('valid');
           dateInput.classList.remove('invalid');
           const errorEl = document.querySelector('[data-error-for="date"]');
           if (errorEl) { errorEl.textContent = ''; errorEl.classList.remove('visible'); }
+          
+          const [y, m, d] = clickedDate.split('-');
           const months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
           const formattedDate = `${parseInt(d)} ${months[parseInt(m)-1]} ${y}`;
           showToast('success', 'Дата выбрана', `${formattedDate} — дата свободна`);
+          
           const requestSection = document.getElementById('request');
           if (requestSection) requestSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -344,18 +344,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setupPhoneMask(phoneInput);
 
-    // Обработка date picker
+  // Обработка date picker
   if (dateInput) {
-    // Установка минимальной даты (сегодня)
     const today = new Date().toISOString().split('T')[0];
     dateInput.setAttribute('min', today);
     
-    // Установка максимальной даты (через 2 года)
     const maxDate = new Date();
     maxDate.setFullYear(maxDate.getFullYear() + 2);
     dateInput.setAttribute('max', maxDate.toISOString().split('T')[0]);
     
-    // При изменении значения из календаря
     dateInput.addEventListener('change', () => {
       if (dateInput.value) {
         dateInput.classList.add('valid');
@@ -375,7 +372,6 @@ document.addEventListener('DOMContentLoaded', () => {
     requestForm.querySelectorAll('.request__form-input').forEach(input => {
       input.addEventListener('blur', () => validateField(input));
       input.addEventListener('input', () => {
-        // Очищаем ошибку при вводе
         const errorEl = document.querySelector(`[data-error-for="${input.name}"]`);
         if (errorEl) {
           errorEl.textContent = '';
@@ -421,7 +417,6 @@ document.addEventListener('DOMContentLoaded', () => {
         requestForm.reset();
         requestForm.querySelectorAll('.valid, .invalid').forEach(el => el.classList.remove('valid', 'invalid'));
         
-        // Очищаем все ошибки
         requestForm.querySelectorAll('.request__form-error').forEach(err => {
           err.textContent = '';
           err.classList.remove('visible');
