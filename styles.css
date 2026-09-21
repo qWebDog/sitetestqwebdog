@@ -191,6 +191,35 @@ h1, h2, h3, .intro__title, .intro__main-title, .intro__card-title, .process__tit
 .request__status--success .request__status-text { color: var(--accent); }
 .request__status--error .request__status-text { color: var(--primary); }
 
+/* ===== DATE PICKER ===== */
+.request__form-input[type="date"] {
+  position: relative;
+  cursor: pointer;
+}
+
+.request__form-input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.request__form-input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+/* Скрываем placeholder для date input */
+.request__form-input[type="date"]:invalid {
+  color: transparent;
+}
+
+.request__form-input[type="date"]::-webkit-datetime-edit {
+  color: transparent;
+}
+
+.request__form-input[type="date"]:focus::-webkit-datetime-edit {
+  color: var(--text);
+}
+
 /* ===== КОНТАКТЫ ===== */
 .contacts { background: #E3D5C1; padding: 60px 0; color: var(--text); }
 .contacts__container { max-width: 1000px; margin: 0 auto; padding: 0 40px; }
