@@ -40,7 +40,7 @@ function showToast(type, title, message, duration = 5000) {
   const icons = { success: '✓', error: '✕', info: 'ℹ' };
   const toast = document.createElement('div');
   toast.className = `toast toast--${type}`;
-  toast.innerHTML = `<div class="toast__icon">${icons[type] || icons.info}</div><div class="toast__content"><div class="toast__title">${title}</div>${message ? `<div class="toast__message">${message}</div>` : ''}</div><button class="toast__close" aria-label="Закрыть"></button>`;
+  toast.innerHTML = `<div class="toast__icon">${icons[type] || icons.info}</div><div class="toast__content"><div class="toast__title">${title}</div>${message ? `<div class="toast__message">${message}</div>` : ''}</div><button class="toast__close" aria-label="Закрыть">✕</button>`;
   container.appendChild(toast);
   const closeBtn = toast.querySelector('.toast__close');
   const hideToast = () => {
@@ -293,18 +293,29 @@ document.addEventListener('DOMContentLoaded', () => {
           if (result.fromCache) backgroundRefresh(calendarInstance);
         } catch (e) { successCallback([]); } finally { hideLoader(); }
       },
-      eventClick: function(info) { if (!isMobile) showToast('error', 'Дата занята', 'Выберите другую дату'); },
+      eventClick: function(info) {
+        const clickedDate = info.event.start.toISOString().split('T')[0];
+        showToast('error', 'Дата занята', 'Выберите другую дату');
+      },
       dateClick: function(info) {
         const clickedDate = info.dateStr;
         const hasEvent = calendarInstance.getEvents().some(event => event.start.toISOString().split('T')[0] === clickedDate);
-        if (hasEvent) { showToast('error', 'Дата занята', 'Выберите другую дату'); return; }
+        if (hasEvent) {
+          showToast('error', 'Дата занята', 'Выберите другую дату');
+          return;
+        }
         if (dateInput) {
           const [y, m, d] = clickedDate.split('-');
           dateInput.value = `${d}.${m}.${y}`;
           dateInput.classList.add('valid');
+          dateInput.classList.remove('invalid');
+          const errorEl = document.querySelector('[data-error-for="date"]');
+          if (errorEl) { errorEl.textContent = ''; errorEl.classList.remove('visible'); }
+          const months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+          const formattedDate = `${parseInt(d)} ${months[parseInt(m)-1]} ${y}`;
+          showToast('success', 'Дата выбрана', `${formattedDate} — дата свободна`);
           const requestSection = document.getElementById('request');
           if (requestSection) requestSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          showToast('success', 'Дата выбрана', `${parseInt(d)} ${['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'][parseInt(m)-1]} ${y} — дата свободна`);
         }
       }
     });
@@ -321,103 +332,27 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   initCalendar();
 
-    // ===== ФОРМА ЗАЯВКИ =====
+  // ===== ФОРМА ЗАЯВКИ =====
   const requestForm = document.getElementById('requestForm');
   const submitBtn = document.getElementById('submitBtn');
   const phoneInput = document.getElementById('phone');
-  const dateInput = document.getElementById('date');
   const requestStatus = document.getElementById('requestStatus');
   const statusIcon = document.getElementById('statusIcon');
   const statusText = document.getElementById('statusText');
 
-  const FORM_ENDPOINT = 'https://script.google.com/macros/s/ВАШ_ID_СКРИПТА/exec';
+  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwRSCa0XN9u2C2b1PzbP1eXsLJUWOrLoFkZBOAuxP8u_c_eQKXRNH43L0jIYm99dQZ7/exec';
 
   setupPhoneMask(phoneInput);
 
-  // Маска даты (ДД.ММ.ГГГГ) с поддержкой удаления
+  // Маска даты (ДД.ММ.ГГГГ)
   if (dateInput) {
     dateInput.addEventListener('input', (e) => {
       let value = e.target.value.replace(/\D/g, '');
-      
-      if (value.length >= 2) {
-        value = value.slice(0, 2) + '.' + value.slice(2);
-      }
-      if (value.length >= 5) {
-        value = value.slice(0, 5) + '.' + value.slice(5, 9);
-      }
-      
+      if (value.length >= 2) value = value.slice(0, 2) + '.' + value.slice(2);
+      if (value.length >= 5) value = value.slice(0, 5) + '.' + value.slice(5, 9);
       e.target.value = value;
     });
-
-    dateInput.addEventListener('blur', () => {
-      validateField(dateInput);
-    });
-
-    // Функция для установки даты из календаря
-    dateInput.setDateFromCalendar = function(dateStr) {
-      // Преобразуем YYYY-MM-DD в ДД.ММ.ГГГГ
-      const [year, month, day] = dateStr.split('-');
-      this.value = `${day}.${month}.${year}`;
-      this.classList.add('valid');
-      this.classList.remove('invalid');
-      
-      // Очищаем ошибку если есть
-      const errorEl = document.querySelector('[data-error-for="date"]');
-      if (errorEl) {
-        errorEl.textContent = '';
-        errorEl.classList.remove('visible');
-      }
-      
-      // Показываем уведомление
-      const months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
-      const dateObj = new Date(dateStr);
-      const formattedDate = `${parseInt(day)} ${months[parseInt(month)-1]} ${year}`;
-      
-      showToast('success', 'Дата выбрана', `${formattedDate} — дата свободна`);
-      
-      // Скроллим к форме
-      const requestSection = document.getElementById('request');
-      if (requestSection) {
-        requestSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    };
-  }
-
-  // Валидация
-  const validators = {
-    name: (v) => { if (!v.trim()) return 'Введите имя'; if (v.trim().length < 2) return 'Имя слишком короткое'; return ''; },
-    phone: (v) => { const digits = v.replace(/\D/g, ''); if (!digits) return 'Введите телефон'; if (digits.length < 11) return 'Введите полный номер'; return ''; },
-    date: (v) => {
-      if (!v.trim()) return 'Введите дату';
-      const match = v.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
-      if (!match) return 'Формат: ДД.ММ.ГГГГ';
-      const day = parseInt(match[1]), month = parseInt(match[2]), year = parseInt(match[3]);
-      if (day < 1 || day > 31) return 'Неверный день';
-      if (month < 1 || month > 12) return 'Неверный месяц';
-      if (year < 2024 || year > 2030) return 'Неверный год';
-      const inputDate = new Date(year, month - 1, day);
-      const today = new Date(); today.setHours(0, 0, 0, 0);
-      if (inputDate < today) return 'Дата не может быть в прошлом';
-      return '';
-    }
-  };
-
-  function validateField(input) {
-    const name = input.name;
-    const validator = validators[name];
-    if (!validator) return true;
-    const error = validator(input.value);
-    const errorEl = document.querySelector(`[data-error-for="${name}"]`);
-    if (error) {
-      input.classList.add('invalid'); input.classList.remove('valid');
-      if (errorEl) { errorEl.textContent = error; errorEl.classList.add('visible'); }
-      return false;
-    } else {
-      input.classList.remove('invalid');
-      if (input.value.trim()) input.classList.add('valid'); else input.classList.remove('valid');
-      if (errorEl) { errorEl.textContent = ''; errorEl.classList.remove('visible'); }
-      return true;
-    }
+    dateInput.addEventListener('blur', () => validateField(dateInput));
   }
 
   if (requestForm) {
