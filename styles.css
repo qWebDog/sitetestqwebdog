@@ -14,13 +14,13 @@ h1, h2, h3, .intro__title, .intro__main-title, .intro__card-title, .process__tit
 .preloader { position: fixed; inset: 0; background: #E3D5C1; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease, visibility 0.5s ease; }
 .preloader.hidden { opacity: 0; visibility: hidden; }
 .preloader__content { display: flex; flex-direction: column; align-items: center; gap: 24px; }
-.preloader__logo { font-family: 'Rye', cursive; font-size: 42px; color: var(--gold); letter-spacing: 2px; animation: neonPulse 2.5s ease-in-out infinite; }
+.preloader__logo { font-family: 'Rye', cursive; font-size: 38px; color: var(--gold); letter-spacing: 2px; animation: neonPulse 2.5s ease-in-out infinite; line-height: 1.2; text-align: center; }
 .preloader__spinner { width: 48px; height: 48px; border: 3px solid rgba(212, 162, 76, 0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; }
 
 /* ===== НАВИГАЦИЯ ===== */
 .nav { background: var(--primary); padding: 16px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15); }
 .nav__container { max-width: 1280px; margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: center; gap: 60px; }
-.nav__logo { font-family: 'Rye', cursive; font-size: 24px; font-weight: 400; color: var(--gold); text-decoration: none; letter-spacing: 1px; animation: neonPulse 2.5s ease-in-out infinite; }
+.nav__logo { font-family: 'Rye', cursive; font-size: 22px; font-weight: 400; color: var(--gold); text-decoration: none; letter-spacing: 1px; animation: neonPulse 2.5s ease-in-out infinite; line-height: 1.2; text-align: center; }
 .nav__menu-logo { display: none; }
 .nav__menu { display: flex; align-items: center; gap: 0; }
 .nav__link { color: var(--light); text-decoration: none; font-size: 15px; font-weight: 500; position: relative; transition: opacity 0.2s; padding: 0 20px; animation: neonPulseNav 3s ease-in-out infinite; }
@@ -147,7 +147,7 @@ h1, h2, h3, .intro__title, .intro__main-title, .intro__card-title, .process__tit
 .fc .fc-scrollgrid { border-radius: 8px; overflow: hidden; }
 .fc .fc-daygrid-day-frame { min-height: 50px; }
 
-/* ===== НОВАЯ ФОРМА ЗАЯВКИ ===== */
+/* ===== ФОРМА ЗАЯВКИ ===== */
 .request { background: #E3D5C1; padding: 60px 0; color: var(--text); }
 .request__container { max-width: 800px; margin: 0 auto; padding: 0 40px; }
 .request__header { text-align: center; max-width: 720px; margin: 0 auto 40px; }
@@ -213,7 +213,7 @@ h1, h2, h3, .intro__title, .intro__main-title, .intro__card-title, .process__tit
 .footer__container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
 .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
 .footer__column { display: flex; flex-direction: column; gap: 16px; }
-.footer__logo { font-family: 'Rye', cursive; font-size: 28px; font-weight: 400; color: var(--gold); text-decoration: none; letter-spacing: 1px; }
+.footer__logo { font-family: 'Rye', cursive; font-size: 26px; font-weight: 400; color: var(--gold); text-decoration: none; letter-spacing: 1px; line-height: 1.2; text-align: center; }
 .footer__text { font-size: 14px; line-height: 1.6; opacity: 0.8; }
 .footer__column-title { font-size: 16px; font-weight: 600; color: var(--gold); margin-bottom: 8px; }
 .footer__links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
