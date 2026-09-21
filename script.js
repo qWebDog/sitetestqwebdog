@@ -31,7 +31,7 @@ function hidePreloader() {
   }
 }
 window.addEventListener('load', () => setTimeout(hidePreloader, 300));
-setTimeout(hidePreloader, 3000); // Экстренный таймер
+setTimeout(hidePreloader, 3000);
 
 // ===== TOAST УВЕДОМЛЕНИЯ =====
 function showToast(type, title, message, duration = 5000) {
@@ -40,7 +40,7 @@ function showToast(type, title, message, duration = 5000) {
   const icons = { success: '✓', error: '✕', info: 'ℹ' };
   const toast = document.createElement('div');
   toast.className = `toast toast--${type}`;
-  toast.innerHTML = `<div class="toast__icon">${icons[type] || icons.info}</div><div class="toast__content"><div class="toast__title">${title}</div>${message ? `<div class="toast__message">${message}</div>` : ''}</div><button class="toast__close" aria-label="Закрыть">✕</button>`;
+  toast.innerHTML = `<div class="toast__icon">${icons[type] || icons.info}</div><div class="toast__content"><div class="toast__title">${title}</div>${message ? `<div class="toast__message">${message}</div>` : ''}</div><button class="toast__close" aria-label="Закрыть"></button>`;
   container.appendChild(toast);
   const closeBtn = toast.querySelector('.toast__close');
   const hideToast = () => {
@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== КАЛЕНДАРЬ =====
   const calendarLoader = document.getElementById('calendarLoader');
   const customCalendar = document.getElementById('customCalendar');
-  const dateInput = document.getElementById('date'); // ОБЪЯВЛЯЕМ ЗДЕСЬ ОДИН РАЗ
+  const dateInput = document.getElementById('date');
 
   function hideLoader() {
     if (calendarLoader) calendarLoader.style.display = 'none';
@@ -299,7 +299,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const hasEvent = calendarInstance.getEvents().some(event => event.start.toISOString().split('T')[0] === clickedDate);
         if (hasEvent) { showToast('error', 'Дата занята', 'Выберите другую дату'); return; }
         if (dateInput) {
-          // Преобразуем YYYY-MM-DD в ДД.ММ.ГГГГ для поля ввода
           const [y, m, d] = clickedDate.split('-');
           dateInput.value = `${d}.${m}.${y}`;
           dateInput.classList.add('valid');
@@ -330,11 +329,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const statusIcon = document.getElementById('statusIcon');
   const statusText = document.getElementById('statusText');
 
-  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbycgqJH4fa9iAZPdngoJyQRH34TF_7Kd8oKjC5cYXlSiBCSJzCCAObPceTuKc85vCtE1Q/exec'; // ЗАМЕНИТЕ!
+  const FORM_ENDPOINT = 'https://script.google.com/macros/s/ВАШ_ID_СКРИПТА/exec';
 
   setupPhoneMask(phoneInput);
 
-  // Маска даты (ДД.ММ.ГГГГ)
   if (dateInput) {
     dateInput.addEventListener('input', (e) => {
       let value = e.target.value.replace(/\D/g, '');
