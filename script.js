@@ -321,32 +321,117 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   initCalendar();
 
-  // ===== ФОРМА ЗАЯВКИ =====
+    // ===== ФОРМА ЗАЯВКИ =====
   const requestForm = document.getElementById('requestForm');
   const submitBtn = document.getElementById('submitBtn');
   const phoneInput = document.getElementById('phone');
+  const dateInput = document.getElementById('date');
   const requestStatus = document.getElementById('requestStatus');
   const statusIcon = document.getElementById('statusIcon');
   const statusText = document.getElementById('statusText');
 
-  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwRSCa0XN9u2C2b1PzbP1eXsLJUWOrLoFkZBOAuxP8u_c_eQKXRNH43L0jIYm99dQZ7/exec';
+  const FORM_ENDPOINT = 'https://script.google.com/macros/s/ВАШ_ID_СКРИПТА/exec';
 
   setupPhoneMask(phoneInput);
 
+  // Маска даты (ДД.ММ.ГГГГ) с поддержкой удаления
   if (dateInput) {
     dateInput.addEventListener('input', (e) => {
       let value = e.target.value.replace(/\D/g, '');
-      if (value.length >= 2) value = value.slice(0, 2) + '.' + value.slice(2);
-      if (value.length >= 5) value = value.slice(0, 5) + '.' + value.slice(5, 9);
+      
+      if (value.length >= 2) {
+        value = value.slice(0, 2) + '.' + value.slice(2);
+      }
+      if (value.length >= 5) {
+        value = value.slice(0, 5) + '.' + value.slice(5, 9);
+      }
+      
       e.target.value = value;
     });
-    dateInput.addEventListener('blur', () => validateField(dateInput));
+
+    dateInput.addEventListener('blur', () => {
+      validateField(dateInput);
+    });
+
+    // Функция для установки даты из календаря
+    dateInput.setDateFromCalendar = function(dateStr) {
+      // Преобразуем YYYY-MM-DD в ДД.ММ.ГГГГ
+      const [year, month, day] = dateStr.split('-');
+      this.value = `${day}.${month}.${year}`;
+      this.classList.add('valid');
+      this.classList.remove('invalid');
+      
+      // Очищаем ошибку если есть
+      const errorEl = document.querySelector('[data-error-for="date"]');
+      if (errorEl) {
+        errorEl.textContent = '';
+        errorEl.classList.remove('visible');
+      }
+      
+      // Показываем уведомление
+      const months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+      const dateObj = new Date(dateStr);
+      const formattedDate = `${parseInt(day)} ${months[parseInt(month)-1]} ${year}`;
+      
+      showToast('success', 'Дата выбрана', `${formattedDate} — дата свободна`);
+      
+      // Скроллим к форме
+      const requestSection = document.getElementById('request');
+      if (requestSection) {
+        requestSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+  }
+
+  // Валидация
+  const validators = {
+    name: (v) => { if (!v.trim()) return 'Введите имя'; if (v.trim().length < 2) return 'Имя слишком короткое'; return ''; },
+    phone: (v) => { const digits = v.replace(/\D/g, ''); if (!digits) return 'Введите телефон'; if (digits.length < 11) return 'Введите полный номер'; return ''; },
+    date: (v) => {
+      if (!v.trim()) return 'Введите дату';
+      const match = v.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+      if (!match) return 'Формат: ДД.ММ.ГГГГ';
+      const day = parseInt(match[1]), month = parseInt(match[2]), year = parseInt(match[3]);
+      if (day < 1 || day > 31) return 'Неверный день';
+      if (month < 1 || month > 12) return 'Неверный месяц';
+      if (year < 2024 || year > 2030) return 'Неверный год';
+      const inputDate = new Date(year, month - 1, day);
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      if (inputDate < today) return 'Дата не может быть в прошлом';
+      return '';
+    }
+  };
+
+  function validateField(input) {
+    const name = input.name;
+    const validator = validators[name];
+    if (!validator) return true;
+    const error = validator(input.value);
+    const errorEl = document.querySelector(`[data-error-for="${name}"]`);
+    if (error) {
+      input.classList.add('invalid'); input.classList.remove('valid');
+      if (errorEl) { errorEl.textContent = error; errorEl.classList.add('visible'); }
+      return false;
+    } else {
+      input.classList.remove('invalid');
+      if (input.value.trim()) input.classList.add('valid'); else input.classList.remove('valid');
+      if (errorEl) { errorEl.textContent = ''; errorEl.classList.remove('visible'); }
+      return true;
+    }
   }
 
   if (requestForm) {
     requestForm.querySelectorAll('.request__form-input').forEach(input => {
       input.addEventListener('blur', () => validateField(input));
-      input.addEventListener('input', () => { if (input.classList.contains('invalid')) validateField(input); });
+      input.addEventListener('input', () => {
+        // Очищаем ошибку при вводе
+        const errorEl = document.querySelector(`[data-error-for="${input.name}"]`);
+        if (errorEl) {
+          errorEl.textContent = '';
+          errorEl.classList.remove('visible');
+        }
+        if (input.classList.contains('invalid')) validateField(input);
+      });
     });
 
     requestForm.addEventListener('submit', async (e) => {
@@ -384,6 +469,13 @@ document.addEventListener('DOMContentLoaded', () => {
         showStatus('success', 'Заявка отправлена!', 'Мы свяжемся с вами в течение 30 минут');
         requestForm.reset();
         requestForm.querySelectorAll('.valid, .invalid').forEach(el => el.classList.remove('valid', 'invalid'));
+        
+        // Очищаем все ошибки
+        requestForm.querySelectorAll('.request__form-error').forEach(err => {
+          err.textContent = '';
+          err.classList.remove('visible');
+        });
+        
         setTimeout(() => { hideStatus(); }, 5000);
       } catch (error) {
         console.error('Ошибка отправки:', error);
