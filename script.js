@@ -344,14 +344,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setupPhoneMask(phoneInput);
 
-  // Маска даты (ДД.ММ.ГГГГ)
+  // Маска даты (ДД.ММ.ГГГГ) с правильным удалением
   if (dateInput) {
+    let lastValue = '';
+    
     dateInput.addEventListener('input', (e) => {
-      let value = e.target.value.replace(/\D/g, '');
-      if (value.length >= 2) value = value.slice(0, 2) + '.' + value.slice(2);
-      if (value.length >= 5) value = value.slice(0, 5) + '.' + value.slice(5, 9);
-      e.target.value = value;
+      const currentValue = e.target.value;
+      const isDeleting = currentValue.length < lastValue.length;
+      
+      if (isDeleting) {
+        // При удалении просто убираем точки в конце
+        let value = currentValue.replace(/\./g, '');
+        if (value.length >= 2) value = value.slice(0, 2) + '.' + value.slice(2);
+        if (value.length >= 5) value = value.slice(0, 5) + '.' + value.slice(5, 9);
+        e.target.value = value;
+      } else {
+        // При вводе добавляем точки
+        let value = currentValue.replace(/\D/g, '');
+        if (value.length >= 2) value = value.slice(0, 2) + '.' + value.slice(2);
+        if (value.length >= 5) value = value.slice(0, 5) + '.' + value.slice(5, 9);
+        e.target.value = value;
+      }
+      
+      lastValue = e.target.value;
     });
+    
     dateInput.addEventListener('blur', () => validateField(dateInput));
   }
 
