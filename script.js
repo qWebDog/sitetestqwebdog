@@ -329,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const statusIcon = document.getElementById('statusIcon');
   const statusText = document.getElementById('statusText');
 
-  const FORM_ENDPOINT = 'https://script.google.com/macros/s/ВАШ_ID_СКРИПТА/exec';
+  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwRSCa0XN9u2C2b1PzbP1eXsLJUWOrLoFkZBOAuxP8u_c_eQKXRNH43L0jIYm99dQZ7/exec';
 
   setupPhoneMask(phoneInput);
 
