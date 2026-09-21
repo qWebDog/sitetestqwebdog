@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isAnimating) return;
       isAnimating = true;
       slides[currentIndex].classList.add('fly-out-right');
-      setTimeout(() => { currentIndex = (currentIndex + 1) % slides.length; updateStack(); isAnimating = false; }, 600);
+      setTimeout(() => { currentIndex = (currentIndex + 1) % slides.length; updateStack(); isAnimating = false; }, 400);
     }
     function prevSlide() {
       if (isAnimating) return;
@@ -210,8 +210,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
       const prevSlideEl = slides[prevIndex];
       const currentSlide = slides[currentIndex];
-      prevSlideEl.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.35s ease';
-      currentSlide.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.35s ease';
+      prevSlideEl.style.transition = 'transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.25s ease';
+currentSlide.style.transition = 'transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.25s ease';
       slides.forEach((slide, index) => {
         if (index === currentIndex || index === prevIndex) return;
         let diff = (index - currentIndex + slides.length) % slides.length;
@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentSlide.classList.remove('active'); currentSlide.classList.add('next');
       prevSlideEl.classList.remove('hidden'); prevSlideEl.classList.add('active');
       currentIndex = prevIndex;
-      setTimeout(() => { prevSlideEl.style.transition = ''; currentSlide.style.transition = ''; updateStack(); isAnimating = false; }, 350);
+      setTimeout(() => { prevSlideEl.style.transition = ''; currentSlide.style.transition = ''; updateStack(); isAnimating = false; }, 250);
     }
     function startAutoPlay() { stopAutoPlay(); autoPlayInterval = setInterval(nextSlide, 3000); }
     function stopAutoPlay() { if (autoPlayInterval) clearInterval(autoPlayInterval); }
