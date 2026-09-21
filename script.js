@@ -330,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const statusIcon = document.getElementById('statusIcon');
   const statusText = document.getElementById('statusText');
 
-  const FORM_ENDPOINT = 'https://script.google.com/macros/s/ВАШ_ID_СКРИПТА/exec'; // ЗАМЕНИТЕ!
+  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbycgqJH4fa9iAZPdngoJyQRH34TF_7Kd8oKjC5cYXlSiBCSJzCCAObPceTuKc85vCtE1Q/exec'; // ЗАМЕНИТЕ!
 
   setupPhoneMask(phoneInput);
 
