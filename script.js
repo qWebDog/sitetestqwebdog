@@ -434,13 +434,53 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+    let statusClickHandler = null;
+  let documentClickHandler = null;
+
   function showStatus(type, title, message) {
     if (!requestStatus) return;
     requestStatus.className = 'request__status active request__status--' + type;
     statusIcon.innerHTML = type === 'success' ? '✓' : '✕';
     statusText.innerHTML = `<strong>${title}</strong><br>${message}`;
+
+    // Убираем старые обработчики если есть
+    removeStatusClickHandlers();
+
+    // Для ошибок — добавляем закрытие по клику
+    if (type === 'error') {
+      // Клик на сам блок статуса
+      statusClickHandler = (e) => {
+        e.stopPropagation();
+        hideStatus();
+      };
+      requestStatus.addEventListener('click', statusClickHandler);
+
+      // Клик в любую часть экрана (с задержкой чтобы не сработал сразу)
+      setTimeout(() => {
+        documentClickHandler = () => {
+          hideStatus();
+        };
+        document.addEventListener('click', documentClickHandler);
+      }, 100);
+    }
   }
-  function hideStatus() { if (requestStatus) requestStatus.classList.remove('active'); }
+
+  function hideStatus() {
+    if (!requestStatus) return;
+    requestStatus.classList.remove('active');
+    removeStatusClickHandlers();
+  }
+
+  function removeStatusClickHandlers() {
+    if (statusClickHandler && requestStatus) {
+      requestStatus.removeEventListener('click', statusClickHandler);
+      statusClickHandler = null;
+    }
+    if (documentClickHandler) {
+      document.removeEventListener('click', documentClickHandler);
+      documentClickHandler = null;
+    }
+  }
 
   // ===== КНОПКА "НАВЕРХ" =====
   const scrollTopBtn = document.getElementById('scrollTop');
