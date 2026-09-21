@@ -344,29 +344,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setupPhoneMask(phoneInput);
 
-  // Маска даты (ДД.ММ.ГГГГ) с правильным удалением
+    // Обработка date picker
   if (dateInput) {
-    let lastValue = '';
+    // Установка минимальной даты (сегодня)
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
     
-    dateInput.addEventListener('input', (e) => {
-      const currentValue = e.target.value;
-      const isDeleting = currentValue.length < lastValue.length;
-      
-      if (isDeleting) {
-        // При удалении просто убираем точки в конце
-        let value = currentValue.replace(/\./g, '');
-        if (value.length >= 2) value = value.slice(0, 2) + '.' + value.slice(2);
-        if (value.length >= 5) value = value.slice(0, 5) + '.' + value.slice(5, 9);
-        e.target.value = value;
-      } else {
-        // При вводе добавляем точки
-        let value = currentValue.replace(/\D/g, '');
-        if (value.length >= 2) value = value.slice(0, 2) + '.' + value.slice(2);
-        if (value.length >= 5) value = value.slice(0, 5) + '.' + value.slice(5, 9);
-        e.target.value = value;
+    // Установка максимальной даты (через 2 года)
+    const maxDate = new Date();
+    maxDate.setFullYear(maxDate.getFullYear() + 2);
+    dateInput.setAttribute('max', maxDate.toISOString().split('T')[0]);
+    
+    // При изменении значения из календаря
+    dateInput.addEventListener('change', () => {
+      if (dateInput.value) {
+        dateInput.classList.add('valid');
+        dateInput.classList.remove('invalid');
+        const errorEl = document.querySelector('[data-error-for="date"]');
+        if (errorEl) {
+          errorEl.textContent = '';
+          errorEl.classList.remove('visible');
+        }
       }
-      
-      lastValue = e.target.value;
     });
     
     dateInput.addEventListener('blur', () => validateField(dateInput));
